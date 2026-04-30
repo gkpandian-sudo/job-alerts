@@ -5,6 +5,9 @@ on:
     - cron: '17 0 * * *'     # 00:17 UTC = 08:17 SGT every day
   workflow_dispatch:           # Manual trigger from GitHub UI
 
+permissions:
+  contents: write             # needed to commit dream-role state back
+
 jobs:
   hunt:
     runs-on: ubuntu-latest
@@ -23,6 +26,14 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
-          MIN_SALARY:         "8000"
+          MIN_SALARY:         "14000"
           MAX_JOBS:           "10"
-          HOURS_BACK:         "48"
+          HOURS_BACK:         "24"
+
+      - name: Save dream role state
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add state/
+          git diff --staged --quiet || git commit -m "chore: update dream role state [skip ci]"
+          git push

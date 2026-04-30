@@ -1,32 +1,34 @@
 #!/usr/bin/env node
 // ============================================================
 // TOL LANGIT Job Hunter
-// Searches MyCareersFuture.gov.sg daily and sends new
-// matching roles to Telegram
+// Searches MyCareersFuture.gov.sg daily, sends last-24h roles
+// Dream roles get a 2-day consecutive reminder
 // ============================================================
 
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
 
 const TELEGRAM_TOKEN   = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-const MAX_JOBS         = parseInt(process.env.MAX_JOBS || '10');
+const MAX_JOBS         = parseInt(process.env.MAX_JOBS   || '10');
 const MIN_SALARY       = parseInt(process.env.MIN_SALARY || '14000');
-const HOURS_BACK       = parseInt(process.env.HOURS_BACK || '48');
+const HOURS_BACK       = parseInt(process.env.HOURS_BACK || '24');
+const STATE_FILE       = path.join(__dirname, '../state/dream-roles.json');
 
-// ── Job searches — tuned to Pandian's actual application history
-// Using short queries that MCF search engine handles well
+// ── Job searches ──────────────────────────────────────────────
 const SEARCHES = [
-  { label: 'Solution Architect',       q: 'solution architect',          weight: 12 },
-  { label: 'PreSales',                 q: 'presales',                    weight: 12 },
-  { label: 'Technical Program Mgr',   q: 'technical program manager',   weight: 11 },
-  { label: 'Infrastructure Manager',  q: 'infrastructure manager',      weight: 10 },
-  { label: 'Security Architect',      q: 'security architect',          weight: 10 },
-  { label: 'Cybersecurity Architect', q: 'cybersecurity architect',     weight: 10 },
-  { label: 'Network Manager',         q: 'network manager',             weight:  9 },
-  { label: 'Business Developer',      q: 'business developer',          weight:  9 },
+  { label: 'Solution Architect',      q: 'solution architect',        weight: 12 },
+  { label: 'PreSales',                q: 'presales',                  weight: 12 },
+  { label: 'Technical Program Mgr',  q: 'technical program manager', weight: 11 },
+  { label: 'Infrastructure Manager', q: 'infrastructure manager',    weight: 10 },
+  { label: 'Security Architect',     q: 'security architect',        weight: 10 },
+  { label: 'Cybersecurity Architect',q: 'cybersecurity architect',   weight: 10 },
+  { label: 'Network Manager',        q: 'network manager',           weight:  9 },
+  { label: 'Business Developer',     q: 'business developer',        weight:  9 },
 ];
 
-// ── Boost score based on Pandian's interview-winning role types ─
+// ── Title score boosts ────────────────────────────────────────
 const TITLE_BOOSTS = [
   { terms: ['technical program manager', 'technical pm', 'tpm'], boost: 6 },
   { terms: ['presales', 'pre-sales', 'pre sales', 'solution engineer'], boost: 6 },
@@ -40,7 +42,7 @@ const TITLE_BOOSTS = [
   { terms: ['apac', 'asia pacific', 'singapore'], boost: 2 },
 ];
 
-// ── Prioritise companies Pandian actively targets ─────────────
+// ── Company boosts ────────────────────────────────────────────
 const COMPANY_BOOSTS = {
   'amazon': 4, 'google': 4, 'microsoft': 4, 'netflix': 4,
   'nokia': 3, 'cisco': 3, 'telesat': 3, 'servicenow': 3,
@@ -49,16 +51,28 @@ const COMPANY_BOOSTS = {
   'crowdstrike': 2, 'zscaler': 2,
 };
 
-// ── 🔥 Dream role detector — triggers special Telegram alert ──
-const DREAM_ROLES = [
+// ── Dream role rules — 2-day consecutive alerts ───────────────
+const DREAM_ROLE_RULES = [
   { company: 'google', terms: ['technical program manager', 'tpm', 'peering', 'edge', 'capacity', 'network'] },
 ];
 
-// ── Skip roles from companies with repeated rejections ────────
-const COMPANY_EXCLUDES = [];
-
 // ── Skip if title contains these ─────────────────────────────
 const TITLE_EXCLUDES = ['intern', 'internship', 'graduate', 'junior', 'entry level', 'fresh'];
+
+// ── State: load / save dream roles seen ──────────────────────
+function loadState() {
+  try {
+    const raw = fs.readFileSync(STATE_FILE, 'utf8');
+    return JSON.parse(raw);
+  } catch {
+    return { dreamRoles: [] };
+  }
+}
+
+function saveState(state) {
+  fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true });
+  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
+}
 
 // ── MCF API ──────────────────────────────────────────────────
 async function searchMCF(query, limit = 30) {
@@ -66,58 +80,46 @@ async function searchMCF(query, limit = 30) {
   url.searchParams.set('search', query);
   url.searchParams.set('limit', limit);
   url.searchParams.set('sortBy', 'new_posting_date');
-
   const res = await fetch(url.toString(), {
     headers: { 'User-Agent': 'Mozilla/5.0 Job-Alerts-Bot/1.0' },
   });
   if (!res.ok) throw new Error(`MCF API error: ${res.status}`);
-  const data = await res.json();
-  return data.results || [];
+  return (await res.json()).results || [];
 }
 
-// ── Check if job matches a dream role ────────────────────────
+// ── Dream role check ─────────────────────────────────────────
 function isDreamRole(job) {
-  const titleLower   = (job.title || '').toLowerCase();
-  const companyLower = (job.postedCompany?.name || '').toLowerCase();
-  return DREAM_ROLES.some(dr =>
-    companyLower.includes(dr.company) &&
-    dr.terms.some(t => titleLower.includes(t))
+  const title   = (job.title || '').toLowerCase();
+  const company = (job.postedCompany?.name || '').toLowerCase();
+  return DREAM_ROLE_RULES.some(r =>
+    company.includes(r.company) && r.terms.some(t => title.includes(t))
   );
 }
 
 // ── Scoring ───────────────────────────────────────────────────
 function scoreJob(job, baseWeight) {
-  const titleLower   = (job.title || '').toLowerCase();
-  const descLower    = (job.description || '').replace(/<[^>]+>/g, '').toLowerCase();
-  const companyLower = (job.postedCompany?.name || '').toLowerCase();
+  const title   = (job.title || '').toLowerCase();
+  const desc    = (job.description || '').replace(/<[^>]+>/g, '').toLowerCase();
+  const company = (job.postedCompany?.name || '').toLowerCase();
 
-  if (TITLE_EXCLUDES.some(t => titleLower.includes(t))) return -1;
-  if (COMPANY_EXCLUDES.some(c => companyLower.includes(c))) return -1;
+  if (TITLE_EXCLUDES.some(t => title.includes(t))) return -1;
 
   let score = baseWeight;
-
-  // Title boosts
   for (const { terms, boost } of TITLE_BOOSTS) {
-    if (terms.some(t => titleLower.includes(t))) score += boost;
-    else if (terms.some(t => descLower.includes(t))) score += Math.floor(boost / 2);
+    if (terms.some(t => title.includes(t))) score += boost;
+    else if (terms.some(t => desc.includes(t))) score += Math.floor(boost / 2);
   }
-
-  // Company boosts
   for (const [co, boost] of Object.entries(COMPANY_BOOSTS)) {
-    if (companyLower.includes(co)) { score += boost; break; }
+    if (company.includes(co)) { score += boost; break; }
   }
 
-  // Salary filter: only exclude if the MAX stated salary is below target
-  // (unstated = keep; min below target but max above = keep)
   const minSal = job.salary?.minimum || 0;
   const maxSal = job.salary?.maximum || 0;
   if (maxSal > 0 && maxSal < MIN_SALARY) return -1;
-
-  // Salary bonus for high earners
   if (minSal >= 20000) score += 4;
   else if (minSal >= 17000) score += 3;
   else if (minSal >= 14000) score += 2;
-  else if (maxSal >= 14000) score += 1; // top of range hits target
+  else if (maxSal >= 14000) score += 1;
 
   return score;
 }
@@ -125,32 +127,66 @@ function scoreJob(job, baseWeight) {
 // ── Filter to recent jobs ─────────────────────────────────────
 function isRecent(job) {
   const posted = job.metadata?.newPostingDate || job.metadata?.originalPostingDate;
-  if (!posted) return true; // include if unknown
-  const age = (Date.now() - new Date(posted).getTime()) / 3600000; // hours
-  return age <= HOURS_BACK;
+  if (!posted) return true;
+  const ageHours = (Date.now() - new Date(posted).getTime()) / 3600000;
+  return ageHours <= HOURS_BACK;
 }
 
-// ── Format one job for Telegram ───────────────────────────────
-function formatJob(job, rank) {
+// ── Format regular job for digest ────────────────────────────
+function formatJob(job, rank, isDream) {
   const title   = job.title || 'Unknown Role';
   const company = job.postedCompany?.name || 'Unknown Company';
   const minSal  = job.salary?.minimum;
   const maxSal  = job.salary?.maximum;
-  const salStr  = minSal ? `$${minSal.toLocaleString()} – $${maxSal?.toLocaleString() || '?'}/mo` : '_Salary not stated_';
-  const posted  = job.metadata?.newPostingDate?.substring(0, 10) || '';
-  const link    = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
+  const salStr  = minSal
+    ? `$${minSal.toLocaleString()} – $${maxSal?.toLocaleString() || '?'}/mo`
+    : '_Salary not stated_';
+  const posted = job.metadata?.newPostingDate?.substring(0, 10) || '';
+  const link   = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
+  const nums   = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
 
-  const nums = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
-  const num  = nums[rank] || `${rank + 1}.`;
-  const dream = isDreamRole(job);
-
-  let msg = dream ? `🚨🔥 *DREAM ROLE ALERT* 🔥🚨\n` : '';
-  msg += `${num} *${title}*\n`;
+  let msg = isDream ? `🌟 *DREAM ROLE* 🌟\n` : '';
+  msg += `${nums[rank] || rank + 1} *${title}*\n`;
   msg += `🏢 ${company}\n`;
   msg += `💰 ${salStr}\n`;
   if (posted) msg += `📅 ${posted}\n`;
   msg += `🔗 [View & Apply](${link})`;
   return msg;
+}
+
+// ── Dream role alert — attractive 2-day reminder ──────────────
+function formatDreamAlert(job, dayNum) {
+  const title   = job.title || 'Unknown Role';
+  const company = job.postedCompany?.name || 'Unknown Company';
+  const minSal  = job.salary?.minimum;
+  const maxSal  = job.salary?.maximum;
+  const salStr  = minSal
+    ? `$${minSal.toLocaleString()} – $${maxSal?.toLocaleString() || '?'}/mo`
+    : 'Not stated';
+  const posted = job.metadata?.newPostingDate?.substring(0, 10) || '';
+  const link   = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
+
+  const dayLabel  = dayNum === 1 ? '🔴 DAY 1 of 2 — Act Today!'  : '🆘 DAY 2 of 2 — Last Chance!';
+  const urgency   = dayNum === 1 ? 'Posted fresh. Apply before the rush.' : 'Final reminder. Do not let this slip.';
+  const dayBorder = dayNum === 1
+    ? '🔥═══════════════════🔥'
+    : '🆘═══════════════════🆘';
+
+  return (
+    `╔${dayBorder}╗\n` +
+    `        🎯 *DREAM ROLE ALERT*\n` +
+    `╚${dayBorder}╝\n\n` +
+    `⭐ *${title}*\n` +
+    `🏢 *${company}*\n` +
+    `💰 ${salStr}\n` +
+    `📅 Posted: ${posted}\n\n` +
+    `${dayLabel}\n` +
+    `_${urgency}_\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `🚀 *[APPLY NOW](${link})*\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `_Matches your Google TPM · Edge · Peering profile_`
+  );
 }
 
 // ── Send Telegram ─────────────────────────────────────────────
@@ -186,12 +222,23 @@ async function run() {
   console.log(`[${new Date().toISOString()}] Job Hunter started`);
 
   try {
-    // Fetch all searches in parallel
+    const state = loadState();
+    const today = new Date().toISOString().substring(0, 10);
+
+    // ── 1. Re-alert dream roles from yesterday (day 2 reminder) ─
+    const dayTwoReminders = state.dreamRoles.filter(r => r.firstSeenDate !== today);
+    for (const r of dayTwoReminders) {
+      await sendTelegram(formatDreamAlert(r.job, 2));
+      console.log(`Day-2 reminder sent: ${r.job.title}`);
+    }
+
+    // ── 2. Search MCF for today's jobs ───────────────────────────
     const searchResults = await Promise.all(
-      SEARCHES.map(s => searchMCF(s.q).then(jobs => ({ ...s, jobs })).catch(() => ({ ...s, jobs: [] })))
+      SEARCHES.map(s =>
+        searchMCF(s.q).then(jobs => ({ ...s, jobs })).catch(() => ({ ...s, jobs: [] }))
+      )
     );
 
-    // Merge, deduplicate by uuid, score
     const seen   = new Set();
     const scored = [];
 
@@ -206,7 +253,6 @@ async function run() {
       }
     }
 
-    // Sort by score descending, take top N
     scored.sort((a, b) => b.score - a.score);
     const top = scored.slice(0, MAX_JOBS);
 
@@ -215,41 +261,48 @@ async function run() {
       weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Singapore',
     });
 
+    // ── 3. Send daily digest ──────────────────────────────────────
     if (top.length === 0) {
-      await sendTelegram(`🔍 *Job Alert — ${prettyDate}*\n\n_No new matching roles in the last ${HOURS_BACK}h._`);
-      console.log('No matching jobs found');
-      return;
+      await sendTelegram(`🔍 *Job Alert — ${prettyDate}*\n\n_No new roles posted in the last ${HOURS_BACK}h._`);
+      console.log('No new jobs found in last 24h');
+    } else {
+      const dreamUuids = new Set(state.dreamRoles.map(r => r.job.uuid));
+      let msg = `🔍 *${top.length} fresh roles — last 24h*\n`;
+      msg += `📅 ${prettyDate}\n`;
+      msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+      msg += top.map(({ job }, i) => formatJob(job, i, isDreamRole(job))).join('\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n');
+      msg += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_MyCareersFuture.gov.sg · $${MIN_SALARY.toLocaleString()}+/mo · last 24h only_`;
+      await sendTelegram(msg);
+
+      // ── 4. Send day-1 dream role alerts for new finds ───────────
+      const newDreams = top
+        .filter(({ job }) => isDreamRole(job) && !dreamUuids.has(job.uuid));
+
+      for (const { job } of newDreams) {
+        await sendTelegram(formatDreamAlert(job, 1));
+        console.log(`Day-1 dream alert sent: ${job.title}`);
+      }
+
+      // ── 5. Update state — keep only today's dreams ───────────────
+      // Remove yesterday's (already sent day-2), add today's new ones
+      state.dreamRoles = [
+        ...state.dreamRoles.filter(r => r.firstSeenDate === today), // already found today
+        ...newDreams.map(({ job }) => ({ uuid: job.uuid, firstSeenDate: today, job: {
+          uuid: job.uuid,
+          title: job.title,
+          postedCompany: job.postedCompany,
+          salary: job.salary,
+          metadata: { newPostingDate: job.metadata?.newPostingDate },
+        }})),
+      ];
+      saveState(state);
+
+      console.log(`[${new Date().toISOString()}] Sent ${top.length} jobs · ${newDreams.length} day-1 dream · ${dayTwoReminders.length} day-2 reminder`);
     }
-
-    let msg = `🔍 *Job Alert — ${top.length} new roles*\n`;
-    msg += `📅 ${prettyDate}\n`;
-    msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-    msg += top.map(({ job }, i) => formatJob(job, i)).join('\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n');
-    msg += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_Source: MyCareersFuture.gov.sg · Min salary $${MIN_SALARY.toLocaleString()}/mo_`;
-
-    await sendTelegram(msg);
-
-    // Fire urgent separate alert for any dream roles
-    const dreams = top.filter(({ job }) => isDreamRole(job));
-    for (const { job } of dreams) {
-      const link = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
-      await sendTelegram(
-        `🚨🔥 *APPLY NOW — Dream Role Detected* 🔥🚨\n\n` +
-        `*${job.title}*\n` +
-        `🏢 ${job.postedCompany?.name}\n` +
-        `📅 ${job.metadata?.newPostingDate?.substring(0, 10)}\n\n` +
-        `This matches your Google TPM Edge/Peering profile.\n` +
-        `🔗 [View & Apply](${link})`
-      );
-    }
-
-    console.log(`[${new Date().toISOString()}] Sent ${top.length} jobs to Telegram${dreams.length ? ` · ${dreams.length} dream role alert(s)` : ''}`);
 
   } catch (err) {
     console.error(`[${new Date().toISOString()}] FATAL:`, err.message);
-    try {
-      await sendTelegram(`🚨 *Job Hunter Error*\n\`${err.message}\``);
-    } catch {}
+    try { await sendTelegram(`🚨 *Job Hunter Error*\n\`${err.message}\``); } catch {}
     process.exit(1);
   }
 }
