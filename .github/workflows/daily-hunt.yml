@@ -1,0 +1,25 @@
+name: Daily Job Hunt
+
+on:
+  schedule:
+    - cron: '0 1 * * 1-5'    # 01:00 UTC = 09:00 SGT Mon-Fri
+  workflow_dispatch:           # Manual trigger from GitHub UI
+
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run job hunter
+        run: node src/hunter.js
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+          MIN_SALARY:         "8000"
+          MAX_JOBS:           "10"
+          HOURS_BACK:         "48"
