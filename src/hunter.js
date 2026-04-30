@@ -44,12 +44,18 @@ const TITLE_BOOSTS = [
 const COMPANY_BOOSTS = {
   'amazon': 4, 'google': 4, 'microsoft': 4, 'netflix': 4,
   'nokia': 3, 'cisco': 3, 'telesat': 3, 'servicenow': 3,
+  'cloudflare': 3, 'palo alto': 3, 'cato networks': 3,
   'mastercard': 2, 'ericsson': 2, 'juniper': 2, 'akamai': 2,
-  'crowdstrike': 2, 'zscaler': 2, 'palo alto': 1,
+  'crowdstrike': 2, 'zscaler': 2,
 };
 
+// ── 🔥 Dream role detector — triggers special Telegram alert ──
+const DREAM_ROLES = [
+  { company: 'google', terms: ['technical program manager', 'tpm', 'peering', 'edge', 'capacity', 'network'] },
+];
+
 // ── Skip roles from companies with repeated rejections ────────
-const COMPANY_EXCLUDES = ['cloudflare'];
+const COMPANY_EXCLUDES = [];
 
 // ── Skip if title contains these ─────────────────────────────
 const TITLE_EXCLUDES = ['intern', 'internship', 'graduate', 'junior', 'entry level', 'fresh'];
@@ -67,6 +73,16 @@ async function searchMCF(query, limit = 30) {
   if (!res.ok) throw new Error(`MCF API error: ${res.status}`);
   const data = await res.json();
   return data.results || [];
+}
+
+// ── Check if job matches a dream role ────────────────────────
+function isDreamRole(job) {
+  const titleLower   = (job.title || '').toLowerCase();
+  const companyLower = (job.postedCompany?.name || '').toLowerCase();
+  return DREAM_ROLES.some(dr =>
+    companyLower.includes(dr.company) &&
+    dr.terms.some(t => titleLower.includes(t))
+  );
 }
 
 // ── Scoring ───────────────────────────────────────────────────
@@ -126,8 +142,10 @@ function formatJob(job, rank) {
 
   const nums = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
   const num  = nums[rank] || `${rank + 1}.`;
+  const dream = isDreamRole(job);
 
-  let msg = `${num} *${title}*\n`;
+  let msg = dream ? `🚨🔥 *DREAM ROLE ALERT* 🔥🚨\n` : '';
+  msg += `${num} *${title}*\n`;
   msg += `🏢 ${company}\n`;
   msg += `💰 ${salStr}\n`;
   if (posted) msg += `📅 ${posted}\n`;
@@ -210,7 +228,22 @@ async function run() {
     msg += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_Source: MyCareersFuture.gov.sg · Min salary $${MIN_SALARY.toLocaleString()}/mo_`;
 
     await sendTelegram(msg);
-    console.log(`[${new Date().toISOString()}] Sent ${top.length} jobs to Telegram`);
+
+    // Fire urgent separate alert for any dream roles
+    const dreams = top.filter(({ job }) => isDreamRole(job));
+    for (const { job } of dreams) {
+      const link = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
+      await sendTelegram(
+        `🚨🔥 *APPLY NOW — Dream Role Detected* 🔥🚨\n\n` +
+        `*${job.title}*\n` +
+        `🏢 ${job.postedCompany?.name}\n` +
+        `📅 ${job.metadata?.newPostingDate?.substring(0, 10)}\n\n` +
+        `This matches your Google TPM Edge/Peering profile.\n` +
+        `🔗 [View & Apply](${link})`
+      );
+    }
+
+    console.log(`[${new Date().toISOString()}] Sent ${top.length} jobs to Telegram${dreams.length ? ` · ${dreams.length} dream role alert(s)` : ''}`);
 
   } catch (err) {
     console.error(`[${new Date().toISOString()}] FATAL:`, err.message);
