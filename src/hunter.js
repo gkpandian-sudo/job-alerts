@@ -10,32 +10,49 @@ require('dotenv').config();
 const TELEGRAM_TOKEN   = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 const MAX_JOBS         = parseInt(process.env.MAX_JOBS || '10');
-const MIN_SALARY       = parseInt(process.env.MIN_SALARY || '8000');
+const MIN_SALARY       = parseInt(process.env.MIN_SALARY || '14000');
 const HOURS_BACK       = parseInt(process.env.HOURS_BACK || '48');
 
-// ── Job searches — ordered by priority ───────────────────────
+// ── Job searches — tuned to Pandian's actual application history
+// Using short queries that MCF search engine handles well
 const SEARCHES = [
-  { label: 'Solution Architect',   q: 'solution architect',          weight: 10 },
-  { label: 'PreSales',             q: 'presales solution engineer',  weight: 10 },
-  { label: 'Cybersecurity Arch',   q: 'cybersecurity architect',     weight: 10 },
-  { label: 'Cyber PreSales',       q: 'cybersecurity presales',      weight:  9 },
-  { label: 'Telco Architect',      q: 'telco network architect',     weight:  8 },
-  { label: 'Cloud Architect',      q: 'cloud solution architect',    weight:  8 },
-  { label: 'Security Consultant',  q: 'security consultant architect', weight: 7 },
+  { label: 'Solution Architect',       q: 'solution architect',          weight: 12 },
+  { label: 'PreSales',                 q: 'presales',                    weight: 12 },
+  { label: 'Technical Program Mgr',   q: 'technical program manager',   weight: 11 },
+  { label: 'Infrastructure Manager',  q: 'infrastructure manager',      weight: 10 },
+  { label: 'Security Architect',      q: 'security architect',          weight: 10 },
+  { label: 'Cybersecurity Architect', q: 'cybersecurity architect',     weight: 10 },
+  { label: 'Network Manager',         q: 'network manager',             weight:  9 },
+  { label: 'Business Developer',      q: 'business developer',          weight:  9 },
 ];
 
-// ── Boost score if these appear in title/description ─────────
+// ── Boost score based on Pandian's interview-winning role types ─
 const TITLE_BOOSTS = [
-  { terms: ['presales', 'pre-sales', 'pre sales'], boost: 5 },
+  { terms: ['technical program manager', 'technical pm', 'tpm'], boost: 6 },
+  { terms: ['presales', 'pre-sales', 'pre sales', 'solution engineer'], boost: 6 },
+  { terms: ['network', 'backbone', 'peering', 'interconnect'], boost: 5 },
   { terms: ['solution architect', 'solutions architect'], boost: 5 },
-  { terms: ['cybersecurity', 'cyber security'], boost: 4 },
+  { terms: ['business developer', 'business development'], boost: 5 },
+  { terms: ['infrastructure', 'infra'], boost: 4 },
+  { terms: ['cybersecurity', 'cyber security', 'security'], boost: 3 },
   { terms: ['telco', 'telecom'], boost: 3 },
-  { terms: ['senior', 'principal', 'lead'], boost: 2 },
-  { terms: ['remote', 'hybrid'], boost: 1 },
+  { terms: ['director', 'senior director', 'principal', 'head of'], boost: 3 },
+  { terms: ['apac', 'asia pacific', 'singapore'], boost: 2 },
 ];
+
+// ── Prioritise companies Pandian actively targets ─────────────
+const COMPANY_BOOSTS = {
+  'amazon': 4, 'google': 4, 'microsoft': 4, 'netflix': 4,
+  'nokia': 3, 'cisco': 3, 'telesat': 3, 'servicenow': 3,
+  'mastercard': 2, 'ericsson': 2, 'juniper': 2, 'akamai': 2,
+  'crowdstrike': 2, 'zscaler': 2, 'palo alto': 1,
+};
+
+// ── Skip roles from companies with repeated rejections ────────
+const COMPANY_EXCLUDES = ['cloudflare'];
 
 // ── Skip if title contains these ─────────────────────────────
-const TITLE_EXCLUDES = ['intern', 'internship', 'graduate', 'junior', 'entry level'];
+const TITLE_EXCLUDES = ['intern', 'internship', 'graduate', 'junior', 'entry level', 'fresh'];
 
 // ── MCF API ──────────────────────────────────────────────────
 async function searchMCF(query, limit = 30) {
@@ -43,7 +60,6 @@ async function searchMCF(query, limit = 30) {
   url.searchParams.set('search', query);
   url.searchParams.set('limit', limit);
   url.searchParams.set('sortBy', 'new_posting_date');
-  url.searchParams.set('salary', MIN_SALARY);
 
   const res = await fetch(url.toString(), {
     headers: { 'User-Agent': 'Mozilla/5.0 Job-Alerts-Bot/1.0' },
@@ -55,22 +71,37 @@ async function searchMCF(query, limit = 30) {
 
 // ── Scoring ───────────────────────────────────────────────────
 function scoreJob(job, baseWeight) {
-  const titleLower = (job.title || '').toLowerCase();
-  const descLower  = (job.description || '').replace(/<[^>]+>/g, '').toLowerCase();
+  const titleLower   = (job.title || '').toLowerCase();
+  const descLower    = (job.description || '').replace(/<[^>]+>/g, '').toLowerCase();
+  const companyLower = (job.postedCompany?.name || '').toLowerCase();
 
   if (TITLE_EXCLUDES.some(t => titleLower.includes(t))) return -1;
+  if (COMPANY_EXCLUDES.some(c => companyLower.includes(c))) return -1;
 
   let score = baseWeight;
+
+  // Title boosts
   for (const { terms, boost } of TITLE_BOOSTS) {
     if (terms.some(t => titleLower.includes(t))) score += boost;
     else if (terms.some(t => descLower.includes(t))) score += Math.floor(boost / 2);
   }
 
-  // Salary bonus
+  // Company boosts
+  for (const [co, boost] of Object.entries(COMPANY_BOOSTS)) {
+    if (companyLower.includes(co)) { score += boost; break; }
+  }
+
+  // Salary filter: only exclude if the MAX stated salary is below target
+  // (unstated = keep; min below target but max above = keep)
   const minSal = job.salary?.minimum || 0;
-  if (minSal >= 15000) score += 3;
-  else if (minSal >= 10000) score += 2;
-  else if (minSal >= 8000) score += 1;
+  const maxSal = job.salary?.maximum || 0;
+  if (maxSal > 0 && maxSal < MIN_SALARY) return -1;
+
+  // Salary bonus for high earners
+  if (minSal >= 20000) score += 4;
+  else if (minSal >= 17000) score += 3;
+  else if (minSal >= 14000) score += 2;
+  else if (maxSal >= 14000) score += 1; // top of range hits target
 
   return score;
 }
