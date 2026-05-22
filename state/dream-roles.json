@@ -1,3 +1,52 @@
 {
-  "dreamRoles": []
+  "dreamRoles": [
+    {
+      "uuid": "6ecd6c654ec36f6c32bc5cb3fc876403",
+      "firstSeenDate": "2026-05-22",
+      "job": {
+        "uuid": "6ecd6c654ec36f6c32bc5cb3fc876403",
+        "title": "Technical Program Manager, Street View Operations - Singapore",
+        "postedCompany": {
+          "uen": "200817984R",
+          "description": "<p>GOOGLE ASIA PACIFIC PTE. LTD.</p>\r\n",
+          "name": "GOOGLE ASIA PACIFIC PTE. LTD.",
+          "ssicCode": "63120",
+          "employeeCount": null,
+          "companyUrl": null,
+          "lastSyncDate": "2026-05-22T00:32:09.000Z",
+          "ssicCode2020": "63901",
+          "_links": {
+            "self": {
+              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R"
+            },
+            "jobs": {
+              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/jobs"
+            },
+            "addresses": {
+              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/addresses"
+            },
+            "schemes": {
+              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/schemes"
+            }
+          },
+          "logoFileName": "26b00abe7acb9b5449204a64fb45ab5a/google-asia-pacific.png",
+          "logoUploadPath": "https://static.mycareersfuture.gov.sg/images/company/logos/26b00abe7acb9b5449204a64fb45ab5a/google-asia-pacific.png",
+          "responsiveEmployer": {
+            "isResponsive": true
+          }
+        },
+        "salary": {
+          "maximum": 18000,
+          "minimum": 9000,
+          "type": {
+            "id": 4,
+            "salaryType": "Monthly"
+          }
+        },
+        "metadata": {
+          "newPostingDate": "2026-05-22"
+        }
+      }
+    }
+  ]
 }
