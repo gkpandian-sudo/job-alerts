@@ -1,11 +1,11 @@
 {
   "dreamRoles": [
     {
-      "uuid": "5bc517b52a909a8da82a0c733e8a755d",
-      "firstSeenDate": "2026-05-25",
+      "uuid": "199bc24a43ef5aba0e26351f9c5802c1",
+      "firstSeenDate": "2026-05-28",
       "job": {
-        "uuid": "5bc517b52a909a8da82a0c733e8a755d",
-        "title": "Technical Program Manager, Data Loss Prevention - Singapore",
+        "uuid": "199bc24a43ef5aba0e26351f9c5802c1",
+        "title": "Operations and Strategy Program Manager, Global Network Delivery - Singapore",
         "postedCompany": {
           "uen": "200817984R",
           "description": "<p>GOOGLE ASIA PACIFIC PTE. LTD.</p>\r\n",
@@ -13,7 +13,7 @@
           "ssicCode": "63120",
           "employeeCount": null,
           "companyUrl": null,
-          "lastSyncDate": "2026-05-25T00:21:19.000Z",
+          "lastSyncDate": "2026-05-28T01:01:13.000Z",
           "ssicCode2020": "63901",
           "_links": {
             "self": {
@@ -44,55 +44,7 @@
           }
         },
         "metadata": {
-          "newPostingDate": "2026-05-25"
-        }
-      }
-    },
-    {
-      "uuid": "37d3ac052008eea73330e12f5c7cbc93",
-      "firstSeenDate": "2026-05-25",
-      "job": {
-        "uuid": "37d3ac052008eea73330e12f5c7cbc93",
-        "title": "Technical Program Manager, Data Loss Prevention - Singapore",
-        "postedCompany": {
-          "uen": "200817984R",
-          "description": "<p>GOOGLE ASIA PACIFIC PTE. LTD.</p>\r\n",
-          "name": "GOOGLE ASIA PACIFIC PTE. LTD.",
-          "ssicCode": "63120",
-          "employeeCount": null,
-          "companyUrl": null,
-          "lastSyncDate": "2026-05-25T00:21:19.000Z",
-          "ssicCode2020": "63901",
-          "_links": {
-            "self": {
-              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R"
-            },
-            "jobs": {
-              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/jobs"
-            },
-            "addresses": {
-              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/addresses"
-            },
-            "schemes": {
-              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/schemes"
-            }
-          },
-          "logoFileName": "26b00abe7acb9b5449204a64fb45ab5a/google-asia-pacific.png",
-          "logoUploadPath": "https://static.mycareersfuture.gov.sg/images/company/logos/26b00abe7acb9b5449204a64fb45ab5a/google-asia-pacific.png",
-          "responsiveEmployer": {
-            "isResponsive": true
-          }
-        },
-        "salary": {
-          "maximum": 17000,
-          "minimum": 8500,
-          "type": {
-            "id": 4,
-            "salaryType": "Monthly"
-          }
-        },
-        "metadata": {
-          "newPostingDate": "2026-05-25"
+          "newPostingDate": "2026-05-28"
         }
       }
     }
