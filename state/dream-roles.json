@@ -1,11 +1,11 @@
 {
   "dreamRoles": [
     {
-      "uuid": "627a855926f0e9b6d1ee7ccc39bb173a",
-      "firstSeenDate": "2026-06-02",
+      "uuid": "9dd6195ed46cf6e6dc1bb824ddcc99d0",
+      "firstSeenDate": "2026-06-03",
       "job": {
-        "uuid": "627a855926f0e9b6d1ee7ccc39bb173a",
-        "title": "Technical Program Manager, Fiber Infrastructure Design, MARCUS - Singapore",
+        "uuid": "9dd6195ed46cf6e6dc1bb824ddcc99d0",
+        "title": "Technical Program Manager, Alphabet Use of Cloud - Singapore",
         "postedCompany": {
           "uen": "200817984R",
           "description": "<p>GOOGLE ASIA PACIFIC PTE. LTD.</p>\r\n",
@@ -13,7 +13,7 @@
           "ssicCode": "63120",
           "employeeCount": null,
           "companyUrl": null,
-          "lastSyncDate": "2026-06-02T00:49:13.000Z",
+          "lastSyncDate": "2026-06-03T00:52:10.000Z",
           "ssicCode2020": "63901",
           "_links": {
             "self": {
@@ -36,15 +36,15 @@
           }
         },
         "salary": {
-          "maximum": 24000,
-          "minimum": 12000,
+          "maximum": 18000,
+          "minimum": 9000,
           "type": {
             "id": 4,
             "salaryType": "Monthly"
           }
         },
         "metadata": {
-          "newPostingDate": "2026-06-02"
+          "newPostingDate": "2026-06-03"
         }
       }
     }
