@@ -11,6 +11,11 @@
 
 require('dotenv').config();
 
+const fs   = require('fs');
+const path = require('path');
+
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+
 const args    = process.argv.slice(2);
 const flag    = (name, def) => { const i = args.indexOf(name); return i !== -1 && args[i+1] ? args[i+1] : def; };
 const hasFlag = name => args.includes(name);
@@ -112,6 +117,124 @@ function isDream(job) {
   return DREAM_RULES.some(r => company.includes(r.company) && r.terms.some(t => title.includes(t)));
 }
 
+// ── Web output ────────────────────────────────────────────────
+function saveWebOutput(top, totalMatches, meta) {
+  if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
+
+  const payload = {
+    meta: {
+      generatedAt: new Date().toISOString(),
+      salaryMin: meta.salaryMin,
+      recencyLabel: meta.recencyLabel,
+      totalMatches,
+      showing: top.length,
+    },
+    jobs: top.map(({ job, score }, i) => ({
+      rank: i + 1,
+      score,
+      isDream: isDream(job),
+      title:   job.title || 'Unknown Role',
+      company: job.postedCompany?.name || 'Unknown Company',
+      salaryMin: job.salary?.minimum || null,
+      salaryMax: job.salary?.maximum || null,
+      postedDate: job.metadata?.newPostingDate?.substring(0, 10) || null,
+      url: `https://www.mycareersfuture.gov.sg/job/${job.uuid}`,
+    })),
+  };
+
+  fs.writeFileSync(path.join(PUBLIC_DIR, 'jobs.json'), JSON.stringify(payload, null, 2));
+
+  const html = buildHtml(payload);
+  fs.writeFileSync(path.join(PUBLIC_DIR, 'index.html'), html);
+  console.log(`  ✓ Web report saved → ${path.join(PUBLIC_DIR, 'index.html')}\n`);
+}
+
+function buildHtml(payload) {
+  const { meta, jobs } = payload;
+  const generated = new Date(meta.generatedAt).toLocaleString('en-GB', {
+    weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Singapore',
+  }) + ' SGT';
+
+  const cards = jobs.map(j => {
+    const sal = j.salaryMin
+      ? `$${j.salaryMin.toLocaleString()} – $${j.salaryMax?.toLocaleString() ?? '?'}/mo`
+      : 'Salary not stated';
+    const dreamBadge = j.isDream
+      ? `<span class="badge dream">⭐ Dream</span>` : '';
+    const salClass = j.salaryMin >= 20000 ? 'sal-high' : j.salaryMin >= 15000 ? 'sal-mid' : 'sal-low';
+    return `
+    <a class="card${j.isDream ? ' is-dream' : ''}" href="${j.url}" target="_blank" rel="noopener">
+      <div class="card-top">
+        <span class="rank">#${j.rank}</span>
+        ${dreamBadge}
+        <span class="score">score ${j.score}</span>
+      </div>
+      <div class="title">${escHtml(j.title)}</div>
+      <div class="company">${escHtml(j.company)}</div>
+      <div class="meta-row">
+        <span class="salary ${salClass}">${sal}</span>
+        ${j.postedDate ? `<span class="posted">${j.postedDate}</span>` : ''}
+      </div>
+    </a>`;
+  }).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Job Hunt — ${generated}</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; padding: 1.5rem 1rem 3rem; }
+  header { max-width: 860px; margin: 0 auto 1.5rem; }
+  h1 { font-size: 1.4rem; font-weight: 700; color: #f8fafc; }
+  .subtitle { font-size: 0.85rem; color: #94a3b8; margin-top: .35rem; }
+  .pill { display: inline-block; background: #1e293b; border: 1px solid #334155; border-radius: 999px; padding: .15rem .6rem; font-size: .75rem; margin-right: .35rem; }
+  .grid { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1rem; }
+  .card { display: block; background: #1e293b; border: 1px solid #334155; border-radius: .75rem; padding: 1rem 1.1rem; text-decoration: none; color: inherit; transition: border-color .15s, box-shadow .15s; }
+  .card:hover { border-color: #60a5fa; box-shadow: 0 0 0 2px #1d4ed820; }
+  .card.is-dream { border-color: #f59e0b; background: #1c1a10; }
+  .card.is-dream:hover { border-color: #fbbf24; box-shadow: 0 0 0 2px #78350f40; }
+  .card-top { display: flex; align-items: center; gap: .4rem; margin-bottom: .55rem; }
+  .rank { font-size: .75rem; color: #64748b; font-weight: 600; }
+  .score { font-size: .7rem; color: #64748b; margin-left: auto; }
+  .badge { font-size: .7rem; font-weight: 700; padding: .1rem .45rem; border-radius: 999px; }
+  .badge.dream { background: #78350f; color: #fde68a; }
+  .title { font-size: .95rem; font-weight: 600; color: #f1f5f9; line-height: 1.35; margin-bottom: .3rem; }
+  .company { font-size: .78rem; color: #94a3b8; margin-bottom: .55rem; }
+  .meta-row { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .75rem; }
+  .salary { font-weight: 600; }
+  .sal-high { color: #4ade80; }
+  .sal-mid  { color: #60a5fa; }
+  .sal-low  { color: #94a3b8; }
+  .posted { color: #64748b; }
+  footer { max-width: 860px; margin: 2rem auto 0; font-size: .75rem; color: #475569; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🔍 Job Hunt</h1>
+  <div class="subtitle">
+    <span class="pill">$${meta.salaryMin.toLocaleString()}+/mo</span>
+    <span class="pill">${meta.recencyLabel}</span>
+    <span class="pill">${meta.showing} of ${meta.totalMatches} matches</span>
+    <span class="pill">Generated ${generated}</span>
+  </div>
+</header>
+<div class="grid">
+${cards}
+</div>
+<footer>Source: MyCareersFuture · Refresh by running <code>node src/fetch.js</code></footer>
+</body>
+</html>`;
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 // ── Telegram send ─────────────────────────────────────────────
 async function sendTelegram(text) {
   const resp = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
@@ -165,6 +288,7 @@ async function run() {
 
   if (top.length === 0) {
     console.log(`  No $${MIN_SALARY.toLocaleString()}+ roles found (${recencyLabel}).\n`);
+    saveWebOutput([], 0, { salaryMin: MIN_SALARY, recencyLabel });
     return;
   }
 
@@ -186,6 +310,9 @@ async function run() {
 
   console.log('─'.repeat(52));
   console.log(`  ${top.length} of ${scored.length} matches shown\n`);
+
+  // ── Save web output ───────────────────────────────────────────
+  saveWebOutput(top, scored.length, { salaryMin: MIN_SALARY, recencyLabel });
 
   // ── Optional Telegram push ────────────────────────────────────
   if (SEND_TELEGRAM) {
