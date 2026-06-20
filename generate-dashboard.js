@@ -16,22 +16,27 @@ const LI_SINGAPORE_GEO = '102454443';
 
 // ── Search queries (shared MCF + LinkedIn) ────────────────────────
 const SEARCHES = [
-  { label: 'TPM',               q: 'technical program manager',            role: 'TPM',      weight: 12 },
-  { label: 'Solution Architect',  q: 'solution architect',                        role: 'SA',       weight: 12 },
-  { label: 'Presales',            q: 'presales',                                  role: 'PRESALES', weight: 12 },
-  { label: 'Pre-Sales Eng',       q: 'pre-sales engineer',                        role: 'PRESALES', weight: 11 },
-  { label: 'Network Planning',    q: 'network planning manager',                  role: 'NETWORK',  weight: 11 },
-  { label: 'Infra BD',            q: 'infrastructure business development',       role: 'INFRA_BD', weight: 11 },
-  { label: 'Infra Prog Mgr',      q: 'infrastructure program manager',            role: 'TPM',      weight: 11 },
-  { label: 'Tech Project Mgr',    q: 'technical project manager',                 role: 'TPM',      weight: 10 },
-  { label: 'Security Architect',  q: 'security architect',                        role: 'SA',       weight: 10 },
-  { label: 'Network Manager',     q: 'network manager',                           role: 'NETWORK',  weight: 10 },
-  { label: 'Infra Manager',       q: 'infrastructure manager',                    role: 'INFRA',    weight: 10 },
-  { label: 'Biz Dev Tech',        q: 'business development manager technology',   role: 'BD',       weight:  9 },
-  { label: 'Cloud Architect',     q: 'cloud architect',                           role: 'SA',       weight: 10 },
-  { label: 'Telecom BD',          q: 'telecom business development',              role: 'INFRA_BD', weight: 10 },
-  { label: 'Network Architect',   q: 'network architect',                         role: 'NETWORK',  weight: 10 },
-  { label: 'Program Mgr Tech',    q: 'program manager technology',                role: 'TPM',      weight:  9 },
+  { label: 'TPM',               q: 'technical program manager',                 role: 'TPM',      weight: 12 },
+  { label: 'Principal TPM',     q: 'principal technical program manager',        role: 'TPM',      weight: 12 },
+  { label: 'Solution Architect',q: 'solution architect',                        role: 'SA',       weight: 12 },
+  { label: 'Presales',          q: 'presales',                                  role: 'PRESALES', weight: 12 },
+  { label: 'Pre-Sales Eng',     q: 'pre-sales engineer',                        role: 'PRESALES', weight: 11 },
+  { label: 'Network Planning',  q: 'network planning manager',                  role: 'NETWORK',  weight: 11 },
+  { label: 'Infra BD',          q: 'infrastructure business development',       role: 'INFRA_BD', weight: 11 },
+  { label: 'Infra Prog Mgr',    q: 'infrastructure program manager',            role: 'TPM',      weight: 11 },
+  { label: 'DC Planning',       q: 'data center planning delivery manager',     role: 'TPM',      weight: 11 },
+  { label: 'Interconnect PM',   q: 'interconnection program manager',            role: 'NETWORK',  weight: 11 },
+  { label: 'Proj Delivery Mgr', q: 'project delivery manager infrastructure',   role: 'TPM',      weight: 10 },
+  { label: 'Tech Project Mgr',  q: 'technical project manager',                 role: 'TPM',      weight: 10 },
+  { label: 'Security Architect',q: 'security architect',                        role: 'SA',       weight: 10 },
+  { label: 'Mgmt Consultant',   q: 'managing consultant cybersecurity',          role: 'SA',       weight: 10 },
+  { label: 'Network Manager',   q: 'network manager',                           role: 'NETWORK',  weight: 10 },
+  { label: 'Infra Manager',     q: 'infrastructure manager',                    role: 'INFRA',    weight: 10 },
+  { label: 'Biz Dev Tech',      q: 'business development manager technology',   role: 'BD',       weight:  9 },
+  { label: 'Cloud Architect',   q: 'cloud architect',                           role: 'SA',       weight: 10 },
+  { label: 'Telecom BD',        q: 'telecom business development',              role: 'INFRA_BD', weight: 10 },
+  { label: 'Network Architect', q: 'network architect',                         role: 'NETWORK',  weight: 10 },
+  { label: 'Program Mgr Tech',  q: 'program manager technology',                role: 'TPM',      weight:  9 },
 ];
 
 // ── Company tier lookup ───────────────────────────────────────────
@@ -43,11 +48,13 @@ const COMPANY_TIERS = {
 };
 
 const TITLE_BOOSTS = [
-  { terms: ['technical program manager', 'technical project manager', 'infrastructure program manager', 'infrastructure project manager', 'tpm'], boost: 8 },
+  { terms: ['technical program manager', 'technical project manager', 'infrastructure program manager', 'infrastructure project manager', 'principal technical program', 'principal program manager', 'tpm'], boost: 8 },
   { terms: ['presales', 'pre-sales', 'pre sales', 'solution engineer', 'sales engineer'], boost: 7 },
-  { terms: ['network planning', 'network architect', 'backbone', 'peering', 'interconnect'], boost: 7 },
+  { terms: ['network planning', 'network architect', 'backbone', 'peering', 'interconnect', 'interconnection'], boost: 7 },
   { terms: ['solution architect', 'solutions architect', 'cloud architect', 'security architect'], boost: 7 },
+  { terms: ['data center planning', 'data centre planning', 'dc planning', 'project delivery manager', 'delivery manager'], boost: 6 },
   { terms: ['business development', 'business developer'], boost: 6 },
+  { terms: ['managing consultant', 'management consultant'], boost: 5 },
   { terms: ['infrastructure', 'infra'], boost: 4 },
   { terms: ['cybersecurity', 'cyber security', 'network security'], boost: 4 },
   { terms: ['telco', 'telecom', 'telecoms'], boost: 4 },
@@ -66,12 +73,15 @@ const COMPANY_BOOSTS = {
 };
 
 const DREAM_RULES = [
-  { company: 'google',    terms: ['technical program manager', 'tpm', 'peering', 'edge', 'network', 'infrastructure'] },
-  { company: 'amazon',    terms: ['technical program manager', 'solution architect', 'infrastructure', 'network'] },
-  { company: 'microsoft', terms: ['technical program manager', 'solution architect', 'network'] },
-  { company: 'singtel',   terms: ['network planning', 'infrastructure', 'business development'] },
-  { company: 'nokia',     terms: ['solution architect', 'business development', 'network'] },
-  { company: 'cisco',     terms: ['solution architect', 'presales', 'technical program manager'] },
+  { company: 'google',    terms: ['technical program manager', 'technical project manager', 'tpm', 'peering', 'edge', 'network', 'infrastructure', 'interconnection', 'data center', 'project manager', 'project delivery'] },
+  { company: 'amazon',    terms: ['technical program manager', 'technical project manager', 'solution architect', 'infrastructure', 'network', 'data center', 'dc planning', 'project delivery', 'project manager'] },
+  { company: 'aws',       terms: ['technical program manager', 'technical project manager', 'solution architect', 'infrastructure', 'data center', 'dc planning', 'project delivery', 'project manager'] },
+  { company: 'microsoft', terms: ['technical program manager', 'technical project manager', 'solution architect', 'network', 'infrastructure', 'data center', 'project manager', 'project delivery'] },
+  { company: 'nvidia',    terms: ['technical program manager', 'technical project manager', 'infrastructure', 'network', 'data center', 'project manager'] },
+  { company: 'meta',      terms: ['technical program manager', 'technical project manager', 'infrastructure', 'network', 'data center', 'project manager'] },
+  { company: 'singtel',   terms: ['network planning', 'infrastructure', 'business development', 'interconnection'] },
+  { company: 'nokia',     terms: ['solution architect', 'business development', 'network', 'project manager'] },
+  { company: 'cisco',     terms: ['solution architect', 'presales', 'technical program manager', 'managing consultant', 'cybersecurity'] },
 ];
 
 const EXCLUDE_TITLE   = ['intern', 'internship', 'graduate programme', 'junior', 'fresh grad', 'entry level', 'trainee'];

@@ -33,7 +33,38 @@
     "li_4390285859": "2026-06-20",
     "li_4223402962": "2026-06-20",
     "li_4410852164": "2026-06-20",
-    "li_4410844228": "2026-06-20"
+    "li_4410844228": "2026-06-20",
+    "li_4422025436": "2026-06-20",
+    "li_4421358086": "2026-06-20",
+    "li_4430917694": "2026-06-20",
+    "li_4411802775": "2026-06-20",
+    "li_4389447893": "2026-06-20",
+    "li_4427867910": "2026-06-20",
+    "li_4389457443": "2026-06-20",
+    "li_4428201865": "2026-06-20"
   },
-  "dreamRoles": []
+  "dreamRoles": [
+    {
+      "id": "li_4422025436",
+      "firstSeenDate": "2026-06-20",
+      "title": "Technical Program Manager, Alphabet Use of Cloud",
+      "company": "Google",
+      "salaryMin": 0,
+      "salaryMax": 0,
+      "postedDate": "2026-06-20",
+      "url": "https://www.linkedin.com/jobs/view/4422025436",
+      "source": "LinkedIn"
+    },
+    {
+      "id": "li_4421358086",
+      "firstSeenDate": "2026-06-20",
+      "title": "Sr. Technical Program Manager, AWS Manufacturing",
+      "company": "Amazon Web Services (AWS)",
+      "salaryMin": 0,
+      "salaryMax": 0,
+      "postedDate": "2026-06-20",
+      "url": "https://www.linkedin.com/jobs/view/4421358086",
+      "source": "LinkedIn"
+    }
+  ]
 }
