@@ -1,12 +1,17 @@
 {
-  "name": "job-alerts",
-  "version": "1.0.0",
-  "description": "Daily job alerts via Telegram — Singapore tech roles",
-  "main": "src/hunter.js",
+  "name": "sg-job-alerts",
+  "version": "2.0.0",
+  "description": "Singapore tech job alerts — MCF + LinkedIn, daily Telegram digest + hosted dashboard",
+  "private": true,
   "scripts": {
+    "hunt": "node daily-hunter.js",
+    "dashboard": "node generate-dashboard.js",
     "start": "node src/hunter.js"
   },
   "dependencies": {
     "dotenv": "^16.6.1"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

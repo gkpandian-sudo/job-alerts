@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TPM Pipeline — Pandian Gopal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:       #060A14;
+  --bg-card:  #0C1428;
+  --bg-hover: #111E35;
+  --bg-in:    #07101E;
+  --bg-sec:   #091220;
+  --gold:     #C9A84C;
+  --gold-lt:  #DFC070;
+  --gold-dim: rgba(201,168,76,.11);
+  --gold-brd: rgba(201,168,76,.22);
+  --gold-glo: 0 0 28px rgba(201,168,76,.10);
+  --text:     #EDE8DC;
+  --text2:    #8B97AA;
+  --text3:    #4A5670;
+  --brd:      rgba(255,255,255,.045);
+  --ruby-bg:  #1E0808; --ruby:    #F87171;
+  --amber-bg: #1E1008; --amber:   #FBBF24;
+  --violet-bg:#120E2A; --violet:  #A78BFA;
+  --em-bg:    #061810; --em:      #34D399;
+  --sap-bg:   #081426; --sap:     #60A5FA;
+  --sl-bg:    #10141E; --sl:      #64748B;
+  --rose-bg:  #1E0818; --rose:    #F472B6;
+  --r:4px; --rm:8px; --rl:12px; --rxl:18px;
+  --sh: 0 4px 20px rgba(0,0,0,.5);
+  --sh-lg: 0 8px 40px rgba(0,0,0,.65);
+}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;}
+a{color:var(--sap);text-decoration:none;}
+a:hover{text-decoration:underline;}
+code{font-family:monospace;font-size:.9em;background:var(--bg-card);padding:1px 5px;border-radius:3px;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:3px;}
+
+/* ── HEADER ── */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(6,10,20,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--gold-brd);}
+.hdr-in{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px;padding:0 24px;gap:12px;}
+.hdr-title{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:600;color:var(--gold-lt);letter-spacing:.025em;}
+.hdr-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+.hdr-right{display:flex;align-items:center;gap:14px;font-size:11px;color:var(--text3);white-space:nowrap;}
+
+/* ── MAIN ── */
+.main{max-width:1300px;margin:0 auto;padding:26px 24px 80px;}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:22px;}
+.stat{background:var(--bg-card);border:1px solid var(--gold-brd);border-radius:var(--rl);padding:14px 16px;position:relative;overflow:hidden;}
+.stat::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.55;}
+.stat-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.stat-val{font-family:'Playfair Display',serif;font-size:30px;font-weight:600;color:var(--gold-lt);line-height:1;}
+
+/* ── FILTER BAR ── */
+.filters{background:var(--bg-card);border:1px solid var(--gold-brd);border-radius:var(--rl);padding:14px 18px;margin-bottom:22px;}
+.frow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.frow:last-child{margin-bottom:0;}
+.flbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;min-width:56px;}
+.fbtn{background:transparent;border:1px solid var(--brd);border-radius:var(--r);color:var(--text2);font-size:12px;font-family:inherit;padding:4px 11px;cursor:pointer;transition:all .15s;}
+.fbtn:hover{border-color:var(--gold-brd);color:var(--text);}
+.fbtn.on{background:var(--gold-dim);border-color:var(--gold-brd);color:var(--gold-lt);}
+
+/* ── SECTION HEADER ── */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;color:var(--gold-lt);display:flex;align-items:center;gap:7px;}
+.sec-title i{font-size:17px;color:var(--gold);}
+.divider{border:none;border-top:1px solid var(--gold-brd);opacity:.35;margin:30px 0 22px;}
+
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(490px,1fr));gap:12px;margin-bottom:6px;}
+@media(max-width:580px){.grid{grid-template-columns:1fr;}}
+
+/* ── ROLE CARD ── */
+.card{background:var(--bg-card);border:1px solid var(--gold-brd);border-radius:var(--rl);transition:box-shadow .2s,border-color .2s;overflow:hidden;}
+.card:hover{box-shadow:var(--gold-glo);border-color:rgba(201,168,76,.35);}
+.card.open{box-shadow:var(--gold-glo);border-color:rgba(201,168,76,.42);}
+.card-hdr{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;cursor:pointer;user-select:none;}
+.card-hdr-l{flex:1;min-width:0;}
+.card-hdr-r{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;}
+.card-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.4;}
+.card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--text2);}
+.card-meta i{font-size:12px;vertical-align:-2px;}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:500;padding:3px 8px;border-radius:var(--r);white-space:nowrap;}
+.badge-co{font-size:10px;font-weight:600;padding:2px 7px;letter-spacing:.04em;}
+.badge-pri{font-size:10px;padding:2px 7px;}
+.badge-st{cursor:pointer;transition:opacity .15s;}
+.badge-st:hover{opacity:.82;}
+
+/* ── STATUS PICKER ── */
+.spicker{position:fixed;z-index:9999;background:#0D1830;border:1px solid var(--gold-brd);border-radius:var(--rm);padding:5px;box-shadow:var(--sh-lg);min-width:155px;}
+.spicker-item{display:flex;align-items:center;gap:7px;width:100%;text-align:left;padding:5px 8px;border-radius:var(--r);font-size:12px;font-family:inherit;cursor:pointer;border:none;background:transparent;color:var(--text2);transition:background .12s;}
+.spicker-item:hover,.spicker-item.on{background:var(--gold-dim);color:var(--text);}
+
+/* ── CARD DETAIL ── */
+.card-detail{display:none;padding:0 15px 13px;border-top:1px solid var(--gold-brd);}
+.card.open .card-detail{display:block;}
+.detail-notes{font-size:13px;color:var(--text2);line-height:1.72;margin:11px 0 10px;}
+.detail-grid{display:grid;grid-template-columns:100px 1fr;gap:4px 10px;font-size:12px;margin-bottom:11px;}
+.dl{color:var(--text3);}
+.dv{color:var(--text);}
+
+/* inline status/priority row */
+.qs-row{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--bg-sec);border-radius:var(--rm);border:1px solid var(--brd);margin:10px 0;}
+.qs-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
+.qs-sel{flex:1;background:var(--bg-in);border:1px solid var(--gold-brd);border-radius:var(--r);color:var(--text);font-size:12px;font-family:inherit;padding:5px 7px;cursor:pointer;}
+.qs-sel:focus{outline:1px solid var(--gold);}
+
+/* ── CARD ACTIONS ── */
+.cactions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;}
+
+/* ── BUTTONS ── */
+button{font-family:inherit;cursor:pointer;border:1px solid var(--gold-brd);background:transparent;color:var(--text2);border-radius:var(--r);padding:6px 12px;font-size:12px;transition:all .15s;}
+button:hover{border-color:var(--gold);color:var(--gold-lt);background:var(--gold-dim);}
+button:disabled{opacity:.4;cursor:not-allowed;}
+.btn-p{background:var(--gold-dim);border-color:var(--gold-brd);color:var(--gold-lt);}
+.btn-p:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+.btn-d{color:var(--ruby);border-color:rgba(248,113,113,.2);}
+.btn-d:hover{background:rgba(248,113,113,.09);border-color:var(--ruby);color:var(--ruby);}
+.btn-add{width:100%;padding:10px;border-style:dashed;color:var(--gold);font-size:13px;border-radius:var(--rm);margin-top:2px;}
+.btn-add:hover{background:var(--gold-dim);border-color:var(--gold);}
+
+/* ── EDIT FORM ── */
+.eform{padding:4px 0;}
+.erow{display:grid;grid-template-columns:90px 1fr;gap:7px;align-items:center;margin-bottom:7px;}
+.elbl{font-size:11px;color:var(--text3);text-align:right;}
+.einp,.esel,.etxt{background:var(--bg-in);border:1px solid var(--gold-brd);border-radius:var(--r);color:var(--text);font-size:13px;font-family:inherit;padding:6px 9px;width:100%;transition:border-color .15s;}
+.einp:focus,.esel:focus,.etxt:focus{outline:none;border-color:var(--gold);}
+.etxt{min-height:70px;resize:vertical;}
+
+/* ── FEED SECTION ── */
+.feed-sec{background:var(--bg-card);border:1px solid var(--gold-brd);border-radius:var(--rxl);padding:20px 22px;margin:4px 0;}
+.feed-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:12px;}
+.feed-status{font-size:12px;color:var(--text3);margin-bottom:10px;min-height:18px;}
+.feed-import-box{background:var(--bg-sec);border:1px solid var(--brd);border-radius:var(--rm);padding:13px;margin-bottom:11px;}
+.feed-cards{display:flex;flex-direction:column;gap:8px;}
+.fcard{background:var(--bg-sec);border:1px solid var(--brd);border-radius:var(--rm);padding:11px 13px;transition:border-color .15s;}
+.fcard:hover{border-color:var(--gold-brd);}
+.fcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:9px;margin-bottom:7px;}
+
+/* ── TEMPLATES ── */
+.tpl-card{background:var(--bg-card);border:1px solid var(--gold-brd);border-radius:var(--rl);overflow:hidden;margin-bottom:8px;}
+.tpl-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;cursor:pointer;transition:background .15s;}
+.tpl-hdr:hover{background:var(--gold-dim);}
+.tpl-title{font-size:13px;font-weight:500;color:var(--text);}
+.tpl-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+.tpl-body{display:none;padding:13px 15px;border-top:1px solid var(--gold-brd);}
+.tpl-card.open .tpl-body{display:block;}
+.tpl-text{background:var(--bg-sec);border:1px solid var(--brd);border-radius:var(--rm);padding:14px;font-size:13px;line-height:1.78;white-space:pre-wrap;color:var(--text2);font-family:inherit;margin-bottom:10px;}
+.tpl-actions{display:flex;gap:8px;}
+
+/* ── PLAYBOOK ── */
+.playbook{background:var(--bg-card);border:1px solid var(--gold-brd);border-radius:var(--rxl);padding:22px 24px;position:relative;overflow:hidden;}
+.playbook::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.pb-track{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--brd);}
+.pb-track:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.pb-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;}
+.pb-txt{font-size:13px;color:var(--text2);line-height:1.7;}
+
+/* ── OVERDUE ── */
+.overdue{color:var(--ruby)!important;font-weight:500;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(18px);background:#101F38;border:1px solid var(--gold-brd);border-radius:var(--rl);padding:10px 20px;font-size:13px;color:var(--gold-lt);box-shadow:var(--sh-lg);z-index:9998;opacity:0;transition:opacity .24s,transform .24s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── EMPTY / NO ROLES ── */
+.no-roles{grid-column:1/-1;text-align:center;padding:36px;color:var(--text3);font-size:13px;}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <div>
+      <div class="hdr-title">◈ Hyperscaler TPM Pipeline</div>
+      <div class="hdr-sub">Google team match · APAC + EMEA parallel pipeline</div>
+    </div>
+    <div class="hdr-right">
+      <span id="last-saved"></span>
+      <span id="hdr-date"></span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <div class="stats" id="stats"></div>
+
+  <div class="filters">
+    <div class="frow"><span class="flbl">Location</span><div id="loc-f" style="display:flex;gap:6px;flex-wrap:wrap;"></div></div>
+    <div class="frow"><span class="flbl">Company</span><div id="co-f"  style="display:flex;gap:6px;flex-wrap:wrap;"></div></div>
+  </div>
+
+  <div class="sec-hdr">
+    <div class="sec-title"><i class="ti ti-briefcase"></i>Active Pipeline</div>
+    <button class="btn-p" id="add-btn"><i class="ti ti-plus" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Add Role</button>
+  </div>
+  <div class="grid" id="roles-grid"></div>
+
+  <hr class="divider">
+
+  <div class="feed-sec">
+    <div class="feed-hdr">
+      <div class="sec-title"><i class="ti ti-radar"></i>MCF Live Feed</div>
+      <div style="display:flex;gap:7px;">
+        <button id="fetch-btn"><i class="ti ti-refresh" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Fetch live</button>
+        <button id="import-btn"><i class="ti ti-upload" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Import digest</button>
+      </div>
+    </div>
+    <div class="feed-status" id="feed-status"></div>
+    <div id="feed-import-box" style="display:none;" class="feed-import-box">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px;">Paste <code>state/latest-digest.json</code> from your job-alerts-public repo after the Action runs:</div>
+      <textarea id="digest-paste" style="width:100%;min-height:76px;font-family:monospace;font-size:12px;padding:8px;background:var(--bg-in);border:1px solid var(--gold-brd);border-radius:var(--r);color:var(--text);resize:vertical;box-sizing:border-box;" placeholder='{"generatedAt":"...","jobs":[]}'></textarea>
+      <button class="btn-p" id="digest-submit" style="margin-top:8px;"><i class="ti ti-check" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Import</button>
+    </div>
+    <div class="feed-cards" id="feed-cards"></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-hdr"><div class="sec-title"><i class="ti ti-message-2"></i>Outreach Templates</div></div>
+  <div id="tpl-list"></div>
+
+  <hr class="divider">
+
+  <div class="playbook">
+    <div class="sec-title" style="margin-bottom:18px;"><i class="ti ti-target"></i>Dual-Track Playbook</div>
+    <div class="pb-track">
+      <div class="pb-lbl" style="color:var(--sap);">Track 1 — Google Team Match (primary · 60–90 day window)</div>
+      <div class="pb-txt">The clock is HC verdict to offer expiry. Goal: be the candidate a team chose, not the one assigned. Ping Shreyasi every 14 days with specific reqs. Anchor: AS15169 + the team's mandate.</div>
+    </div>
+    <div class="pb-track">
+      <div class="pb-lbl" style="color:var(--em);">Track 2 — Hyperscaler Parallel Pipeline (leverage)</div>
+      <div class="pb-txt">Goal: 2–3 final-stage processes by end of Google window. The Google process IS the conversion catalyst — TA teams move faster on HC-cleared candidates. Cadence: one targeted outreach per hyperscaler per week. Anchor: Google L5 cleared + one specific researched reason for that company.</div>
+    </div>
+    <div class="pb-track">
+      <div class="pb-lbl" style="color:var(--ruby);">Don't</div>
+      <div class="pb-txt">Mass-apply through portals. HMs at hyperscalers talk — peering and DC planning is a small world. Sloppy outreach is visible across the org. Every move targeted, every message specific.</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+(function(){
+'use strict';
+const SK = 'tpm_tracker_v1';
+
+/* localStorage shim (replaces window.storage for standalone use) */
+const store = {
+  get: k => { try { return { value: localStorage.getItem(k) }; } catch { return null; } },
+  set: (k,v) => { try { localStorage.setItem(k,v); } catch {} }
+};
+
+/* ── Lookup tables ── */
+const STATUSES = [
+  { id:'identified', label:'Identified',   bg:'var(--sl-bg)',     fg:'var(--sl)'    },
+  { id:'researched', label:'Researched',   bg:'var(--sap-bg)',    fg:'var(--sap)'   },
+  { id:'outreach',   label:'Outreach sent',bg:'var(--amber-bg)',  fg:'var(--amber)' },
+  { id:'discussion', label:'In discussion',bg:'var(--violet-bg)', fg:'var(--violet)'},
+  { id:'teammatch',  label:'Final stage',  bg:'var(--em-bg)',     fg:'var(--em)'    },
+  { id:'closed',     label:'Closed',       bg:'var(--sl-bg)',     fg:'var(--text3)' }
+];
+const PRIORITIES = [
+  { id:'high', label:'High',   bg:'var(--ruby-bg)',  fg:'var(--ruby)'  },
+  { id:'med',  label:'Medium', bg:'var(--amber-bg)', fg:'var(--amber)' },
+  { id:'low',  label:'Low',    bg:'var(--sl-bg)',    fg:'var(--sl)'    }
+];
+const COMPANIES = [
+  { id:'Google',    label:'Google',    bg:'var(--sap-bg)',    fg:'var(--sap)'    },
+  { id:'Amazon',    label:'AWS',       bg:'var(--amber-bg)',  fg:'var(--amber)'  },
+  { id:'Meta',      label:'Meta',      bg:'var(--violet-bg)', fg:'var(--violet)' },
+  { id:'ByteDance', label:'ByteDance', bg:'var(--rose-bg)',   fg:'var(--rose)'   },
+  { id:'Microsoft', label:'Microsoft', bg:'var(--em-bg)',     fg:'var(--em)'     },
+  { id:'Other',     label:'Other',     bg:'var(--sl-bg)',     fg:'var(--sl)'     }
+];
+const LOCS = ['Singapore','Sydney','Melbourne','Dublin','Other'];
+
+/* ── Seed data ── */
+const HYPERSCALER_SEEDS = [
+  { id:'aws1', company:'Amazon', title:'Technical Infrastructure PM, AGIS Interconnection — APAC', location:'Singapore', jdUrl:'', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'high', notes:'AGIS = AWS Global Infrastructure Services. Interconnection role is the direct AWS analogue to your Google peering TPM target. Same skill stack: BGP, cross-connects, IX relationships, ISP partnerships. Strongest single hyperscaler match.', nextAction:'Find role on amazon.jobs; identify HM via LinkedIn "AWS AGIS Singapore"', nextDate:'' },
+  { id:'aws2', company:'Amazon', title:'Backbone TPM, APAC Backbone', location:'Singapore', jdUrl:'', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'high', notes:'AWS APAC Backbone team — long-haul transport, capacity planning. Direct fit for your Singtel transport and Temasek WAN background. Salary band ~SGD 144–146k base per Glassdoor.', nextAction:'Apply via amazon.jobs, then LinkedIn outreach to Backbone TPM peers in Singapore', nextDate:'' },
+  { id:'aws3', company:'Amazon', title:'TPM, AWS DC Planning and Delivery', location:'Singapore', jdUrl:'https://www.mycareersfuture.gov.sg/job/a7a82b16869cdd3a5c824bdd02c5a25a', reqId:'a7a82b16869cdd3a5c824bdd02c5a25a', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'MCF confirmed live, posted Apr 9. Salary $7.9k–$15k/mo on MCF (likely understated — verify on amazon.jobs, Glassdoor shows ~$144–146k base). AWS Infrastructure Services — DC design, planning, delivery, and operations. Strong overlap with Bosch APAC framework and multi-site delivery. Worth re-engaging if previously cooled.', nextAction:'Apply via MCF link; cross-check comp on amazon.jobs; check status of any prior AWS recruiter relationship', nextDate:'' },
+  { id:'aws4', company:'Amazon', title:'Submarine TPM, Subsea Engineering', location:'Singapore', jdUrl:'', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'Subsea cable systems — your unique angle. Singtel ADC, SJC, SJC2 cable system experience is rare on the buyer side. Few candidates with both architect-side and operator-side cable knowledge.', nextAction:'Tailor resume to lead with subsea cable experience (ADC/SJC/SJC2) before applying', nextDate:'' },
+  { id:'meta1', company:'Meta', title:'PM — Edge and Data Center Network Infrastructure', location:'Singapore', jdUrl:'https://sg.linkedin.com/jobs/view/program-manager-edge-and-data-center-network-infrastructure-at-meta-3097865805', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'high', notes:'Meta ISOS team (Infrastructure Services Operational Support). Edge + DC network operationalisation. Direct mandate match. Meta has been cycling these reqs in SG — confirm freshness via the JD link before reaching out.', nextAction:'Verify req still open; if yes, identify ISOS leadership via LinkedIn and request 20 min', nextDate:'' },
+  { id:'bd1', company:'ByteDance', title:'TPM, Edge Infrastructure', location:'Singapore', jdUrl:'', reqId:'', hm:'Yi Chen (capacity planning) is publicly visible in the org', recruiter:'', mutual:'', status:'identified', priority:'high', notes:'TikTok/ByteDance Edge Infrastructure. Role mirrors your stack: peering, IX relationships, CDN expansion, IPT selection. Yi Chen and Frederic M. are visible TPMs in this org doing exactly this work. Heavy hiring posture.', nextAction:'Reach out to Yi Chen on LinkedIn — open question about team scope, not a job ask', nextDate:'' },
+  { id:'bd2', company:'ByteDance', title:'TPM, Cloud and System — Infrastructure Engineering', location:'Singapore', jdUrl:'https://sg.linkedin.com/jobs/view/technical-program-manager-cloud-and-system-infrastructure-engineering-at-bytedance-3464298398/', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'Hyperscale DC infrastructure engineering. Less peering-specific than bd1, more DC/server fleet ops. Reasonable adjacent fit if Edge req closes.', nextAction:'Hold as backup to bd1; apply via LinkedIn if no response from Yi Chen in 10 days', nextDate:'' },
+  { id:'bd3', company:'ByteDance', title:'TPM, Network Deployment and Data Center (via Morgan McKinley)', location:'Singapore', jdUrl:'https://www.mycareersfuture.gov.sg/job/ccbdcb89483a4bf8c6357446285b1ec7', reqId:'ccbdcb89483a4bf8c6357446285b1ec7', hm:'', recruiter:'Morgan McKinley', mutual:'', status:'identified', priority:'high', notes:'MCF confirmed live May 5. Salary $19k–$21k/mo. 12-month contract (open to extension). Client: "leading MultiTech social media company" = ByteDance. Role: Edge, Backbone, and DC network deployment, new DC builds, tech modifications. Exact skill match. bd3/bd4/bd5 likely same headcount through 3 agencies — pursue the one with best recruiter contact first.', nextAction:'Apply via MCF; contact Morgan McKinley directly to confirm client and scope', nextDate:'' },
+  { id:'bd4', company:'ByteDance', title:'TPM, Network Deployment and Data Center (via Adecco)', location:'Singapore', jdUrl:'https://www.mycareersfuture.gov.sg/job/7996a64e61d237eacc7d4abbc8d0b6e8', reqId:'7996a64e61d237eacc7d4abbc8d0b6e8', hm:'', recruiter:'Adecco', mutual:'', status:'identified', priority:'high', notes:'MCF confirmed live May 5. Salary $15k–$20k/mo. "Tech MNC" — same mandate as bd3. Cross-functional network deployment lead, SG DC, edge/backbone scope. Apply in parallel with bd3 — different agency may have a different HM relationship. Possibly a different seniority level given salary delta.', nextAction:'Apply via MCF; call Adecco to confirm client is ByteDance before committing time', nextDate:'' },
+  { id:'bd5', company:'ByteDance', title:'TPM, Network Deployment and DC Operations — 12-month contract (via Optimum Solutions)', location:'Singapore', jdUrl:'https://www.mycareersfuture.gov.sg/job/da5ddf6fd7cb06f48bab933999885e61', reqId:'da5ddf6fd7cb06f48bab933999885e61', hm:'', recruiter:'Optimum Solutions', mutual:'', status:'identified', priority:'med', notes:'MCF confirmed live May 5. Salary $14.5k–$18.2k/mo. Client: "world\'s largest digital platforms" = ByteDance/TikTok. Same edge/backbone/DC mandate as bd3/bd4. Third agency on same headcount. Pursue bd3 or bd4 first.', nextAction:'Apply only if bd3/bd4 go cold — recruiter relationships likely same pool', nextDate:'' },
+  { id:'msft1', company:'Microsoft', title:'Technical Program Manager (Singapore)', location:'Singapore', jdUrl:'https://sg.linkedin.com/jobs/microsoft-operations-pte-ltd-jobs', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'Generic TPM listing — confirm scope before applying. Microsoft has been hiring SG datacenter TPMs aggressively for the SG region buildout. Worth a 10-minute LinkedIn diligence pass.', nextAction:'Find specific req on jobs.careers.microsoft.com; check if it is network/DC-related', nextDate:'' },
+  { id:'msft2', company:'Microsoft', title:'Principal Program Manager (Singapore)', location:'Singapore', jdUrl:'', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'Principal level — possibly a step up from your current band. Confirm scope is technical/infrastructure and not GTM/sales-adjacent.', nextAction:'Pull JD from jobs.careers.microsoft.com; assess if technical scope is real', nextDate:'' },
+  { id:'msft3', company:'Microsoft', title:'Senior Director, Asia Datacenter GTM Leader', location:'Singapore', jdUrl:'', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'low', notes:'Likely too commercial/GTM-focused for your TPM target. Consider only if you decide to lean into your presales architect background.', nextAction:'Skip unless you actively want to pivot toward GTM leadership track', nextDate:'' }
+];
+
+const SEED_ROLES = [
+  { id:'r1', company:'Google', title:'TPM, Edge Serving Capacity Delivery', location:'Singapore', jdUrl:'https://www.google.com/about/careers/applications/jobs/results/114852617258967750-technical-program-manager/', reqId:'114852617258967750', hm:'Dave Schwartz / Graham Kinsey team', recruiter:'Shreyasi Srivastava', mutual:'Graham Kinsey, Seiichi Kawamura, Stefan Lampacher (RRK panel)', status:'discussion', priority:'high', notes:'This is the team that ran your full L5 loop. Shreyasi already knows you. Hiring for two additional TPMs to support Raymund Estrada — confirmed via the panel. Highest probability match.', nextAction:'Confirm with Shreyasi if HC verdict already sent and which req is being matched first', nextDate:'' },
+  { id:'r2', company:'Google', title:'TPM, WAN Infrastructure and Capacity', location:'Singapore', jdUrl:'', reqId:'', hm:'Dewi Seniwati (Regional Manager, WAN Infrastructure and Capacity)', recruiter:'', mutual:'Dewi is a 1st-degree connection — she posted this directly', status:'identified', priority:'high', notes:'Saw on LinkedIn. Direct manager-led post. WAN capacity = direct adjacency to your Temasek WAN transformation story and Singtel transport experience.', nextAction:'LinkedIn message Dewi referencing Temasek WAN and AS15169 ISP-side work; mention HC-cleared status discreetly', nextDate:'' },
+  { id:'r3', company:'Google', title:'TPM, Global Networking and Infrastructure Intake and Management', location:'Singapore', jdUrl:'https://www.google.com/about/careers/applications/jobs/results/119818430999077574-technical-program-manager/', reqId:'119818430999077574', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'JD requires IP transit/peering, dark fiber, colo, optical transport, DWDM, carrier-class telecom. Reads like it was written for you — Singtel CUBE, ADC/SJC/SJC2 cables, Nokia PSS, Infinera GX. SG visa-priority noted.', nextAction:'Find HM on LinkedIn; check Shreyasi if she covers this team too', nextDate:'' },
+  { id:'r4', company:'Google', title:'TPM, Data Center Network Infrastructure Construction', location:'Singapore', jdUrl:'https://www.mycareersfuture.gov.sg/job/e50408dfea8b26d58269f6f966a7a7dc', reqId:'e50408dfea8b26d58269f6f966a7a7dc', hm:'', recruiter:'', mutual:'', status:'identified', priority:'high', notes:'MCF confirmed live May 7. Salary $12k–$24k/mo. Highest MCF score (34) in today\'s search. AI and Infrastructure team — DC + network construction maps directly to your Mexico/Temasek multi-site delivery and Bosch APAC framework. Stronger fit than originally rated.', nextAction:'Apply via MCF link; find canonical Google Careers req ID; search LinkedIn "Google Singapore Data Center Network Infrastructure" for HM', nextDate:'' },
+  { id:'r5', company:'Google', title:'TPM, Product Development and Insertion for Data Centers', location:'Singapore', jdUrl:'', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'low', notes:'Hardware NPI flavor. Stretch fit — your strength is on the network and customer side, less on hardware product lifecycle.', nextAction:'Skip unless other Singapore reqs cool off', nextDate:'' },
+  { id:'r6', company:'Google', title:'TPM, Edge Serving Capacity Delivery (EMEA)', location:'Dublin', jdUrl:'https://careers.google.com/jobs/results/81568916643422918-technical-program-manager/', reqId:'81568916643422918', hm:'', recruiter:'', mutual:'Stefan Lampacher (Zurich) is your RRK panelist — same broader org', status:'identified', priority:'high', notes:'Dublin or London. Mirror role to your Singapore loop, EMEA-flavored. Stefan already saw you in RRK — strongest warm path. Visa to Ireland is more straightforward than US.', nextAction:'Once Stefan RRK is done, ask Shreyasi if EMEA reqs can pull from your packet', nextDate:'' },
+  { id:'r7', company:'Google', title:'TPM, CDN', location:'Dublin', jdUrl:'https://www.google.com/about/careers/applications/jobs/results/120298638743085766-technical-program-manager/', reqId:'120298638743085766', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'Dublin or London. CDN/GGC focus — same core mandate as the SG role, just EMEA region.', nextAction:'Ask Shreyasi to share with EMEA recruiter if SG reqs slow', nextDate:'' },
+  { id:'r8', company:'Google', title:'TPM, Edge Serving Capacity Delivery (alt req)', location:'Dublin', jdUrl:'https://www.google.com/about/careers/applications/jobs/results/137998913276650182-technical-program-manager/', reqId:'137998913276650182', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'Second EMEA edge capacity req. Same family. Check if duplicate or distinct team.', nextAction:'Compare JD against r6 — note any differences in BGP/peering depth wording', nextDate:'' },
+  { id:'r9', company:'Google', title:'TPM, Fibre Capacity Delivery', location:'Dublin', jdUrl:'https://www.google.com/about/careers/applications/jobs/results/105093337823748806-technical-program-manager/', reqId:'105093337823748806', hm:'', recruiter:'', mutual:'', status:'identified', priority:'low', notes:'OSP/ISP fiber focus. PMP/PRINCE2 preferred. Stretch — your fiber experience is via Singtel transport but not OSP construction lead.', nextAction:'Skip unless EMEA team match opens and HM signals flexibility on OSP depth', nextDate:'' },
+  { id:'r10', company:'Google', title:'TPM, Network — Australia (search needed)', location:'Sydney', jdUrl:'', reqId:'', hm:'', recruiter:'', mutual:'', status:'identified', priority:'med', notes:'Australia falls in Raymund Estrada\'s current Oceania scope — fewer dedicated TPM reqs surface there. Search Google careers AU + LinkedIn weekly.', nextAction:'Set Google Jobs alert: "Technical Program Manager" + Sydney/Melbourne. Check fortnightly.', nextDate:'' },
+  { id:'r11', company:'Google', title:'TPM, Lightpath Fiber Asset Delivery, Global Network Solutions', location:'Singapore', jdUrl:'https://www.mycareersfuture.gov.sg/job/451386fb081bbe3c79e10be7219ca1e7', reqId:'451386fb081bbe3c79e10be7219ca1e7', hm:'', recruiter:'', mutual:'', status:'identified', priority:'high', notes:'MCF confirmed live Apr 27. Salary $9k–$18k/mo. Global Network Solutions team — fiber asset delivery covering dark fiber, subsea cable, and long-haul infrastructure. Your Singtel ADC/SJC/SJC2 cable system experience is the exact background this role needs. MCF score 32 today.', nextAction:'Find canonical Google Careers req ID from MCF posting; check if Shreyasi covers this team or find HM via LinkedIn "Google Global Network Solutions Singapore"', nextDate:'' }
+];
+
+/* ── Outreach Templates (updated with user\'s actual voice) ── */
+const TEMPLATES = [
+  {
+    title:'Google HM — Network Infrastructure',
+    sub:'Already in team allocation · role-specific fit angle',
+    text:`Hi {Name},
+
+I came across your post about the {Role title} role at Google and wanted to reach out directly.
+
+I have already completed the Google TPM L5 interview process and am currently in the team allocation stage. Given how closely this role matches my background, I wanted to make sure my profile is on your radar.
+
+A bit about why I think I am a strong fit:
+
+I currently lead network architecture and delivery at Singtel, one of Asia's largest telcos, where I manage backbone connectivity to hyperscalers like Microsoft and AWS across APAC. So the idea of scaling infrastructure that powers Search, YouTube, and Cloud is not abstract to me at all.
+
+On the hardware and deployment side, I have owned end-to-end program delivery for large-scale network rollouts including SD-WAN across 50+ enterprise sites and critical DCI and peering infrastructure projects. Managing the lifecycle of networking hardware, coordinating vendors, and keeping complex programs on track is core to what I do.
+
+I also spend a lot of time bridging the gap between deep technical teams and senior stakeholders, translating complexity into roadmaps and decisions that land across both groups. One of my anchor programs was the Temasek WAN transformation, where I managed scope, rollback criteria, and multi-vendor risk across a high-stakes environment.
+
+My certifications include CISSP, CCSP, Cisco SD-WAN Specialist, Palo Alto CNSE, Microsoft AZ-700, and Zero Trust Certified Architect. I have 16+ years across Singtel, Vodafone, Infosys, and Fujitsu.
+
+What I think makes me a bit different from a typical TPM candidate is that I come from the service provider side, so I have operated inside the kind of network infrastructure that feeds into hyperscalers, not just managed projects around it.
+
+Would love to connect briefly if you think there could be a fit. Happy to share more details.
+
+Thanks so much,
+Pandian`
+  },
+  {
+    title:'Google HM — Interconnect & Peering (technical depth)',
+    sub:'HC cleared · direct ISP-side peering experience angle',
+    text:`Hi {Name},
+
+I came across your post on the {Role title} role and wanted to reach out directly, especially given its focus on interconnect and peering.
+
+I am Lead, Solution Consultant based in Singapore with 16+ years across telco, consulting, and enterprise network transformation. My core experience aligns strongly with edge infrastructure, interconnect strategy, and large-scale program execution — managing programmes tied to over USD 100M impact.
+
+What particularly caught my attention is the ownership of interconnect, peering, and infrastructure expansion. This is an area where I bring direct, hands-on experience rather than adjacent exposure.
+
+I recently completed the full Google TPM interview loop for an L5 role focused on Edge Network, Interconnect, Peering, and GGC planning, with strong positive signals across all rounds and exceptional feedback at the hiring committee stage.
+
+I bring a differentiated ISP-side perspective, having managed public and private peering relationships with hyperscalers including Google, AWS, and Azure, covering PNI, IX participation, capacity planning, and partner negotiations.
+
+I have been directly involved in the end-to-end interconnect lifecycle — from partner onboarding, LOA and cross-connect coordination, BGP policy design, to traffic scaling and performance optimisation.
+
+I understand both the technical and commercial layers of peering, including settlement-free models, traffic forecasting, and long-term capacity alignment between networks. I have also led infrastructure programmes spanning DCI, DWDM transport, and multi-region network expansion across APAC, coordinating engineering, vendors, and business stakeholders.
+
+Beyond technical depth, I operate as a TPM who builds structure in ambiguous environments. Whether it is onboarding a new peering partner, scaling capacity for growth, or driving multi-party infrastructure rollouts, I focus on clear ownership, data-driven decisions, and predictable execution.
+
+What I find particularly compelling about this role is the opportunity to operate at the edge of the internet. Managing interconnect relationships, scaling peering capacity, and enabling low-latency delivery at global scale is exactly the problem space I have been working in and want to continue building in.
+
+I would value the opportunity to connect and understand how this role is evolving within your team, and where I can contribute immediately.
+
+Happy to share more details or walk through relevant interconnect and peering programme examples.
+
+Best,
+Pandian`
+  },
+  {
+    title:'Service Provider / Partner SA (e.g. Cloudflare)',
+    sub:'Presales SA background · telco ecosystem angle',
+    text:`Hi {Name},
+
+I've spent the last 16 years working as a Solution Architect within and alongside major Service Providers. Currently at Singtel, I lead Cyber Telco presales architecture for enterprise and carrier accounts covering SD-WAN, MPLS, managed security, DDoS, and cloud connectivity, contributing to over $50M+ in annual revenue.
+
+Prior to that, I was at Vodafone Global Services for four years as a Design Consultant, which gave me a deep understanding of how Service Providers operate, plan capacity, and engage with technology partners.
+
+On the technical side, I hold certifications across security and networking: CISSP, CCSP, Zero Trust Certified Architect, Palo Alto Network Security Engineer, Cisco SD-WAN Specialist, Aruba SD-WAN Expert, and Microsoft Certified Azure Network Engineer.
+
+Day to day I work across Zero Trust, SASE, DDoS mitigation, BGP, SD-WAN, and hybrid cloud architectures — all areas central to the {Role title} role.
+
+I'm genuinely excited about this opportunity and confident I can add real value to {Company}'s Service Provider partner ecosystem in APAC. Happy to elaborate on any of this during a call.
+
+Looking forward to connecting.
+
+Best,
+Pandian`
+  },
+  {
+    title:'Recruiter ping — Shreyasi (14-day cadence)',
+    sub:'Specific Google reqs, not a generic check-in',
+    text:`Hi Shreyasi,
+
+Quick check-in on team match. I've been tracking a few reqs that look like strong adjacencies:
+
+— TPM, WAN Infrastructure and Capacity (Singapore) — Dewi Seniwati's team
+— TPM, Lightpath Fiber Asset Delivery, Global Network Solutions (Singapore) — fiber/subsea, strong fit
+— TPM, Global Networking and Infrastructure Intake and Management (Singapore) — heavy DWDM/optical/carrier overlap
+— TPM, Edge Serving Capacity Delivery (Dublin/London) — same core mandate, EMEA region
+
+If any of these are pulling from APAC TPM packets, I'd want my profile in the consideration set. I'm equally open to Singapore or Dublin and have flagged that to you previously.
+
+Anything I should be doing on my side this fortnight?
+
+Thanks,
+Pandian`
+  },
+  {
+    title:'Warm intro — via panelist (Graham, Stefan, Seiichi)',
+    sub:'When a panelist or referrer can route you',
+    text:`Hi {Name},
+
+Thanks again for the conversation during the {Round} round — it was a genuinely good exchange and your perspective on {specific thing they said} stayed with me afterward.
+
+Quick ask. The HC verdict has come through and I'm in team match. I noticed the {Role title} req in {Location} — it looks adjacent to the work we discussed. If you have a sense of who owns that headcount and whether they're actively matching, I'd appreciate a pointer or, if it makes sense, a brief introduction. Happy to do all the legwork from there.
+
+Either way — looking forward to crossing paths inside Google.
+
+Best,
+Pandian`
+  },
+  {
+    title:'Follow-up — 10 days of silence',
+    sub:'Once. Never twice.',
+    text:`Hi {Name},
+
+Following up on my note from {date} about the {Role title} role. No expectation — I know inboxes are full. I'm closing my own outreach loop on this one within the next week, so if it's not the right fit on your side, a quick "no" works perfectly fine for me.
+
+Thanks for considering.
+
+Best,
+Pandian`
+  }
+];
+
+/* ── MCF feed config (mirrors config.js) ── */
+const FEED_MIN = 14000;
+const FEED_SEARCHES = [
+  {q:'technical program manager',weight:11},{q:'solution architect',weight:12},
+  {q:'presales',weight:12},{q:'infrastructure manager',weight:10},{q:'network manager',weight:9}
+];
+const FEED_BOOSTS = [
+  {terms:['technical program manager','technical pm','tpm'],boost:6},
+  {terms:['presales','pre-sales','pre sales','solution engineer'],boost:6},
+  {terms:['network','backbone','peering','interconnect'],boost:5},
+  {terms:['solution architect','solutions architect'],boost:5},
+  {terms:['infrastructure','infra'],boost:4},
+  {terms:['cybersecurity','cyber security','security'],boost:3},
+  {terms:['telco','telecom'],boost:3},
+  {terms:['director','senior director','principal','head of'],boost:3},
+  {terms:['apac','asia pacific','singapore'],boost:2}
+];
+const FEED_CO = {'amazon':4,'google':4,'microsoft':4,'netflix':4,'nokia':3,'cisco':3,'cloudflare':3,'palo alto':3,'mastercard':2,'ericsson':2,'juniper':2,'akamai':2,'bytedance':4,'tiktok':4};
+const FEED_DREAM = [{company:'google',terms:['technical program manager','tpm','peering','edge','capacity','network']}];
+const FEED_EXCL = ['intern','internship','graduate','junior','entry level','fresh','tunnel','civil engineering','underground','building construction','account manager','portfolio lead','legal','compliance manager'];
+
+function scoreFeed(job,base){
+  const t=(job.title||'').toLowerCase();
+  const d=((job.description||'')+(job.overview?.description||'')).replace(/<[^>]+>/g,'').toLowerCase();
+  const co=(job.postedCompany?.name||'').toLowerCase();
+  if(FEED_EXCL.some(x=>t.includes(x)))return -1;
+  let s=base;
+  for(const{terms,boost}of FEED_BOOSTS){
+    if(terms.some(x=>t.includes(x)))s+=boost;
+    else if(terms.some(x=>d.includes(x)))s+=Math.floor(boost/2);
+  }
+  for(const[c,b]of Object.entries(FEED_CO)){if(co.includes(c)){s+=b;break;}}
+  const mn=job.salary?.minimum||0,mx=job.salary?.maximum||0;
+  if(mx>0&&mx<FEED_MIN)return -1;
+  if(mn>=20000)s+=4;else if(mn>=17000)s+=3;else if(mn>=14000)s+=2;else if(mx>=FEED_MIN)s+=1;
+  return s;
+}
+function dreamMatch(job){
+  const t=(job.title||'').toLowerCase(),co=(job.postedCompany?.name||'').toLowerCase();
+  return FEED_DREAM.find(r=>co.includes(r.company)&&r.terms.some(x=>t.includes(x)))||null;
+}
+
+/* ── State ── */
+let state={roles:[],openId:null,locF:'all',coF:'all',editId:null,lastUpdated:null};
+const $=(s,r)=>(r||document).querySelector(s);
+
+/* ── Helpers ── */
+function esc(t){if(t==null)return '';return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function fmtDate(s){if(!s)return '';const d=new Date(s);return isNaN(d)?s:d.toLocaleDateString(undefined,{month:'short',day:'numeric'});}
+function overdue(s){if(!s)return false;const d=new Date(s),t=new Date();t.setHours(0,0,0,0);return !isNaN(d)&&d<t;}
+function stObj(id){return STATUSES.find(s=>s.id===id)||STATUSES[0];}
+function prObj(id){return PRIORITIES.find(p=>p.id===id)||PRIORITIES[2];}
+function coObj(id){return COMPANIES.find(c=>c.id===id)||COMPANIES[5];}
+function active(){
+  let r=state.roles;
+  if(state.locF!=='all')r=r.filter(x=>x.location===state.locF);
+  if(state.coF!=='all')r=r.filter(x=>x.company===state.coF);
+  return r;
+}
+
+function showToast(msg,dur=2800){
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.body.appendChild(t);requestAnimationFrame(()=>t.classList.add('show'));
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400);},dur);
+}
+function sendPrompt(prompt){
+  navigator.clipboard.writeText(prompt)
+    .then(()=>showToast('Research prompt copied — paste into Claude'))
+    .catch(()=>{console.log('PROMPT:\n',prompt);showToast('Prompt logged to console');});
+}
+
+/* ── Persistence ── */
+async function load(){
+  let need=false;
+  try{
+    const res=store.get(SK);
+    if(res&&res.value){
+      const p=JSON.parse(res.value);
+      state.roles=p.roles||[];state.lastUpdated=p.lastUpdated;
+      state.roles.forEach(r=>{if(!r.company){r.company='Google';need=true;}});
+      const ids=new Set(state.roles.map(r=>r.id));
+      const add=HYPERSCALER_SEEDS.filter(s=>!ids.has(s.id));
+      if(add.length){state.roles=[...state.roles,...add];need=true;}
+    }
+  }catch(e){}
+  if(state.roles.length===0){state.roles=[...SEED_ROLES,...HYPERSCALER_SEEDS];need=true;}
+  if(need)await save();
+  render();
+}
+async function save(){
+  state.lastUpdated=new Date().toISOString();
+  store.set(SK,JSON.stringify({roles:state.roles,lastUpdated:state.lastUpdated,version:2}));
+}
+
+/* ── Render ── */
+function render(){
+  renderStats();renderFilters();renderRoles();renderTemplates();
+  if(state.lastUpdated)$('#last-saved').textContent='Saved '+new Date(state.lastUpdated).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+  $('#hdr-date').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+}
+
+function renderStats(){
+  const r=active(),cnt={};STATUSES.forEach(s=>cnt[s.id]=0);r.forEach(x=>{if(cnt[x.status]!=null)cnt[x.status]++;});
+  const a=r.length-cnt.closed;
+  [
+    {l:'Open roles',v:a},
+    {l:'Outreach sent',v:cnt.outreach+cnt.discussion+cnt.teammatch},
+    {l:'In discussion',v:cnt.discussion+cnt.teammatch},
+    {l:'Final stage',v:cnt.teammatch},
+    {l:'High priority',v:r.filter(x=>x.priority==='high'&&x.status!=='closed').length}
+  ].forEach(({l,v})=>{$('#stats').insertAdjacentHTML('beforeend',`<div class="stat"><div class="stat-lbl">${l}</div><div class="stat-val">${v}</div></div>`);});
+  // re-render trick: clear first
+  $('#stats').innerHTML=[
+    {l:'Open roles',v:a},{l:'Outreach sent',v:cnt.outreach+cnt.discussion+cnt.teammatch},
+    {l:'In discussion',v:cnt.discussion+cnt.teammatch},{l:'Final stage',v:cnt.teammatch},
+    {l:'High priority',v:r.filter(x=>x.priority==='high'&&x.status!=='closed').length}
+  ].map(({l,v})=>`<div class="stat"><div class="stat-lbl">${l}</div><div class="stat-val">${v}</div></div>`).join('');
+}
+
+function renderFilters(){
+  const locs=[{id:'all',label:'All'},...LOCS.map(l=>({id:l,label:l}))];
+  $('#loc-f').innerHTML=locs.map(f=>`<button class="fbtn${state.locF===f.id?' on':''}" data-loc="${f.id}">${f.label}</button>`).join('');
+  $('#loc-f').querySelectorAll('button').forEach(b=>b.onclick=()=>{state.locF=b.dataset.loc;render();});
+  const cos=[{id:'all',label:'All'},...COMPANIES.map(c=>({id:c.id,label:c.label}))];
+  $('#co-f').innerHTML=cos.map(f=>`<button class="fbtn${state.coF===f.id?' on':''}" data-co="${f.id}">${f.label}</button>`).join('');
+  $('#co-f').querySelectorAll('button').forEach(b=>b.onclick=()=>{state.coF=b.dataset.co;render();});
+}
+
+function renderRoles(){
+  const sorted=[...active()].sort((a,b)=>{
+    const po=['high','med','low'],pa=po.indexOf(a.priority),pb=po.indexOf(b.priority);
+    if(pa!==pb)return pa-pb;
+    const so=['discussion','teammatch','outreach','researched','identified','closed'];
+    return so.indexOf(a.status)-so.indexOf(b.status);
+  });
+  if(!sorted.length){$('#roles-grid').innerHTML='<div class="no-roles">No roles match these filters.</div>';return;}
+  $('#roles-grid').innerHTML=sorted.map(r=>{
+    const st=stObj(r.status),pr=prObj(r.priority),co=coObj(r.company);
+    const isOpen=state.openId===r.id,isEdit=state.editId===r.id,od=overdue(r.nextDate);
+    return `<div class="card${isOpen?' open':''}" data-id="${r.id}">
+      <div class="card-hdr" data-toggle="${r.id}">
+        <div class="card-hdr-l">
+          <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;">
+            <span class="badge badge-co" style="background:${co.bg};color:${co.fg};">${co.label}</span>
+            <span class="badge badge-pri" style="background:${pr.bg};color:${pr.fg};">${pr.label}</span>
+          </div>
+          <div class="card-title">${esc(r.title)}</div>
+          <div class="card-meta">
+            <span><i class="ti ti-map-pin"></i>${esc(r.location)}</span>
+            ${r.hm?`<span><i class="ti ti-user"></i>${esc(r.hm.split('(')[0].trim().slice(0,28))}</span>`:''}
+            ${r.nextAction?`<span class="${od?'overdue':''}"><i class="ti ti-bell"></i>${r.nextDate?fmtDate(r.nextDate)+' · ':''}${esc(r.nextAction.slice(0,36))}${r.nextAction.length>36?'…':''}</span>`:''}
+          </div>
+        </div>
+        <div class="card-hdr-r">
+          <span class="badge badge-st" style="background:${st.bg};color:${st.fg};" data-spick="${r.id}" title="Click to change status">${st.label} <i class="ti ti-chevron-down" style="font-size:9px;margin-left:2px;"></i></span>
+        </div>
+      </div>
+      <div class="card-detail">
+        ${isEdit?renderEdit(r):renderView(r)}
+      </div>
+    </div>`;
+  }).join('');
+
+  $('#roles-grid').querySelectorAll('[data-toggle]').forEach(el=>{
+    el.onclick=e=>{
+      if(e.target.closest('button,input,select,textarea,a,[data-spick]'))return;
+      const id=el.dataset.toggle;
+      state.openId=state.openId===id?null:id;state.editId=null;render();
+    };
+  });
+  $('#roles-grid').querySelectorAll('[data-spick]').forEach(el=>{
+    el.onclick=e=>{e.stopPropagation();openPicker(el.dataset.spick,el);};
+  });
+  bindActions();
+}
+
+function openPicker(roleId,anchor){
+  document.querySelectorAll('.spicker').forEach(p=>p.remove());
+  const role=state.roles.find(r=>r.id===roleId);if(!role)return;
+  const p=document.createElement('div');p.className='spicker';
+  p.innerHTML=STATUSES.map(s=>`<button class="spicker-item${role.status===s.id?' on':''}" data-st="${s.id}"><span class="badge" style="background:${s.bg};color:${s.fg};font-size:10px;margin-right:5px;">${s.label}</span></button>`).join('');
+  const rect=anchor.getBoundingClientRect();
+  p.style.top=(rect.bottom+window.scrollY+5)+'px';
+  p.style.right=(document.documentElement.clientWidth-rect.right)+'px';
+  document.body.appendChild(p);
+  p.querySelectorAll('button').forEach(b=>b.onclick=async e=>{
+    e.stopPropagation();role.status=b.dataset.st;await save();render();p.remove();
+    showToast('Status → '+stObj(role.status).label);
+  });
+  setTimeout(()=>document.addEventListener('click',()=>p.remove(),{once:true}),10);
+}
+
+function renderView(r){
+  return `<div class="detail-notes">${r.notes||'<span style="color:var(--text3);font-style:italic;">No notes yet.</span>'}</div>
+    <div class="detail-grid">
+      ${r.jdUrl?`<div class="dl">JD / MCF</div><div class="dv"><a href="${esc(r.jdUrl)}" target="_blank">${esc(r.reqId||'Open posting')} <i class="ti ti-external-link" style="font-size:10px;"></i></a></div>`:''}
+      ${r.hm?`<div class="dl">Hiring mgr</div><div class="dv">${esc(r.hm)}</div>`:''}
+      ${r.recruiter?`<div class="dl">Recruiter</div><div class="dv">${esc(r.recruiter)}</div>`:''}
+      ${r.mutual?`<div class="dl">Warm path</div><div class="dv">${esc(r.mutual)}</div>`:''}
+      ${r.nextAction?`<div class="dl">Next action</div><div class="dv">${r.nextDate?fmtDate(r.nextDate)+' — ':''}${esc(r.nextAction)}</div>`:''}
+    </div>
+    <div class="qs-row">
+      <span class="qs-lbl">Status</span>
+      <select class="qs-sel" data-qs-st="${r.id}">
+        ${STATUSES.map(s=>`<option value="${s.id}"${r.status===s.id?' selected':''}>${s.label}</option>`).join('')}
+      </select>
+      <span class="qs-lbl" style="margin-left:6px;">Priority</span>
+      <select class="qs-sel" data-qs-pr="${r.id}" style="flex:0 0 auto;width:90px;">
+        ${PRIORITIES.map(p=>`<option value="${p.id}"${r.priority===p.id?' selected':''}>${p.label}</option>`).join('')}
+      </select>
+    </div>
+    <div class="cactions">
+      <button data-edit="${r.id}"><i class="ti ti-edit" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Edit</button>
+      <button data-adv="${r.id}"><i class="ti ti-arrow-right" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Advance</button>
+      <button data-res="${r.id}"><i class="ti ti-search" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Research ↗</button>
+      <button class="btn-d" data-del="${r.id}"><i class="ti ti-trash" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Delete</button>
+    </div>`;
+}
+
+function renderEdit(r){
+  return `<div class="eform">
+    <div class="erow"><span class="elbl">Title</span><input class="einp" type="text" data-f="title" value="${esc(r.title)}"></div>
+    <div class="erow"><span class="elbl">Company</span><select class="esel" data-f="company">${COMPANIES.map(c=>`<option value="${c.id}"${r.company===c.id?' selected':''}>${c.label}</option>`).join('')}</select></div>
+    <div class="erow"><span class="elbl">Location</span><select class="esel" data-f="location">${LOCS.map(l=>`<option value="${l}"${r.location===l?' selected':''}>${l}</option>`).join('')}</select></div>
+    <div class="erow"><span class="elbl">Status</span><select class="esel" data-f="status">${STATUSES.map(s=>`<option value="${s.id}"${r.status===s.id?' selected':''}>${s.label}</option>`).join('')}</select></div>
+    <div class="erow"><span class="elbl">Priority</span><select class="esel" data-f="priority">${PRIORITIES.map(p=>`<option value="${p.id}"${r.priority===p.id?' selected':''}>${p.label}</option>`).join('')}</select></div>
+    <div class="erow"><span class="elbl">JD URL</span><input class="einp" type="text" data-f="jdUrl" value="${esc(r.jdUrl||'')}" placeholder="https://…"></div>
+    <div class="erow"><span class="elbl">Req ID</span><input class="einp" type="text" data-f="reqId" value="${esc(r.reqId||'')}"></div>
+    <div class="erow"><span class="elbl">HM</span><input class="einp" type="text" data-f="hm" value="${esc(r.hm||'')}"></div>
+    <div class="erow"><span class="elbl">Recruiter</span><input class="einp" type="text" data-f="recruiter" value="${esc(r.recruiter||'')}"></div>
+    <div class="erow"><span class="elbl">Warm path</span><input class="einp" type="text" data-f="mutual" value="${esc(r.mutual||'')}"></div>
+    <div class="erow"><span class="elbl">Next action</span><input class="einp" type="text" data-f="nextAction" value="${esc(r.nextAction||'')}"></div>
+    <div class="erow"><span class="elbl">Next date</span><input class="einp" type="date" data-f="nextDate" value="${esc(r.nextDate||'')}"></div>
+    <div class="erow" style="align-items:flex-start;"><span class="elbl" style="padding-top:6px;">Notes</span><textarea class="etxt" data-f="notes">${esc(r.notes||'')}</textarea></div>
+    <div class="cactions">
+      <button class="btn-p" data-save="${r.id}"><i class="ti ti-check" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Save</button>
+      <button data-cancel="${r.id}">Cancel</button>
+    </div>
+  </div>`;
+}
+
+function bindActions(){
+  document.querySelectorAll('[data-qs-st]').forEach(s=>s.onchange=async()=>{
+    const r=state.roles.find(x=>x.id===s.dataset.qsSt);if(!r)return;
+    r.status=s.value;await save();render();showToast('Status → '+stObj(r.status).label);
+  });
+  document.querySelectorAll('[data-qs-pr]').forEach(s=>s.onchange=async()=>{
+    const r=state.roles.find(x=>x.id===s.dataset.qsPr);if(!r)return;
+    r.priority=s.value;await save();render();showToast('Priority → '+prObj(r.priority).label);
+  });
+  document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=e=>{e.stopPropagation();state.editId=b.dataset.edit;render();});
+  document.querySelectorAll('[data-cancel]').forEach(b=>b.onclick=e=>{e.stopPropagation();state.editId=null;render();});
+  document.querySelectorAll('[data-save]').forEach(b=>b.onclick=async e=>{
+    e.stopPropagation();
+    const id=b.dataset.save,card=b.closest('.card'),role=state.roles.find(r=>r.id===id);if(!role)return;
+    card.querySelectorAll('[data-f]').forEach(i=>role[i.dataset.f]=i.value);
+    state.editId=null;await save();render();showToast('Role saved');
+  });
+  document.querySelectorAll('[data-del]').forEach(b=>b.onclick=async e=>{
+    e.stopPropagation();if(!confirm('Delete this role?'))return;
+    state.roles=state.roles.filter(r=>r.id!==b.dataset.del);state.openId=null;await save();render();
+  });
+  document.querySelectorAll('[data-adv]').forEach(b=>b.onclick=async e=>{
+    e.stopPropagation();const role=state.roles.find(r=>r.id===b.dataset.adv);if(!role)return;
+    const order=['identified','researched','outreach','discussion','teammatch','closed'];
+    const i=order.indexOf(role.status);role.status=order[Math.min(i+1,order.length-1)];
+    await save();render();showToast('Advanced → '+stObj(role.status).label);
+  });
+  document.querySelectorAll('[data-res]').forEach(b=>b.onclick=e=>{
+    e.stopPropagation();const role=state.roles.find(r=>r.id===b.dataset.res);if(!role)return;
+    sendPrompt(`Research the HM and team for the ${role.company} role "${role.title}" in ${role.location}. JD: ${role.jdUrl||'not found'}. Find likely HM on LinkedIn, team's NANOG/APRICOT/PeeringDB activity, any mutual connections via RRK panel (Graham Kinsey, Seiichi Kawamura, Stefan Lampacher) or Singtel network. Draft a tailored outreach.`);
+  });
+}
+
+function renderTemplates(){
+  $('#tpl-list').innerHTML=TEMPLATES.map((t,i)=>`
+    <div class="tpl-card" data-tpl="${i}">
+      <div class="tpl-hdr" data-tth="${i}">
+        <div><div class="tpl-title">${esc(t.title)}</div><div class="tpl-sub">${esc(t.sub)}</div></div>
+        <i class="ti ti-chevron-down" style="font-size:13px;color:var(--text3);transition:transform .2s;flex-shrink:0;"></i>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-text">${esc(t.text)}</div>
+        <div class="tpl-actions">
+          <button class="btn-p" data-copy="${i}"><i class="ti ti-copy" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Copy</button>
+          <button data-tailor="${i}"><i class="ti ti-wand" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Tailor for a role ↗</button>
+        </div>
+      </div>
+    </div>`).join('');
+  document.querySelectorAll('[data-tth]').forEach(el=>el.onclick=()=>{
+    const c=el.closest('.tpl-card'),was=c.classList.contains('open');
+    document.querySelectorAll('.tpl-card').forEach(x=>x.classList.remove('open'));
+    if(!was)c.classList.add('open');
+  });
+  document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async e=>{
+    e.stopPropagation();const t=TEMPLATES[+b.dataset.copy];
+    try{await navigator.clipboard.writeText(t.text);const o=b.innerHTML;b.innerHTML='<i class="ti ti-check" style="font-size:12px;vertical-align:-1px;margin-right:4px;"></i>Copied!';setTimeout(()=>b.innerHTML=o,1800);}catch{}
+  });
+  document.querySelectorAll('[data-tailor]').forEach(b=>b.onclick=e=>{
+    e.stopPropagation();const t=TEMPLATES[+b.dataset.tailor];
+    const open=state.roles.filter(r=>r.status!=='closed').map(r=>`${r.company} — ${r.title} (${r.location})`).join(', ');
+    sendPrompt(`Tailor the "${t.title}" outreach template for one specific role from my tracker. Open roles: ${open}. Ask me which role to tailor it for, then write the message with the right name, role title, location, and a fit angle specific to that team's mandate. For non-Google roles, reference Google L5 cleared status naturally as social proof.`);
+  });
+}
+
+/* ── Add role ── */
+$('#add-btn').onclick=async()=>{
+  const id='r'+Date.now();
+  state.roles.unshift({id,company:'Google',title:'New role',location:'Singapore',jdUrl:'',reqId:'',hm:'',recruiter:'',mutual:'',status:'identified',priority:'med',notes:'',nextAction:'',nextDate:''});
+  state.openId=id;state.editId=id;await save();render();
+  setTimeout(()=>{const c=document.querySelector('[data-id="'+id+'"]');if(c)c.scrollIntoView({behavior:'smooth',block:'center'});},60);
+};
+
+/* ── MCF Feed ── */
+function renderFeed(scored){
+  const box=$('#feed-cards');
+  if(!scored.length){box.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px;">No matching roles found.</div>';return;}
+  box.innerHTML=scored.slice(0,15).map(({job,score,isDream})=>{
+    const co=job.company||job.postedCompany?.name||'Unknown';
+    const title=job.title||'Unknown Role';
+    const mn=job.minSalary??job.salary?.minimum,mx=job.maxSalary??job.salary?.maximum;
+    const sal=mn?`$${mn.toLocaleString()}–$${mx?mx.toLocaleString():'?'}/mo`:'';
+    const pd=job.postedDate||job.metadata?.newPostingDate?.substring(0,10)||'';
+    const url=job.url||(job.uuid?`https://www.mycareersfuture.gov.sg/job/${job.uuid}`:'');
+    const cLow=co.toLowerCase();
+    let tco='Other';
+    if(cLow.includes('google'))tco='Google';
+    else if(cLow.includes('amazon')||cLow.includes('aws'))tco='Amazon';
+    else if(cLow.includes('meta')||cLow.includes('facebook'))tco='Meta';
+    else if(cLow.includes('bytedance')||cLow.includes('tiktok'))tco='ByteDance';
+    else if(cLow.includes('microsoft'))tco='Microsoft';
+    const lbl=isDream?'Dream':score>=20?'Strong':score>=15?'Good':'Match';
+    const bg=isDream?'var(--em-bg)':score>=20?'var(--violet-bg)':score>=15?'var(--sap-bg)':'var(--sl-bg)';
+    const fg=isDream?'var(--em)':score>=20?'var(--violet)':score>=15?'var(--sap)':'var(--sl)';
+    const note=`Score: ${score}.${isDream?' DREAM ROLE match.':''}${sal?' Salary: '+sal+'.':''}${pd?' Posted: '+pd+'.':''} From MCF feed.`;
+    return `<div class="fcard">
+      <div class="fcard-top">
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:13px;font-weight:500;margin-bottom:3px;">${isDream?'🌟 ':''}${esc(title)}</div>
+          <div style="font-size:12px;color:var(--text2);display:flex;gap:8px;flex-wrap:wrap;">
+            <span>${esc(co)}</span>${sal?`<span>${esc(sal)}</span>`:''}${pd?`<span>${esc(pd)}</span>`:''}
+          </div>
+        </div>
+        <span class="badge" style="background:${bg};color:${fg};flex-shrink:0;">${lbl}</span>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${url?`<a href="${esc(url)}" target="_blank" style="font-size:12px;padding:5px 10px;border:1px solid var(--gold-brd);border-radius:var(--r);color:var(--sap);"><i class="ti ti-external-link" style="font-size:11px;margin-right:3px;"></i>View</a>`:''}
+        <button class="fadd" data-t="${esc(title)}" data-co="${esc(tco)}" data-url="${esc(url)}" data-note="${esc(note)}" style="font-size:12px;padding:5px 10px;"><i class="ti ti-plus" style="font-size:12px;vertical-align:-1px;margin-right:3px;"></i>Add to tracker</button>
+      </div>
+    </div>`;
+  }).join('');
+  box.querySelectorAll('.fadd').forEach(b=>b.onclick=async()=>{
+    const id='mcf'+Date.now();
+    state.roles.unshift({id,company:b.dataset.co,title:b.dataset.t,location:'Singapore',jdUrl:b.dataset.url,reqId:'',hm:'',recruiter:'',mutual:'',status:'identified',priority:'med',notes:b.dataset.note,nextAction:'',nextDate:''});
+    state.openId=id;state.editId=id;await save();render();
+    b.innerHTML='<i class="ti ti-check" style="font-size:12px;vertical-align:-1px;margin-right:3px;"></i>Added';b.disabled=true;
+    setTimeout(()=>{const c=document.querySelector('[data-id="'+id+'"]');if(c)c.scrollIntoView({behavior:'smooth',block:'center'});},60);
+  });
+}
+
+async function fetchLive(){
+  const fs=$('#feed-status'),fb=$('#fetch-btn');
+  fs.textContent='Fetching from MyCareersFuture…';fb.disabled=true;
+  try{
+    const seen=new Set(),scored=[];
+    const res=await Promise.all(FEED_SEARCHES.map(({q,weight})=>
+      fetch(`https://api.mycareersfuture.gov.sg/v2/jobs?search=${encodeURIComponent(q)}&limit=40&sortBy=new_posting_date`,{headers:{'User-Agent':'Mozilla/5.0'}})
+        .then(r=>r.ok?r.json():Promise.reject(new Error('MCF '+r.status)))
+        .then(d=>({jobs:d.results||[],weight}))
+        .catch(()=>({jobs:[],weight}))
+    ));
+    for(const{jobs,weight}of res){
+      for(const job of jobs){
+        if(seen.has(job.uuid))continue;seen.add(job.uuid);
+        const s=scoreFeed(job,weight);if(s<0)continue;
+        scored.push({job,score:s,isDream:dreamMatch(job)!==null});
+      }
+    }
+    scored.sort((a,b)=>b.score-a.score);
+    if(!scored.length&&res.every(r=>!r.jobs.length))throw new TypeError('CORS');
+    fs.textContent=`${scored.length} matching roles · ${new Date().toLocaleTimeString()}`;
+    renderFeed(scored);
+  }catch(e){
+    fs.innerHTML=`<span style="color:var(--ruby);">Live fetch blocked by browser CORS.</span> Use <strong>Import digest</strong> — paste <code>state/latest-digest.json</code> from your job-alerts-public repo after the daily Action runs.`;
+  }finally{fb.disabled=false;}
+}
+
+function importDigest(){
+  const fs=$('#feed-status'),ta=$('#digest-paste');
+  try{
+    const d=JSON.parse(ta.value.trim());
+    if(!d.jobs||!Array.isArray(d.jobs))throw new Error('Expected { jobs: [...] }');
+    const scored=d.jobs.map(job=>({job,score:job.score||0,isDream:job.isDream||false})).sort((a,b)=>b.score-a.score);
+    const ts=d.generatedAt?new Date(d.generatedAt).toLocaleString():'unknown';
+    fs.textContent=`Imported ${scored.length} roles · Generated ${ts}`;
+    $('#feed-import-box').style.display='none';
+    renderFeed(scored);
+  }catch(e){fs.innerHTML=`<span style="color:var(--ruby);">Import error: ${esc(e.message)}</span>`;}
+}
+
+$('#fetch-btn').onclick=fetchLive;
+$('#import-btn').onclick=()=>{const b=$('#feed-import-box');b.style.display=b.style.display==='none'?'block':'none';};
+$('#digest-submit').onclick=importDigest;
+
+load();
+})();
+</script>
+</body>
+</html>
