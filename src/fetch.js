@@ -13,6 +13,7 @@ require('dotenv').config();
 
 const fs   = require('fs');
 const path = require('path');
+const { isHighPriority, linkedinLinks } = require('./linkedin');
 
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 
@@ -305,7 +306,13 @@ async function run() {
     console.log(`${i + 1}.${dream} ${title}`);
     console.log(`   ${company}`);
     console.log(`   ${salStr}/mo  ·  ${posted}  ·  score ${score}`);
-    console.log(`   ${link}\n`);
+    console.log(`   ${link}`);
+    if (isHighPriority(job, score)) {
+      const { recruiterUrl, postsUrl } = linkedinLinks(job);
+      console.log(`   👔 Recruiter: ${recruiterUrl}`);
+      console.log(`   🔍 LI Posts:  ${postsUrl}`);
+    }
+    console.log('');
   });
 
   console.log('─'.repeat(52));
