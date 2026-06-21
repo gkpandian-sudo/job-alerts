@@ -2,7 +2,7 @@ name: Daily Job Hunt
 
 on:
   schedule:
-    - cron: '0 0 * * 1-5'   # Mon–Fri 08:00 SGT (midnight UTC)
+    - cron: '0 22 * * 0-4'  # Mon–Fri 06:00 SGT (22:00 UTC Sun–Thu)
   workflow_dispatch:          # Manual trigger from GitHub UI
 
 permissions:
