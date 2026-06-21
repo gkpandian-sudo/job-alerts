@@ -386,23 +386,23 @@ function fmtDreamTelegram(j, dayNum) {
   );
 }
 
-// ── HTML dashboard builder (inlined from generate-dashboard.js) ─
+// ── HTML dashboard builder ──────────────────────────────────────
 const ROLE_META = {
-  TPM:      { label: 'TPM',            color: '#6366f1', bg: '#1e1b4b' },
-  SA:       { label: 'Solution Arch',  color: '#0ea5e9', bg: '#082f49' },
-  PRESALES: { label: 'PreSales',       color: '#10b981', bg: '#064e3b' },
-  NETWORK:  { label: 'Network',        color: '#f59e0b', bg: '#451a03' },
-  INFRA_BD: { label: 'Infra BD',       color: '#ec4899', bg: '#500724' },
-  INFRA:    { label: 'Infrastructure', color: '#8b5cf6', bg: '#2e1065' },
-  BD:       { label: 'Biz Dev',        color: '#f97316', bg: '#431407' },
-  OTHER:    { label: 'Other',          color: '#64748b', bg: '#1e293b' },
+  TPM:      { label: 'TPM',            color: '#4338ca', bg: '#ede9fe' },
+  SA:       { label: 'Solution Arch',  color: '#1d4ed8', bg: '#dbeafe' },
+  PRESALES: { label: 'PreSales',       color: '#065f46', bg: '#d1fae5' },
+  NETWORK:  { label: 'Network',        color: '#b45309', bg: '#fef3c7' },
+  INFRA_BD: { label: 'Infra BD',       color: '#be185d', bg: '#fce7f3' },
+  INFRA:    { label: 'Infrastructure', color: '#7c3aed', bg: '#f3e8ff' },
+  BD:       { label: 'Biz Dev',        color: '#c2410c', bg: '#ffedd5' },
+  OTHER:    { label: 'Other',          color: '#64748b', bg: '#f1f5f9' },
 };
 const TIER_META = {
-  hyperscaler: { label: '⚡ Hyperscaler', color: '#fbbf24' },
-  telco:       { label: '📡 Telco',       color: '#34d399' },
-  enterprise:  { label: '🏢 Enterprise',  color: '#60a5fa' },
-  tech:        { label: '🛡 Tech Co',     color: '#a78bfa' },
-  other:       { label: '🔷 Other',       color: '#94a3b8' },
+  hyperscaler: { label: '⚡ Hyperscaler', color: '#d97706' },
+  telco:       { label: '📡 Telco',       color: '#059669' },
+  enterprise:  { label: '🏢 Enterprise',  color: '#1d4ed8' },
+  tech:        { label: '🛡 Tech Co',     color: '#7c3aed' },
+  other:       { label: '🔷 Other',       color: '#64748b' },
 };
 
 function fmtSalary(min, max) {
@@ -411,10 +411,10 @@ function fmtSalary(min, max) {
   return null;
 }
 function salCls(min) {
-  if (!min)       return 'sal-unknown';
-  if (min >= 18000) return 'sal-premium';
-  if (min >= 12000) return 'sal-high';
-  if (min >= 8000)  return 'sal-mid';
+  if (!min)          return 'sal-unknown';
+  if (min >= 18000)  return 'sal-premium';
+  if (min >= 12000)  return 'sal-high';
+  if (min >= 8000)   return 'sal-mid';
   return 'sal-low';
 }
 function daysAgo(d) {
@@ -426,150 +426,184 @@ function daysAgo(d) {
 }
 
 function buildHtml(allJobs, generated) {
-  const mcfCount  = allJobs.filter(j => j.source === 'MCF'  || j.source === 'BOTH').length;
-  const liCount   = allJobs.filter(j => j.source === 'LinkedIn' || j.source === 'BOTH').length;
-  const bothCount = allJobs.filter(j => j.source === 'BOTH').length;
-  const roleCounts = {}; const tierCounts = {};
-  for (const j of allJobs) {
-    roleCounts[j.role] = (roleCounts[j.role]||0)+1;
-    tierCounts[j.tier] = (tierCounts[j.tier]||0)+1;
-  }
   const genStr = new Date(generated).toLocaleString('en-GB', {
     weekday:'short',day:'2-digit',month:'short',year:'numeric',
     hour:'2-digit',minute:'2-digit',timeZone:'Asia/Singapore',
   }) + ' SGT';
-
-  const cards = allJobs.map((j, i) => {
-    const rm=ROLE_META[j.role]||ROLE_META.OTHER, tm=TIER_META[j.tier]||TIER_META.other;
-    const sal=fmtSalary(j.salaryMin,j.salaryMax), posted=daysAgo(j.postedDate);
-    const srcBadge = j.source === 'BOTH'
-      ? `<span class="badge-src badge-mcf">MCF</span><span class="badge-src badge-li">in</span>`
-      : j.source === 'LinkedIn'
-        ? `<span class="badge-src badge-li">in LinkedIn</span>`
-        : `<span class="badge-src badge-mcf">MCF</span>`;
-    return `
-  <div class="card${j.isDream?' is-dream':''}" data-role="${j.role}" data-tier="${j.tier}" data-src="${j.source}" data-salmin="${j.salaryMin}" data-title="${escHtml(j.title)}" data-company="${escHtml(j.company)}">
-    <div class="card-header">
-      <span class="badge-role" style="background:${rm.bg};color:${rm.color}">${rm.label}</span>
-      <span class="badge-tier" style="color:${tm.color}">${tm.label}</span>
-      ${j.isDream?'<span class="badge-dream">⭐ Dream</span>':''}
-      ${srcBadge}
-      <span class="score-pill">score ${j.score}</span>
-    </div>
-    <div class="card-title">${escHtml(j.title)}</div>
-    <div class="card-company">${escHtml(j.company)}</div>
-    <div class="card-footer">
-      <span class="salary ${salCls(j.salaryMin)}">${sal||(j.source==='LinkedIn'?'See on LinkedIn':'Not stated')}</span>
-      <div class="card-meta">${posted?`<span class="posted">${posted}</span>`:''}<span class="rank-num">#${i+1}</span></div>
-    </div>
-    <div class="card-links">
-      <a class="card-link" href="${escHtml(j.url)}" target="_blank" rel="noopener">${j.source==='LinkedIn'?'View on LinkedIn →':'View on MCF →'}</a>${j.urlAlt?`<a class="card-link card-link-li" href="${escHtml(j.urlAlt)}" target="_blank" rel="noopener">LinkedIn →</a>`:''}
-    </div>
-  </div>`;
-  }).join('\n');
-
-  const roleChips = Object.entries(roleCounts).sort((a,b)=>b[1]-a[1]).map(([r,c])=>{
-    const m=ROLE_META[r]||ROLE_META.OTHER;
-    return `<button class="chip" data-filter="role" data-value="${r}" style="--chip-color:${m.color}">${m.label} <span class="chip-count">${c}</span></button>`;
-  }).join('');
-  const tierChips = Object.entries(tierCounts).sort((a,b)=>b[1]-a[1]).map(([t,c])=>{
-    const m=TIER_META[t]||TIER_META.other;
-    return `<button class="chip" data-filter="tier" data-value="${t}" style="--chip-color:${m.color}">${m.label} <span class="chip-count">${c}</span></button>`;
-  }).join('');
-  const statsHtml = Object.entries(ROLE_META).filter(([r])=>roleCounts[r]).map(([r,m])=>`<div class="stat"><span class="stat-num" style="color:${m.color}">${roleCounts[r]}</span><span class="stat-lbl">${m.label}</span></div>`).join('<div class="stat-sep"></div>');
-
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SG Jobs — ${genStr}</title>
+  const cardData = allJobs.map((j, i) => ({
+    title:   j.title,   company: j.company, role:    j.role,
+    tier:    j.tier,    src:     j.source,  salmin:  j.salaryMin || 0,
+    salCls:  salCls(j.salaryMin),
+    salText: fmtSalary(j.salaryMin, j.salaryMax) || (j.source !== 'MCF' ? 'See on LinkedIn' : 'Not stated'),
+    posted:  daysAgo(j.postedDate) || '',
+    isDream: j.isDream || false,  score: j.score,  rank: i + 1,
+    liUrl:   j.source === 'LinkedIn' ? j.url : (j.source === 'BOTH' ? (j.urlAlt || j.url) : null),
+    mcfUrl:  j.source === 'MCF'      ? j.url : (j.source === 'BOTH' ? j.url             : null),
+  }));
+  const safeJson = JSON.stringify(cardData).replace(/<\/script>/gi, '<\\/script>');
+  return `<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veralevel Jobs — ${genStr}</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#070b14;color:#e2e8f0;min-height:100vh;padding:0 0 4rem}
-.topbar{background:#0d1520;border-bottom:1px solid #1e2d40;padding:.85rem 1.5rem;position:sticky;top:0;z-index:100}
-.topbar-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
-.logo{font-size:1.05rem;font-weight:800;color:#f8fafc;white-space:nowrap}.logo span{color:#38bdf8}
-.meta-pills{display:flex;gap:.4rem;flex-wrap:wrap}
-.meta-pill{background:#152133;border:1px solid #1e3a5f;border-radius:999px;padding:.18rem .6rem;font-size:.7rem;color:#94a3b8}
-.meta-pill.hl{border-color:#0ea5e9;color:#38bdf8}.meta-pill.li{border-color:#0077b5;color:#60a5fa}.meta-pill.mcf{border-color:#1d4ed8;color:#93c5fd}
-.search-wrap{margin-left:auto}
-#searchBox{background:#152133;border:1px solid #1e3a5f;border-radius:.5rem;padding:.4rem .75rem;color:#e2e8f0;font-size:.82rem;width:210px;outline:none}
-#searchBox:focus{border-color:#38bdf8}
-.filters{max-width:1400px;margin:1rem auto .25rem;padding:0 1.5rem}
-.filter-row{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin-bottom:.5rem}
-.filter-label{font-size:.68rem;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.06em;min-width:3.5rem}
-.chip{background:#0d1520;border:1px solid #1e2d40;border-radius:999px;padding:.22rem .6rem;font-size:.72rem;color:#94a3b8;cursor:pointer;transition:all .12s;white-space:nowrap}
-.chip:hover,.chip.active{border-color:var(--chip-color,#38bdf8);color:var(--chip-color,#38bdf8)}
-.chip.active{background:color-mix(in srgb,var(--chip-color,#38bdf8) 12%,transparent);font-weight:700}
-.chip-count{opacity:.55;font-size:.65rem}.chip-all{--chip-color:#f8fafc}
-.sal-filter{display:flex;align-items:center;gap:.5rem;font-size:.75rem}
-.sal-filter label{color:#64748b}#salSlider{width:110px;accent-color:#38bdf8}#salVal{color:#38bdf8;font-weight:700;min-width:4rem}
-.stats-bar{max-width:1400px;margin:.6rem auto;padding:0 1.5rem}
-.stats-inner{background:#0d1520;border:1px solid #1e2d40;border-radius:.5rem;padding:.55rem 1rem;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
-.stat{display:flex;flex-direction:column;align-items:center;min-width:2.5rem}
-.stat-num{font-size:1rem;font-weight:700;color:#f8fafc}.stat-lbl{font-size:.6rem;color:#64748b;text-transform:uppercase;letter-spacing:.04em}
-.stat-sep{width:1px;height:1.75rem;background:#1e2d40}
-.grid{max-width:1400px;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:.9rem}
-.no-results{text-align:center;padding:3rem;color:#475569;font-size:.9rem}
-.card{background:#0d1520;border:1px solid #1e2d40;border-radius:.85rem;padding:1rem 1.1rem .9rem;display:flex;flex-direction:column;gap:.45rem;transition:border-color .12s,transform .1s}
-.card:hover{border-color:#1e3a5f;transform:translateY(-1px)}
-.card.is-dream{border-color:#b45309;background:linear-gradient(135deg,#0d1520 75%,#1c1508)}.card.is-dream:hover{border-color:#d97706}
+body{background:#eef2f7;font-family:'DM Sans',system-ui,sans-serif;color:#0f172a;-webkit-font-smoothing:antialiased;min-height:100vh;padding-bottom:60px}
+input[type=range]{accent-color:#0f2d5c;cursor:pointer}
+::-webkit-scrollbar{height:3px;width:3px}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:99px}
+header{position:sticky;top:0;z-index:200;background:#0f2d5c;box-shadow:0 2px 20px rgba(0,0,0,.28)}
+.hdr{max-width:1440px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:12px}
+.logo-title{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.4px;flex-shrink:0}
+.logo-title span{color:#7dd3fc}
+.logo-sub{font-size:10px;color:#93c5fd;font-weight:500;margin-top:1px;display:none}
+.srch{flex:1;position:relative;min-width:0}
+.srch svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.4}
+#searchBox{width:100%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px 8px 32px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:border-color .15s}
+#searchBox:focus{border-color:rgba(255,255,255,.5)}
+#searchBox::placeholder{color:rgba(255,255,255,.4)}
+#filter-btn{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.25);border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;white-space:nowrap}
+#filter-btn.open{background:rgba(255,255,255,.2)}
+.fdot{background:#ef4444;color:#fff;border-radius:99px;padding:1px 5px;font-size:10px;font-weight:700;display:none;margin-left:2px}
+.fdot.on{display:inline}
+@media(min-width:700px){#filter-panel{display:block!important}#filter-btn{display:none!important}.logo-sub{display:block!important}}
+#filter-panel{background:#fff;border-bottom:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,.04);display:none}
+#filter-panel.open{display:block}
+.fp{max-width:1440px;margin:0 auto;padding:10px 16px 14px;display:flex;flex-direction:column;gap:9px}
+.frow{display:flex;align-items:center;gap:8px}
+.flbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;min-width:32px;flex-shrink:0}
+.chips{display:flex;gap:5px;flex-wrap:wrap;flex:1;min-width:0}
+@media(max-width:699px){.chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}}
+@media(max-width:699px){.chips::-webkit-scrollbar{display:none}}
+.chip{background:#fff;color:#334155;border:1.5px solid #dde4ef;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:inherit;line-height:1.4;transition:all .1s}
+.chip.active{background:#0f2d5c;color:#fff;border-color:#0f2d5c;font-weight:700}
+.chip:hover:not(.active){border-color:#94a3b8}
+.ccount{opacity:.6;font-size:10px;margin-left:2px}
+.sal-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#salSlider{width:130px;flex-shrink:0}
+#salVal{font-size:13px;font-weight:700;color:#0f2d5c;min-width:80px}
+#stats-bar{max-width:1440px;margin:10px auto 0;padding:0 16px}
+.si{background:#fff;border:1px solid #dde4ef;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sc{font-size:22px;font-weight:800;color:#0f2d5c;line-height:1;flex-shrink:0}
+.sof{font-size:12px;color:#64748b;flex-shrink:0;margin-right:4px}
+.ssep{width:1px;height:18px;background:#e2e8f0;flex-shrink:0}
+.schips{display:flex;gap:5px;flex-wrap:wrap}
+.sch{display:inline-flex;align-items:center;gap:4px;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:600;white-space:nowrap}
+#grid{max-width:1440px;margin:10px auto 0;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;transition:box-shadow .15s,border-color .15s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:#c7d2e0}
+.card.dream{background:linear-gradient(135deg,#fff 0%,#fffbeb 100%);border:1px solid #fcd34d;border-left:3px solid #d97706}
 .card.hidden{display:none!important}
-.card-header{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap}
-.badge-role{border-radius:999px;padding:.12rem .5rem;font-size:.64rem;font-weight:700}
-.badge-tier{font-size:.64rem;font-weight:600}.badge-dream{background:#78350f;color:#fde68a;border-radius:999px;padding:.1rem .45rem;font-size:.64rem;font-weight:700}
-.badge-src{border-radius:999px;padding:.1rem .45rem;font-size:.63rem;font-weight:700}
-.badge-li{background:#0a3d6b;color:#60a5fa;border:1px solid #0077b5}.badge-mcf{background:#0a2d5e;color:#93c5fd;border:1px solid #1d4ed8}
-.score-pill{margin-left:auto;font-size:.62rem;color:#334155}
-.card-links{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.2rem}.card-link-li{border-color:#0e4a7a;color:#60a5fa}.card-link-li:hover{background:#0077b520;border-color:#0077b5}
-.card-title{font-size:.88rem;font-weight:700;color:#f1f5f9;line-height:1.35}.card-company{font-size:.75rem;color:#64748b;font-weight:500}
-.card-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:auto}
-.salary{font-size:.76rem;font-weight:700}
-.sal-premium{color:#4ade80}.sal-high{color:#34d399}.sal-mid{color:#60a5fa}.sal-low,.sal-unknown{color:#475569}
-.card-meta{display:flex;gap:.4rem;align-items:center}.posted{font-size:.67rem;color:#475569}.rank-num{font-size:.62rem;color:#1e293b}
-.card-link{display:inline-block;margin-top:.2rem;color:#38bdf8;font-size:.72rem;text-decoration:none;font-weight:600;border:1px solid #1e3a5f;border-radius:.4rem;padding:.22rem .55rem;align-self:flex-start;transition:all .1s}
-.card-link:hover{background:#0ea5e920;border-color:#0ea5e9}
-footer{max-width:1400px;margin:2rem auto 0;padding:0 1.5rem;font-size:.7rem;color:#334155}
+.chdr{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.brole{border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.btier{font-size:11px;font-weight:600;white-space:nowrap;flex-shrink:0}
+.bsrc{border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0}
+.src-li{background:#dbeafe;color:#1d4ed8}
+.src-mcf{background:#dcfce7;color:#15803d}
+.src-both{background:#f3e8ff;color:#7c3aed}
+.score-txt{margin-left:auto;font-size:10px;color:#cbd5e1;flex-shrink:0;font-weight:500}
+.ctitle{font-size:14px;font-weight:700;color:#0f172a;line-height:1.4;margin-bottom:3px}
+.cco{font-size:12px;color:#64748b;font-weight:500;margin-bottom:10px}
+.cfooter{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;margin-bottom:11px}
+.salary{font-size:13px}
+.sal-premium{color:#16a34a;font-weight:700}
+.sal-high{color:#059669;font-weight:700}
+.sal-mid{color:#2563eb;font-weight:700}
+.sal-low,.sal-unknown{color:#94a3b8;font-weight:400}
+.cmeta{font-size:11px;color:#94a3b8;white-space:nowrap;flex-shrink:0}
+.cbtns{display:flex;gap:6px;flex-wrap:wrap}
+.btn-li,.btn-mcf{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;text-decoration:none;flex:1;font-family:inherit;white-space:nowrap;min-width:0;transition:opacity .1s}
+.btn-li{background:#0a66c2;color:#fff}
+.btn-mcf{background:#0f6b3c;color:#fff}
+.btn-li:hover,.btn-mcf:hover{opacity:.85}
+#no-results{display:none;text-align:center;padding:60px 20px;max-width:1440px;margin:0 auto}
+#no-results.show{display:block}
+.nr-icon{font-size:36px;margin-bottom:10px}
+.nr-title{font-size:16px;font-weight:700;color:#475569;margin-bottom:6px}
+.nr-sub{font-size:13px;color:#94a3b8}
+footer{max-width:1440px;margin:24px auto 0;padding:0 16px;font-size:11px;color:#94a3b8}
 </style></head><body>
-<div class="topbar"><div class="topbar-inner">
-  <div class="logo">🔍 SG Jobs <span>Dashboard</span></div>
-  <div class="meta-pills">
-    <span class="meta-pill hl">${allJobs.length} curated roles</span>
-    <span class="meta-pill li">in LinkedIn: ${liCount}</span>
-    <span class="meta-pill mcf">MCF: ${mcfCount}</span>
-    ${bothCount?`<span class="meta-pill" style="border-color:#7c3aed;color:#a78bfa">Both: ${bothCount}</span>`:''}
-    <span class="meta-pill">$${MIN_SALARY.toLocaleString()}+/mo</span>
-    <span class="meta-pill">${genStr}</span>
+<header><div class="hdr">
+  <div style="flex-shrink:0">
+    <div class="logo-title">Veralevel <span>Jobs</span></div>
+    <div class="logo-sub">${allJobs.length} roles &middot; ${genStr}</div>
   </div>
-  <div class="search-wrap"><input id="searchBox" type="search" placeholder="Search title or company…" autocomplete="off"></div>
-</div></div>
-<div class="filters">
-  <div class="filter-row"><span class="filter-label">Role</span><button class="chip chip-all active" data-filter="role" data-value="all">All</button>${roleChips}</div>
-  <div class="filter-row"><span class="filter-label">Tier</span><button class="chip chip-all active" data-filter="tier" data-value="all">All</button>${tierChips}</div>
-  <div class="filter-row">
-    <span class="filter-label">Source</span>
-    <button class="chip chip-all active" data-filter="src" data-value="all" style="--chip-color:#f8fafc">All</button>
-    <button class="chip" data-filter="src" data-value="MCF" style="--chip-color:#93c5fd">MCF (${mcfCount})</button>
-    <button class="chip" data-filter="src" data-value="LinkedIn" style="--chip-color:#60a5fa">LinkedIn (${liCount})</button>
-    ${bothCount?`<button class="chip" data-filter="src" data-value="BOTH" style="--chip-color:#a78bfa">Both MCF+in (${bothCount})</button>`:''}
-    <button class="chip" data-filter="dream" data-value="dream" style="--chip-color:#fbbf24">⭐ Dream only</button>
+  <div class="srch">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke="white" stroke-width="2"/><path d="M13.5 13.5l3 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    <input type="search" id="searchBox" placeholder="Search title or company&hellip;" autocomplete="off">
   </div>
-  <div class="filter-row"><span class="filter-label">Salary</span>
-    <div class="sal-filter"><label for="salSlider">Min</label><input id="salSlider" type="range" min="0" max="25000" step="1000" value="0"><span id="salVal">Any</span></div>
+  <button id="filter-btn" onclick="toggleFilters()">
+    <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3 5a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm3 5a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+    Filters<span class="fdot" id="fdot"></span>
+  </button>
+</div></header>
+<div id="filter-panel">
+  <div class="fp">
+    <div class="frow"><span class="flbl">Role</span><div class="chips" id="role-chips"></div></div>
+    <div class="frow"><span class="flbl">Tier</span><div class="chips" id="tier-chips"></div></div>
+    <div class="frow"><span class="flbl">Src</span><div class="chips" id="src-chips"></div></div>
+    <div class="frow sal-row"><span class="flbl">Sal</span>
+      <input type="range" id="salSlider" min="0" max="25000" step="1000" value="0">
+      <span id="salVal">Any salary</span>
+    </div>
   </div>
 </div>
-<div class="stats-bar"><div class="stats-inner">
-  <div class="stat"><span class="stat-num" id="shownNum">${allJobs.length}</span><span class="stat-lbl">Shown</span></div>
-  <div class="stat-sep"></div>${statsHtml}
-  <div class="stat-sep"></div>
-  ${Object.entries(TIER_META).filter(([t])=>tierCounts[t]).map(([t,m])=>`<div class="stat"><span class="stat-num" style="color:${m.color}">${tierCounts[t]}</span><span class="stat-lbl">${m.label.replace(/^[^ ]+ /,'')}</span></div>`).join('')}
+<div id="stats-bar"><div class="si">
+  <span class="sc" id="sc">${allJobs.length}</span>
+  <span class="sof" id="sof">of ${allJobs.length}</span>
+  <div class="ssep"></div>
+  <div class="schips" id="schips"></div>
 </div></div>
-<div class="grid" id="grid">${cards}</div>
-<div class="no-results hidden" id="noResults">No jobs match your current filters.</div>
-<footer>Sources: MyCareersFuture.gov.sg &amp; LinkedIn · Pandian · Refresh: <code>node job-alerts/daily-hunter.js</code> · ${genStr}</footer>
+<div id="grid"></div>
+<div id="no-results"><div class="nr-icon">&#x1F50D;</div><div class="nr-title">No matching jobs</div><div class="nr-sub">Try adjusting your filters or search term</div></div>
+<footer>Sources: MyCareersFuture.gov.sg &amp; LinkedIn &middot; Pandian &middot; ${genStr}</footer>
 <script>
-const grid=document.getElementById('grid'),cards=Array.from(grid.querySelectorAll('.card')),noResults=document.getElementById('noResults'),shownNum=document.getElementById('shownNum'),salSlider=document.getElementById('salSlider'),salVal=document.getElementById('salVal'),searchBox=document.getElementById('searchBox');
-let filters={role:'all',tier:'all',src:'all',dream:false},minSal=0,searchQ='';
-function apply(){let n=0;for(const c of cards){const src=c.dataset.src;const srcOk=filters.src==='all'||(filters.src==='BOTH'?src==='BOTH':(src===filters.src||src==='BOTH'));const ok=srcOk&&(filters.role==='all'||c.dataset.role===filters.role)&&(filters.tier==='all'||c.dataset.tier===filters.tier)&&(!filters.dream||c.classList.contains('is-dream'))&&(minSal===0||!c.dataset.salmin||parseInt(c.dataset.salmin)||0>=minSal)&&(!searchQ||c.dataset.title.toLowerCase().includes(searchQ)||c.dataset.company.toLowerCase().includes(searchQ));c.classList.toggle('hidden',!ok);if(ok)n++;}shownNum.textContent=n;noResults.classList.toggle('hidden',n>0);}
-document.querySelectorAll('.chip').forEach(chip=>{chip.addEventListener('click',()=>{const f=chip.dataset.filter,v=chip.dataset.value;if(f==='dream'){filters.dream=!filters.dream;chip.classList.toggle('active',filters.dream);}else{filters[f]=v;document.querySelectorAll(\`.chip[data-filter="\${f}"]\`).forEach(c=>c.classList.remove('active'));chip.classList.add('active');}apply();});});
-salSlider.addEventListener('input',()=>{minSal=parseInt(salSlider.value);salVal.textContent=minSal?'$'+minSal.toLocaleString()+'/mo':'Any';apply();});
-searchBox.addEventListener('input',()=>{searchQ=searchBox.value.toLowerCase().trim();apply();});
+var JOBS=${safeJson};
+var TOTAL=JOBS.length;
+var RM={TPM:{l:'TPM',c:'#4338ca',b:'#ede9fe'},SA:{l:'Solution Arch',c:'#1d4ed8',b:'#dbeafe'},PRESALES:{l:'PreSales',c:'#065f46',b:'#d1fae5'},NETWORK:{l:'Network',c:'#b45309',b:'#fef3c7'},INFRA_BD:{l:'Infra BD',c:'#be185d',b:'#fce7f3'},INFRA:{l:'Infrastructure',c:'#7c3aed',b:'#f3e8ff'},BD:{l:'Biz Dev',c:'#c2410c',b:'#ffedd5'},OTHER:{l:'Other',c:'#64748b',b:'#f1f5f9'}};
+var TM={hyperscaler:{l:'Hyperscaler',c:'#d97706'},telco:{l:'Telco',c:'#059669'},enterprise:{l:'Enterprise',c:'#1d4ed8'},tech:{l:'Tech Co',c:'#7c3aed'},other:{l:'Other',c:'#64748b'}};
+var ROLES=[{v:'all',l:'All'},{v:'TPM',l:'TPM'},{v:'SA',l:'Solution Arch'},{v:'NETWORK',l:'Network'},{v:'PRESALES',l:'PreSales'},{v:'BD',l:'Biz Dev'},{v:'INFRA_BD',l:'Infra BD'},{v:'INFRA',l:'Infrastructure'}];
+var TIERS=[{v:'all',l:'All'},{v:'hyperscaler',l:'Hyperscaler'},{v:'telco',l:'Telco'},{v:'enterprise',l:'Enterprise'},{v:'tech',l:'Tech Co'},{v:'other',l:'Other'}];
+var SRCS=[{v:'all',l:'All Sources',f:'src'},{v:'LinkedIn',l:'LinkedIn',f:'src'},{v:'MCF',l:'MCF',f:'src'},{v:'BOTH',l:'in + MCF',f:'src'},{v:'dream',l:'Dream',f:'dream'}];
+var STATS=[{l:'TPM',r:'TPM',c:'#4338ca',b:'#ede9fe'},{l:'Sol.Arch',r:'SA',c:'#1d4ed8',b:'#dbeafe'},{l:'PreSales',r:'PRESALES',c:'#065f46',b:'#d1fae5'},{l:'Network',r:'NETWORK',c:'#b45309',b:'#fef3c7'},{l:'Infra BD',r:'INFRA_BD',c:'#be185d',b:'#fce7f3'},{l:'Infra',r:'INFRA',c:'#7c3aed',b:'#f3e8ff'},{l:'Biz Dev',r:'BD',c:'#c2410c',b:'#ffedd5'}];
+var F={role:'all',tier:'all',src:'all',dream:false},minSal=0,srch='';
+function eh(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function card(j){
+  var rm=RM[j.role]||RM.OTHER,tm=TM[j.tier]||TM.other;
+  var sl=j.src==='BOTH'?'in+MCF':j.src,sc=j.src==='BOTH'?'src-both':j.src==='MCF'?'src-mcf':'src-li';
+  var b='';
+  if(j.liUrl)b+='<a class="btn-li" href="'+eh(j.liUrl)+'" target="_blank" rel="noopener">Apply on LinkedIn →</a>';
+  if(j.mcfUrl)b+='<a class="btn-mcf" href="'+eh(j.mcfUrl)+'" target="_blank" rel="noopener">Apply on MCF →</a>';
+  var m=[j.posted,j.rank?'#'+j.rank:''].filter(Boolean).join(' · ');
+  return '<div class="card'+(j.isDream?' dream':'')+'" data-role="'+j.role+'" data-tier="'+j.tier+'" data-src="'+j.src+'" data-salmin="'+j.salmin+'">'
+    +'<div class="chdr"><span class="brole" style="background:'+rm.b+';color:'+rm.c+'">'+rm.l+'</span><span class="btier" style="color:'+tm.c+'">'+tm.l+'</span><span class="bsrc '+sc+'">'+sl+'</span><span class="score-txt">Score '+j.score+'</span></div>'
+    +'<div class="ctitle">'+eh(j.title)+'</div>'
+    +'<div class="cco">'+eh(j.company)+'</div>'
+    +'<div class="cfooter"><span class="salary '+j.salCls+'">'+eh(j.salText)+'</span><span class="cmeta">'+m+'</span></div>'
+    +'<div class="cbtns">'+b+'</div></div>';
+}
+function render(){
+  var q=srch,filtered=JOBS.filter(function(j){
+    var srcOk=F.src==='all'||(F.src==='BOTH'?j.src==='BOTH':(j.src===F.src||j.src==='BOTH'));
+    return srcOk&&(F.role==='all'||j.role===F.role)&&(F.tier==='all'||j.tier===F.tier)&&(!F.dream||j.isDream)&&(minSal===0||j.salmin>=minSal)&&(!q||j.title.toLowerCase().includes(q)||j.company.toLowerCase().includes(q));
+  });
+  document.getElementById('grid').innerHTML=filtered.map(card).join('');
+  document.getElementById('sc').textContent=filtered.length;
+  document.getElementById('sof').textContent='of '+TOTAL;
+  document.getElementById('no-results').className=filtered.length===0?'show':'';
+  document.getElementById('schips').innerHTML=STATS.map(function(s){var n=filtered.filter(function(j){return j.role===s.r;}).length;return n?'<span class="sch" style="background:'+s.b+';color:'+s.c+'">'+s.l+' <strong>'+n+'</strong></span>':'';}).join('');
+  var ac=(F.role!=='all'?1:0)+(F.tier!=='all'?1:0)+(F.src!=='all'?1:0)+(F.dream?1:0)+(minSal>0?1:0);
+  var fd=document.getElementById('fdot');fd.textContent=ac;fd.className='fdot'+(ac?' on':'');
+}
+function chips(){
+  document.getElementById('role-chips').innerHTML=ROLES.map(function(c){return '<button class="chip'+(F.role===c.v?' active':'')+'" data-f="role" data-v="'+c.v+'">'+c.l+(c.v==='all'?'':' <span class="ccount">'+JOBS.filter(function(j){return j.role===c.v;}).length+'</span>')+'</button>';}).join('');
+  document.getElementById('tier-chips').innerHTML=TIERS.map(function(c){return '<button class="chip'+(F.tier===c.v?' active':'')+'" data-f="tier" data-v="'+c.v+'">'+c.l+(c.v==='all'?'':' <span class="ccount">'+JOBS.filter(function(j){return j.tier===c.v;}).length+'</span>')+'</button>';}).join('');
+  document.getElementById('src-chips').innerHTML=SRCS.map(function(c){var a=c.f==='dream'?F.dream:F.src===c.v;return '<button class="chip'+(a?' active':'')+'" data-f="'+c.f+'" data-v="'+c.v+'">'+c.l+'</button>';}).join('');
+  document.querySelectorAll('.chip').forEach(function(e){e.addEventListener('click',function(){var f=e.dataset.f,v=e.dataset.v;if(f==='dream'){F.dream=!F.dream;}else{F[f]=v;}chips();render();});});
+}
+function toggleFilters(){var p=document.getElementById('filter-panel'),b=document.getElementById('filter-btn');p.classList.toggle('open');b.classList.toggle('open',p.classList.contains('open'));}
+document.getElementById('salSlider').addEventListener('input',function(){minSal=parseInt(this.value)||0;document.getElementById('salVal').textContent=minSal?'$'+minSal.toLocaleString()+'/mo+':'Any salary';render();});
+document.getElementById('searchBox').addEventListener('input',function(){srch=this.value.toLowerCase().trim();render();});
+if(window.innerWidth>=700)document.getElementById('filter-panel').classList.add('open');
+chips();render();
 </script></body></html>`;
 }
 
