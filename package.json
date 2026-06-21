@@ -6,7 +6,8 @@
   "scripts": {
     "hunt": "node daily-hunter.js",
     "dashboard": "node generate-dashboard.js",
-    "start": "node src/hunter.js"
+    "start": "node src/hunter.js",
+    "test": "node --test tests/**/*.test.js"
   },
   "dependencies": {
     "dotenv": "^16.6.1"
