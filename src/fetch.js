@@ -130,17 +130,24 @@ function saveWebOutput(top, totalMatches, meta) {
       totalMatches,
       showing: top.length,
     },
-    jobs: top.map(({ job, score }, i) => ({
-      rank: i + 1,
-      score,
-      isDream: isDream(job),
-      title:   job.title || 'Unknown Role',
-      company: job.postedCompany?.name || 'Unknown Company',
-      salaryMin: job.salary?.minimum || null,
-      salaryMax: job.salary?.maximum || null,
-      postedDate: job.metadata?.newPostingDate?.substring(0, 10) || null,
-      url: `https://www.mycareersfuture.gov.sg/job/${job.uuid}`,
-    })),
+    jobs: top.map(({ job, score }, i) => {
+      const highPri = isHighPriority(job, score);
+      const links   = highPri ? linkedinLinks(job) : null;
+      return {
+        rank: i + 1,
+        score,
+        isDream:      isDream(job),
+        isHighPriority: highPri,
+        recruiterUrl: links?.recruiterUrl || null,
+        postsUrl:     links?.postsUrl     || null,
+        title:   job.title || 'Unknown Role',
+        company: job.postedCompany?.name || 'Unknown Company',
+        salaryMin: job.salary?.minimum || null,
+        salaryMax: job.salary?.maximum || null,
+        postedDate: job.metadata?.newPostingDate?.substring(0, 10) || null,
+        url: `https://www.mycareersfuture.gov.sg/job/${job.uuid}`,
+      };
+    }),
   };
 
   fs.writeFileSync(path.join(PUBLIC_DIR, 'jobs.json'), JSON.stringify(payload, null, 2));
@@ -164,6 +171,12 @@ function buildHtml(payload) {
     const dreamBadge = j.isDream
       ? `<span class="badge dream">⭐ Dream</span>` : '';
     const salClass = j.salaryMin >= 20000 ? 'sal-high' : j.salaryMin >= 15000 ? 'sal-mid' : 'sal-low';
+    const liClass = j.isDream ? ' li-dream' : '';
+    const liButtons = j.recruiterUrl ? `
+      <div class="li-links">
+        <a class="li-btn${liClass}" href="${j.recruiterUrl}" target="_blank" rel="noopener">👔 Find Recruiter</a>
+        <a class="li-btn${liClass}" href="${j.postsUrl}" target="_blank" rel="noopener">🔍 LinkedIn Posts</a>
+      </div>` : '';
     return `
     <a class="card${j.isDream ? ' is-dream' : ''}" href="${j.url}" target="_blank" rel="noopener">
       <div class="card-top">
@@ -177,6 +190,7 @@ function buildHtml(payload) {
         <span class="salary ${salClass}">${sal}</span>
         ${j.postedDate ? `<span class="posted">${j.postedDate}</span>` : ''}
       </div>
+      ${liButtons}
     </a>`;
   }).join('\n');
 
@@ -212,6 +226,11 @@ function buildHtml(payload) {
   .sal-low  { color: #94a3b8; }
   .posted { color: #64748b; }
   footer { max-width: 860px; margin: 2rem auto 0; font-size: .75rem; color: #475569; }
+  .li-links { display: flex; gap: .4rem; margin-top: .65rem; flex-wrap: wrap; }
+  .li-btn { font-size: .7rem; padding: .2rem .55rem; border-radius: .35rem; border: 1px solid #334155; color: #60a5fa; text-decoration: none; background: #0f172a; transition: border-color .15s, color .15s; white-space: nowrap; }
+  .li-btn:hover { border-color: #60a5fa; color: #93c5fd; }
+  .li-btn.li-dream { border-color: #78350f; color: #fbbf24; background: #1c1510; }
+  .li-btn.li-dream:hover { border-color: #f59e0b; color: #fde68a; }
 </style>
 </head>
 <body>
