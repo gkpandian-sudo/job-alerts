@@ -8,6 +8,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
+const { isHighPriority, linkedinLinks } = require('./linkedin');
 
 const TELEGRAM_TOKEN   = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -133,7 +134,7 @@ function isRecent(job) {
 }
 
 // ── Format regular job for digest ────────────────────────────
-function formatJob(job, rank, isDream) {
+function formatJob(job, rank, isDream, score = 0) {
   const title   = job.title || 'Unknown Role';
   const company = job.postedCompany?.name || 'Unknown Company';
   const minSal  = job.salary?.minimum;
@@ -151,6 +152,10 @@ function formatJob(job, rank, isDream) {
   msg += `💰 ${salStr}\n`;
   if (posted) msg += `📅 ${posted}\n`;
   msg += `🔗 [View & Apply](${link})`;
+  if (isHighPriority(job, score)) {
+    const { recruiterUrl, postsUrl } = linkedinLinks(job);
+    msg += `\n👔 [Find Recruiter](${recruiterUrl}) · 🔍 [LinkedIn Posts](${postsUrl})`;
+  }
   return msg;
 }
 
@@ -270,7 +275,7 @@ async function run() {
       let msg = `🔍 *${top.length} fresh roles — last 24h*\n`;
       msg += `📅 ${prettyDate}\n`;
       msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-      msg += top.map(({ job }, i) => formatJob(job, i, isDreamRole(job))).join('\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n');
+      msg += top.map(({ job, score }, i) => formatJob(job, i, isDreamRole(job), score)).join('\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n');
       msg += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_MyCareersFuture.gov.sg · $${MIN_SALARY.toLocaleString()}+/mo · last 24h only_`;
       await sendTelegram(msg);
 
