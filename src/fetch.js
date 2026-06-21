@@ -349,7 +349,7 @@ async function run() {
     const nums = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
     let msg = `🔍 *${top.length} roles — on-demand*\n📅 ${dateStr} ${timeStr} SGT\n`;
     msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-    msg += top.map(({ job }, i) => {
+    msg += top.map(({ job, score }, i) => {
       const title   = job.title || 'Unknown';
       const company = job.postedCompany?.name || '';
       const minSal  = job.salary?.minimum;
@@ -358,7 +358,12 @@ async function run() {
       const posted  = job.metadata?.newPostingDate?.substring(0, 10) || '';
       const link    = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
       const dreamStr = isDream(job) ? `🌟 *DREAM ROLE*\n` : '';
-      return `${dreamStr}${nums[i] || i+1} *${title}*\n🏢 ${company}\n💰 ${salStr}\n${posted ? `📅 ${posted}\n` : ''}🔗 [Apply](${link})`;
+      let entry = `${dreamStr}${nums[i] || i+1} *${title}*\n🏢 ${company}\n💰 ${salStr}\n${posted ? `📅 ${posted}\n` : ''}🔗 [Apply](${link})`;
+      if (isHighPriority(job, score)) {
+        const { recruiterUrl, postsUrl } = linkedinLinks(job);
+        entry += `\n👔 [Find Recruiter](${recruiterUrl}) · 🔍 [LinkedIn Posts](${postsUrl})`;
+      }
+      return entry;
     }).join('\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n');
     msg += `\n\n_$${MIN_SALARY.toLocaleString()}+/mo · ${recencyLabel} · MyCareersFuture_`;
 
