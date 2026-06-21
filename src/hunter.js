@@ -177,6 +177,8 @@ function formatDreamAlert(job, dayNum) {
     ? '🔥═══════════════════🔥'
     : '🆘═══════════════════🆘';
 
+  const { recruiterUrl, postsUrl } = linkedinLinks(job);
+
   return (
     `╔${dayBorder}╗\n` +
     `        🎯 *DREAM ROLE ALERT*\n` +
@@ -187,6 +189,8 @@ function formatDreamAlert(job, dayNum) {
     `📅 Posted: ${posted}\n\n` +
     `${dayLabel}\n` +
     `_${urgency}_\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `👔 [Find Recruiter](${recruiterUrl}) · 🔍 [LinkedIn Posts](${postsUrl})\n` +
     `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
     `🚀 *[APPLY NOW](${link})*\n` +
     `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
