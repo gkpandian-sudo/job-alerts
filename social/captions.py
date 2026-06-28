@@ -1,13 +1,9 @@
-"""
-Caption generators for Instagram and LinkedIn posts.
-Each function returns (instagram_caption, linkedin_caption).
-"""
+"""Caption generators for Instagram posts."""
 
 import os
 
-SITE         = os.environ.get('BRAND_SITE',     'https://veralevel-job-alerts.vercel.app')
-TELEGRAM     = os.environ.get('BRAND_TELEGRAM', 'https://t.me/pandiangk')
-LINKEDIN_URL = os.environ.get('BRAND_LINKEDIN', 'linkedin.com/in/pandiangk')
+SITE     = os.environ.get('BRAND_SITE',     'https://veralevel-job-alerts.vercel.app')
+TELEGRAM = os.environ.get('BRAND_TELEGRAM', 'https://t.me/pandiangk')
 
 ROLE_EMOJI = {
     'TPM':      '⚙️',
@@ -24,7 +20,7 @@ NUMS = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8
 IG_TAGS = (
     "#singapore #sgjobs #singaporejobs #hiring #techjobs "
     "#tpm #solutionarchitect #presales #networkengineer "
-    "#careerinsg #jobhunt #linkedinsg #sgtech #pandian "
+    "#careerinsg #jobhunt #sgtech #pandian "
     "#jobsearch #veraleveljobs #sgprofessionals"
 )
 
@@ -43,10 +39,9 @@ def _role_label(role: str) -> str:
 
 
 def top_jobs(jobs: list, date_str: str) -> tuple[str, str]:
-    """Caption for a top-jobs card — Telegram-style with direct apply links."""
+    """Daily top-jobs caption — Telegram-style with direct apply links."""
     top5 = jobs[:5]
 
-    # Instagram — mirrors Telegram format with clickable URLs
     ig_lines = [
         f'🔍 Top Singapore Tech Roles — {date_str}',
         '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
@@ -61,7 +56,7 @@ def top_jobs(jobs: list, date_str: str) -> tuple[str, str]:
             sal = f"${sal_min:,}+/mo"
         else:
             sal = 'Salary TBD'
-        src = '📋 MCF' if j.get('source') == 'MCF' else '🔗 LinkedIn'
+        src  = '📋 MCF' if j.get('source') == 'MCF' else '🔗 Apply'
         num  = NUMS[i] if i < len(NUMS) else f'{i+1}.'
         role = ROLE_EMOJI.get(j.get('role', 'OTHER'), '🔷')
         ig_lines.append(f'{num} {role} {j["title"]}')
@@ -73,33 +68,13 @@ def top_jobs(jobs: list, date_str: str) -> tuple[str, str]:
     ig_lines += [
         '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
         f'📋 Full dashboard → {SITE}',
-        f'📱 Daily Telegram alerts → {TELEGRAM}',
+        f'📱 Daily alerts → {TELEGRAM}',
         '',
         IG_TAGS,
     ]
 
-    # LinkedIn
-    li_lines = [
-        f'📌 Top Singapore Tech Roles — {date_str}',
-        '',
-        'Curated picks from MyCareersFuture + LinkedIn today:',
-        '',
-    ]
-    for j in top5:
-        sal_min = j.get('salaryMin') or 0
-        sal_max = j.get('salaryMax') or 0
-        sal = f"${sal_min:,} – ${sal_max:,}/mo" if sal_min and sal_max else 'Salary not disclosed'
-        li_lines.append(f"• {j['title']}")
-        li_lines.append(f"  {j['company']}  ·  {_role_label(j.get('role', 'OTHER'))}  ·  {sal}")
-        li_lines.append(f"  {j['url']}")
-        li_lines.append('')
-    li_lines += [
-        f'Browse all curated roles: {SITE}',
-        '',
-        'Updated daily. Focused on TPM, Solution Architect, PreSales, Network Engineering & Infrastructure roles in Singapore.',
-    ]
-
-    return '\n'.join(ig_lines), '\n'.join(li_lines)
+    ig_caption = '\n'.join(ig_lines)
+    return ig_caption, ig_caption  # li_caption unused until LinkedIn is set up
 
 
 def career_tip(tip: dict) -> tuple[str, str]:
@@ -121,64 +96,37 @@ def career_tip(tip: dict) -> tuple[str, str]:
         IG_TAGS,
     ]
 
-    li_lines = [
-        f'Career Tip #{tip["tip_num"]}: {tip["title"]}',
-        '',
-        tip['body'],
-        '',
-        'Practical takeaways:',
-    ]
-    for b in tip.get('bullets', []):
-        li_lines.append(f'• {b}')
-    li_lines += [
-        '',
-        f'Sharing daily Singapore job market insights and curated tech roles at {SITE}',
-        '',
-        '#Singapore #CareerAdvice #JobSearch #TechJobs #SingaporeJobs',
-    ]
-
-    return '\n'.join(ig_lines), '\n'.join(li_lines)
+    ig_caption = '\n'.join(ig_lines)
+    return ig_caption, ig_caption
 
 
 def weekly_digest(jobs: list, date_str: str) -> tuple[str, str]:
     """Caption for a weekly digest card."""
     role_order  = ['TPM', 'SA', 'PRESALES', 'NETWORK', 'INFRA_BD', 'INFRA', 'BD']
     role_counts = {r: sum(1 for j in jobs if j.get('role') == r) for r in role_order}
-    counts_str  = '  '.join(f'{_role_label(r)}: {role_counts[r]}' for r in role_order if role_counts[r])
     total       = len(jobs)
 
     ig_lines = [
         f'📊 Week in Singapore Tech Jobs — {date_str}',
         '',
         f'{total} curated roles this week:',
-        counts_str,
+        '',
+    ]
+    for r in role_order:
+        if role_counts[r]:
+            ig_lines.append(f'▶ {_role_label(r)}: {role_counts[r]}')
+    ig_lines += [
         '',
         '🏆 Dream roles flagged · Salary data included',
         '',
         f'📋 Full dashboard → {SITE}',
-        f'📱 Daily Telegram alerts → {TELEGRAM}',
+        f'📱 Daily alerts → {TELEGRAM}',
         '',
         IG_TAGS,
     ]
 
-    li_lines = [
-        f'Singapore Tech Jobs — Weekly Digest ({date_str})',
-        '',
-        f'{total} curated roles tracked this week across MCF and LinkedIn.',
-        '',
-        'Breakdown by role type:',
-    ]
-    for r in role_order:
-        if role_counts[r]:
-            li_lines.append(f'• {_role_label(r)}: {role_counts[r]}')
-    li_lines += [
-        '',
-        f'Browse the full curated dashboard: {SITE}',
-        '',
-        'Roles covered: TPM, Solution Architect, PreSales, Network Engineering, Infrastructure, Business Development — focused on senior individual contributors and managers in Singapore.',
-    ]
-
-    return '\n'.join(ig_lines), '\n'.join(li_lines)
+    ig_caption = '\n'.join(ig_lines)
+    return ig_caption, ig_caption
 
 
 def monthly_pulse(jobs: list, date_str: str) -> tuple[str, str]:
@@ -206,22 +154,5 @@ def monthly_pulse(jobs: list, date_str: str) -> tuple[str, str]:
         IG_TAGS,
     ]
 
-    li_lines = [
-        f'Singapore Tech Job Market — {month_year} Pulse',
-        '',
-        f'Tracked {total} curated tech and infrastructure roles in Singapore this month.',
-        '',
-        'Role distribution:',
-    ]
-    for r in role_order:
-        if role_counts[r]:
-            li_lines.append(f'• {_role_label(r)}: {role_counts[r]}')
-    li_lines += [
-        '',
-        'Data sourced from MyCareersFuture and LinkedIn, filtered and scored daily.',
-        f'Full dashboard: {SITE}',
-        '',
-        '#Singapore #SingaporeJobs #TechJobs #JobMarket #Hiring #TPM #SolutionArchitect #PreSales',
-    ]
-
-    return '\n'.join(ig_lines), '\n'.join(li_lines)
+    ig_caption = '\n'.join(ig_lines)
+    return ig_caption, ig_caption
