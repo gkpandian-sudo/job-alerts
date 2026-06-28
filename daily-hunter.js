@@ -103,6 +103,10 @@ function escHtml(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function escMd(s) {
+  return String(s||'').replace(/[*_`[]/g, '\\$&');
+}
+
 function detectTier(name) {
   const n = (name||'').toLowerCase();
   for (const [tier, kws] of Object.entries(COMPANY_TIERS))
@@ -351,8 +355,8 @@ function fmtJobTelegram(j, rank) {
   const roleTag = ROLE_EMOJI[j.role] || '🔷';
   const num     = NUMS[rank] || `${rank + 1}.`;
   let msg = '';
-  msg += `${num} ${roleTag} *${j.title}*\n`;
-  msg += `🏢 ${j.company}${tierTag}\n`;
+  msg += `${num} ${roleTag} *${escMd(j.title)}*\n`;
+  msg += `🏢 ${escMd(j.company)}${tierTag}\n`;
   msg += `💰 ${sal}\n`;
   if (j.postedDate) msg += `📅 ${j.postedDate} · ${srcTag}\n`;
   else              msg += `📌 ${srcTag}\n`;
@@ -374,8 +378,8 @@ function fmtDreamTelegram(j, dayNum) {
     `╔${border}╗\n` +
     `        🎯 *DREAM ROLE ALERT*\n` +
     `╚${border}╝\n\n` +
-    `⭐ *${j.title}*\n` +
-    `🏢 *${j.company}*\n` +
+    `⭐ *${escMd(j.title)}*\n` +
+    `🏢 *${escMd(j.company)}*\n` +
     `💰 ${sal}\n` +
     `📅 ${j.postedDate || '?'} · ${srcTag}\n\n` +
     `${day}\n` +
