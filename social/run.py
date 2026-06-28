@@ -79,19 +79,20 @@ def commit_and_push(image_path: Path) -> str:
 
 
 def wait_for_url(url: str, timeout: int = 180, interval: int = 10):
-    """Poll url until HTTP 200 or timeout (Vercel deploy can take ~60s)."""
-    import urllib.request
+    """Poll url until HTTP 200 or timeout."""
+    import requests as _req
     deadline = time.time() + timeout
     while time.time() < deadline:
         try:
-            code = urllib.request.urlopen(url, timeout=5).getcode()
-            if code == 200:
-                print(f'  CDN ready ({url})')
+            r = _req.get(url, timeout=8, headers={'User-Agent': 'Mozilla/5.0'})
+            print(f'  poll: HTTP {r.status_code}')
+            if r.status_code == 200:
+                print(f'  CDN ready')
                 return
-        except Exception:
-            pass
+        except Exception as e:
+            print(f'  poll error: {type(e).__name__}: {e}')
         remaining = int(deadline - time.time())
-        print(f'  waiting for Vercel deploy... ({remaining}s remaining)')
+        print(f'  waiting... ({remaining}s remaining)')
         time.sleep(interval)
     raise TimeoutError(f'Image URL not reachable after {timeout}s: {url}')
 
