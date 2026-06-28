@@ -402,122 +402,165 @@ function buildDashboard(jobs, stats, generatedAt) {
 
   return `<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Curated Singapore tech, telco &amp; infrastructure jobs for TPMs, Solution Architects, Presales and Network professionals. Updated daily from MyCareersFuture and LinkedIn.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Veralevel Jobs — Singapore Tech &amp; Telco Roles">
+<meta property="og:description" content="Curated daily job alerts for TPM, Solution Architect, Presales and Network roles in Singapore.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://veralevel-job-alerts.vercel.app/">
 <title>Veralevel Jobs — ${generated}</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#eef2f7;font-family:'DM Sans',system-ui,sans-serif;color:#0f172a;-webkit-font-smoothing:antialiased;min-height:100vh;padding-bottom:60px}
-input[type=range]{accent-color:#0f2d5c;cursor:pointer}
-::-webkit-scrollbar{height:3px;width:3px}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:99px}
-header{position:sticky;top:0;z-index:200;background:#0f2d5c;box-shadow:0 2px 20px rgba(0,0,0,.28)}
-.hdr{max-width:1440px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;gap:12px}
-.logo-title{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.4px;flex-shrink:0}
-.logo-title span{color:#7dd3fc}
-.logo-sub{font-size:10px;color:#93c5fd;font-weight:500;margin-top:1px;display:none}
+:root{--pri:#00183d;--sec:#005eb5;--bg:#f6faff;--surf:#fff;--surf-lo:#f0f4f9;--bdr:#c4c6d0;--txt:#171c20;--txt2:#44474f;--out:#747780;--grn:#0F6B3C;--sb-w:260px;--hdr-h:60px}
+body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased}
+input[type=range]{accent-color:var(--sec);cursor:pointer;width:100%}
+::-webkit-scrollbar{height:4px;width:4px}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:99px}
+.msym{font-family:'Material Symbols Outlined';font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;font-size:18px;line-height:1;vertical-align:middle;display:inline-block;flex-shrink:0}
+.msym.filled{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20}
+header{position:sticky;top:0;z-index:200;background:var(--surf);height:var(--hdr-h);border-bottom:1px solid var(--bdr);box-shadow:0 1px 4px rgba(0,24,61,.06);display:flex;align-items:center}
+.hdr{width:100%;padding:0 20px;display:flex;align-items:center;gap:12px}
+.logo{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.5px;flex-shrink:0;text-decoration:none;line-height:1}
+.logo-v{color:var(--pri)}.logo-j{color:var(--sec)}
 .srch{flex:1;position:relative;min-width:0}
-.srch svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.4}
-#searchBox{width:100%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px 8px 32px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:border-color .15s}
-#searchBox:focus{border-color:rgba(255,255,255,.5)}
-#searchBox::placeholder{color:rgba(255,255,255,.4)}
-#filter-btn{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.25);border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;white-space:nowrap}
-#filter-btn.open{background:rgba(255,255,255,.2)}
-.fdot{background:#ef4444;color:#fff;border-radius:99px;padding:1px 5px;font-size:10px;font-weight:700;display:none;margin-left:2px}
+.srch .msym{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--out);pointer-events:none;font-size:20px}
+#searchBox{width:100%;background:#eaeef3;border:1.5px solid transparent;border-radius:999px;padding:9px 14px 9px 40px;color:var(--txt);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s,background .15s}
+#searchBox:focus{border-color:var(--sec);background:var(--surf)}
+#searchBox::placeholder{color:var(--out)}
+#filter-btn{display:none;align-items:center;gap:6px;background:var(--sec);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;position:relative}
+.fdot{display:none;background:#ef4444;color:#fff;border-radius:99px;padding:1px 5px;font-size:10px;font-weight:700;margin-left:2px}
 .fdot.on{display:inline}
-@media(min-width:700px){#filter-panel{display:block!important}#filter-btn{display:none!important}.logo-sub{display:block!important}}
-#filter-panel{background:#fff;border-bottom:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,.04);display:none}
-#filter-panel.open{display:block}
-.fp{max-width:1440px;margin:0 auto;padding:10px 16px 14px;display:flex;flex-direction:column;gap:9px}
-.frow{display:flex;align-items:center;gap:8px}
-.flbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;min-width:32px;flex-shrink:0}
-.chips{display:flex;gap:5px;flex-wrap:wrap;flex:1;min-width:0}
-@media(max-width:699px){.chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}}
-@media(max-width:699px){.chips::-webkit-scrollbar{display:none}}
-.chip{background:#fff;color:#334155;border:1.5px solid #dde4ef;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:inherit;line-height:1.4;transition:all .1s}
-.chip.active{background:#0f2d5c;color:#fff;border-color:#0f2d5c;font-weight:700}
-.chip:hover:not(.active){border-color:#94a3b8}
+@media(max-width:1023px){#filter-btn{display:flex}}
+#sb-backdrop{display:none;position:fixed;inset:0;top:var(--hdr-h);background:rgba(0,0,0,.4);z-index:149}
+#sb-backdrop.show{display:block}
+#sidebar{position:fixed;left:0;top:var(--hdr-h);width:var(--sb-w);height:calc(100vh - var(--hdr-h));overflow-y:auto;background:var(--surf-lo);border-right:1px solid var(--bdr);padding:20px 16px 32px;z-index:150;display:flex;flex-direction:column}
+@media(max-width:1023px){#sidebar{transform:translateX(-100%);transition:transform .25s ease;box-shadow:4px 0 20px rgba(0,0,0,.12)}}
+@media(max-width:1023px){#sidebar.open{transform:translateX(0)}}
+.sb-ttl{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:var(--pri);margin-bottom:2px}
+.sb-sub{font-size:12px;color:var(--txt2);margin-bottom:20px}
+.sb-sec{margin-bottom:18px}
+.sb-lbl{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.sb-lbl .msym{font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--surf);color:var(--txt2);border:1.5px solid var(--bdr);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;line-height:1.4;transition:all .1s}
+.chip.active{background:var(--sec);color:#fff;border-color:var(--sec);font-weight:700}
+.chip:hover:not(.active){border-color:var(--sec);color:var(--sec)}
 .ccount{opacity:.6;font-size:10px;margin-left:2px}
-.sal-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-#salSlider{width:130px;flex-shrink:0}
-#salVal{font-size:13px;font-weight:700;color:#0f2d5c;min-width:80px}
-#stats-bar{max-width:1440px;margin:10px auto 0;padding:0 16px}
-.si{background:#fff;border:1px solid #dde4ef;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.sc{font-size:22px;font-weight:800;color:#0f2d5c;line-height:1;flex-shrink:0}
-.sof{font-size:12px;color:#64748b;flex-shrink:0;margin-right:4px}
-.ssep{width:1px;height:18px;background:#e2e8f0;flex-shrink:0}
+.sb-sval{font-size:13px;font-weight:600;color:var(--sec);margin-top:6px}
+.btn-clear{width:100%;padding:9px;background:transparent;border:1.5px solid var(--bdr);border-radius:8px;color:var(--txt2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:auto;transition:all .1s}
+.btn-clear:hover{border-color:var(--sec);color:var(--sec)}
+#main{margin-left:var(--sb-w);min-height:calc(100vh - var(--hdr-h));display:flex;flex-direction:column}
+@media(max-width:1023px){#main{margin-left:0}}
+#page-hdr{padding:16px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ph-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ph-cnt{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:var(--pri)}
+.ph-tot{font-size:14px;color:var(--txt2)}
+.ph-live{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--txt2)}
+.ldot{width:8px;height:8px;border-radius:99px;background:var(--grn);flex-shrink:0;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.ph-date{font-size:12px;color:var(--txt2);display:flex;align-items:center;gap:5px}
+.ph-date .msym{font-size:15px}
+#stats-bar{padding:10px 20px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .schips{display:flex;gap:5px;flex-wrap:wrap}
 .sch{display:inline-flex;align-items:center;gap:4px;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:600;white-space:nowrap}
-#grid{max-width:1440px;margin:10px auto 0;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;transition:box-shadow .15s,border-color .15s}
-.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:#c7d2e0}
-.card.dream{background:linear-gradient(135deg,#fff 0%,#fffbeb 100%);border:1px solid #fcd34d;border-left:3px solid #d97706}
-.card.hidden{display:none!important}
-.chdr{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
-.brole{border-radius:999px;padding:3px 8px;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0}
-.btier{font-size:11px;font-weight:600;white-space:nowrap;flex-shrink:0}
-.bsrc{border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;flex-shrink:0}
-.src-li{background:#dbeafe;color:#1d4ed8}
-.src-mcf{background:#dcfce7;color:#15803d}
-.src-both{background:#f3e8ff;color:#7c3aed}
-.score-txt{margin-left:auto;font-size:10px;color:#cbd5e1;flex-shrink:0;font-weight:500}
-.ctitle{font-size:14px;font-weight:700;color:#0f172a;line-height:1.4;margin-bottom:3px}
-.cco{font-size:12px;color:#64748b;font-weight:500;margin-bottom:10px}
-.cfooter{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;margin-bottom:11px}
-.salary{font-size:13px}
-.sal-premium{color:#16a34a;font-weight:700}
-.sal-high{color:#059669;font-weight:700}
-.sal-mid{color:#2563eb;font-weight:700}
-.sal-low,.sal-unknown{color:#94a3b8;font-weight:400}
-.cmeta{font-size:11px;color:#94a3b8;white-space:nowrap;flex-shrink:0}
-.cbtns{display:flex;gap:6px;flex-wrap:wrap}
-.btn-li,.btn-mcf{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;text-decoration:none;flex:1;font-family:inherit;white-space:nowrap;min-width:0;transition:opacity .1s}
-.btn-li{background:#0a66c2;color:#fff}
-.btn-mcf{background:#0f6b3c;color:#fff}
+#grid{padding:14px 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+@media(max-width:599px){#grid{grid-template-columns:1fr;padding:10px 12px}}
+.card{background:var(--surf);border-radius:12px;box-shadow:0px 4px 12px rgba(15,45,92,.08);border:1px solid #e4e9ed;border-left:2px solid transparent;padding:16px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s,border-left-color .15s}
+.card:hover{box-shadow:0px 8px 24px rgba(15,45,92,.14);border-left-color:var(--sec)}
+.card.dream{background:linear-gradient(135deg,#fffdf0 0%,#fff8dc 100%);border-left-color:#d97706}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.card-title{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:var(--pri);line-height:1.4;flex:1}
+.card-rank{font-size:11px;font-weight:700;color:var(--out);flex-shrink:0;background:#f0f4f9;border-radius:6px;padding:2px 6px;white-space:nowrap}
+.dream-star{color:#d97706;font-size:20px}
+.card-co{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--txt2);flex-wrap:wrap}
+.card-co .msym{font-size:16px;color:var(--out)}
+.src-li{background:#dbeafe;color:#1d4ed8;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0}
+.src-mcf{background:#dcfce7;color:#15803d;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0}
+.src-both{background:#f3e8ff;color:#7c3aed;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0}
+.card-tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag-role,.tag-score{display:inline-flex;align-items:center;gap:5px;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:600}
+.tag-role .msym,.tag-score .msym{font-size:14px}
+.tag-score{background:#f0f4f9;color:var(--txt2)}
+.card-sal{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--txt);background:#f6faff;border-radius:8px;padding:7px 10px;border:1px solid #e4e9ed}
+.card-sal .msym{font-size:16px;color:var(--sec)}
+.card-sal.dim{color:var(--out);font-weight:400}
+.card-sal.dim .msym{color:var(--bdr)}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.card-posted{font-size:11px;color:var(--out)}
+.card-btns{display:flex;gap:6px}
+.btn-li,.btn-mcf{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;text-decoration:none;font-family:'Inter',sans-serif;white-space:nowrap;transition:opacity .1s}
+.btn-li{background:#0a66c2;color:#fff}.btn-mcf{background:var(--grn);color:#fff}
 .btn-li:hover,.btn-mcf:hover{opacity:.85}
-#no-results{display:none;text-align:center;padding:60px 20px;max-width:1440px;margin:0 auto}
+#no-results{display:none;text-align:center;padding:60px 20px}
 #no-results.show{display:block}
-.nr-icon{font-size:36px;margin-bottom:10px}
-.nr-title{font-size:16px;font-weight:700;color:#475569;margin-bottom:6px}
-.nr-sub{font-size:13px;color:#94a3b8}
-footer{max-width:1440px;margin:24px auto 0;padding:0 16px;font-size:11px;color:#94a3b8}
+.nr-icon{font-size:36px;margin-bottom:10px}.nr-title{font-size:16px;font-weight:700;color:#475569;margin-bottom:6px}.nr-sub{font-size:13px;color:#94a3b8}
+footer{background:#dfe3e8;padding:20px;font-size:12px;color:var(--txt2);margin-top:auto}
+.ft-inner{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.ft-brand{font-family:'DM Sans',sans-serif;font-weight:700;color:var(--pri);font-size:14px}
+.ft-copy{font-size:11px;color:var(--out);margin-top:3px}
+.ft-links{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.ft-links a{color:var(--txt2);text-decoration:none;transition:color .1s}
+.ft-links a:hover{color:var(--sec)}
+.ft-right{text-align:right}
+.ft-right div{font-size:11px;color:var(--out)}
 </style></head><body>
-<header><div class="hdr">
-  <div style="flex-shrink:0">
-    <div class="logo-title">Veralevel <span>Jobs</span></div>
-    <div class="logo-sub">${jobs.length} roles &middot; ${generated}</div>
+<header>
+  <div class="hdr">
+    <a class="logo" href="/"><span class="logo-v">Veralevel</span><span class="logo-j"> Jobs</span></a>
+    <div class="srch"><span class="msym">search</span><input type="search" id="searchBox" placeholder="Search title or company…" autocomplete="off"></div>
+    <button id="filter-btn" onclick="toggleSidebar()"><span class="msym">tune</span> Filters<span class="fdot" id="fdot"></span></button>
   </div>
-  <div class="srch">
-    <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke="white" stroke-width="2"/><path d="M13.5 13.5l3 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-    <input type="search" id="searchBox" placeholder="Search title or company&hellip;" autocomplete="off">
+</header>
+<div id="sb-backdrop" onclick="toggleSidebar()"></div>
+<aside id="sidebar">
+  <div class="sb-ttl">Filters</div>
+  <div class="sb-sub">Refine job alerts</div>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="msym">work</span> Role</div>
+    <div class="chips" id="role-chips"></div>
   </div>
-  <button id="filter-btn" onclick="toggleFilters()">
-    <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3 5a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm3 5a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-    Filters<span class="fdot" id="fdot"></span>
-  </button>
-</div></header>
-<div id="filter-panel">
-  <div class="fp">
-    <div class="frow"><span class="flbl">Role</span><div class="chips" id="role-chips"></div></div>
-    <div class="frow"><span class="flbl">Tier</span><div class="chips" id="tier-chips"></div></div>
-    <div class="frow"><span class="flbl">Src</span><div class="chips" id="src-chips"></div></div>
-    <div class="frow sal-row"><span class="flbl">Sal</span>
-      <input type="range" id="salSlider" min="0" max="25000" step="1000" value="0">
-      <span id="salVal">Any salary</span>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="msym">military_tech</span> Tier</div>
+    <div class="chips" id="tier-chips"></div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="msym">source</span> Source</div>
+    <div class="chips" id="src-chips"></div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="msym">payments</span> Salary (max ≥)</div>
+    <input type="range" id="salSlider" min="0" max="25000" step="1000" value="0">
+    <div class="sb-sval" id="salVal">Any salary</div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl"><span class="msym">star</span> Score</div>
+    <input type="range" id="scoreSlider" min="0" max="40" step="5" value="0">
+    <div class="sb-sval" id="scoreVal">Any score</div>
+  </div>
+  <button class="btn-clear" onclick="clearFilters()">Clear Filters</button>
+</aside>
+<div id="main">
+  <div id="page-hdr">
+    <div class="ph-left">
+      <span class="ph-cnt"><span id="sc">${jobs.length}</span> <span class="ph-tot" id="sof">of ${jobs.length}</span></span>
+      <span class="ph-live"><span class="ldot"></span> Refreshed just now</span>
     </div>
-    <div class="frow sal-row"><span class="flbl">Score</span>
-      <input type="range" id="scoreSlider" min="0" max="40" step="5" value="0">
-      <span id="scoreVal">Any score</span>
-    </div>
+    <div class="ph-date"><span class="msym">calendar_today</span> ${generated}</div>
   </div>
+  <div id="stats-bar"><div class="schips" id="schips"></div></div>
+  <div id="grid"></div>
+  <div id="no-results"><div class="nr-icon">&#x1F50D;</div><div class="nr-title">No matching jobs</div><div class="nr-sub">Try adjusting your filters or search term</div></div>
+  <footer>
+    <div class="ft-inner">
+      <div><div class="ft-brand">Veralevel Jobs</div><div class="ft-copy">&copy; 2026 Veralevel Jobs</div></div>
+      <div class="ft-links"><a href="#">Source Credits</a><a href="#">Privacy</a><a href="#">Terms</a></div>
+      <div class="ft-right"><div>Powered by MCF &amp; LinkedIn</div><div>Curated by Pandian</div></div>
+    </div>
+  </footer>
 </div>
-<div id="stats-bar"><div class="si">
-  <span class="sc" id="sc">${jobs.length}</span>
-  <span class="sof" id="sof">of ${jobs.length}</span>
-  <div class="ssep"></div>
-  <div class="schips" id="schips"></div>
-</div></div>
-<div id="grid"></div>
-<div id="no-results"><div class="nr-icon">&#x1F50D;</div><div class="nr-title">No matching jobs</div><div class="nr-sub">Try adjusting your filters or search term</div></div>
-<footer>Sources: MyCareersFuture.gov.sg &amp; LinkedIn &middot; Pandian &middot; ${generated}</footer>
 <script>
 var JOBS=${safeJson};
 var TOTAL=JOBS.length;
@@ -530,18 +573,28 @@ var STATS=[{l:'TPM',r:'TPM',c:'#4338ca',b:'#ede9fe'},{l:'Sol.Arch',r:'SA',c:'#1d
 var F={role:'all',tier:'all',src:'all',dream:false},minSal=0,minScore=0,srch='';
 function eh(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function card(j){
-  var rm=RM[j.role]||RM.OTHER,tm=TM[j.tier]||TM.other;
-  var sl=j.src==='BOTH'?'in+MCF':j.src,sc=j.src==='BOTH'?'src-both':j.src==='MCF'?'src-mcf':'src-li';
-  var b='';
-  if(j.liUrl)b+='<a class="btn-li" href="'+eh(j.liUrl)+'" target="_blank" rel="noopener">Apply on LinkedIn →</a>';
-  if(j.mcfUrl)b+='<a class="btn-mcf" href="'+eh(j.mcfUrl)+'" target="_blank" rel="noopener">Apply on MCF →</a>';
-  var m=[j.posted,j.rank?'#'+j.rank:''].filter(Boolean).join(' · ');
-  return '<div class="card'+(j.isDream?' dream':'')+'" data-role="'+j.role+'" data-tier="'+j.tier+'" data-src="'+j.src+'" data-salmin="'+j.salmin+'">'
-    +'<div class="chdr"><span class="brole" style="background:'+rm.b+';color:'+rm.c+'">'+rm.l+'</span><span class="btier" style="color:'+tm.c+'">'+tm.l+'</span><span class="bsrc '+sc+'">'+sl+'</span><span class="score-txt">Score '+j.score+'</span></div>'
-    +'<div class="ctitle">'+eh(j.title)+'</div>'
-    +'<div class="cco">'+eh(j.company)+'</div>'
-    +'<div class="cfooter"><span class="salary '+j.salCls+'">'+eh(j.salText)+'</span><span class="cmeta">'+m+'</span></div>'
-    +'<div class="cbtns">'+b+'</div></div>';
+  var rm=RM[j.role]||RM.OTHER;
+  var rkEl=j.isDream?'<span class="msym filled dream-star">star</span>':'<span class="card-rank">#'+j.rank+'</span>';
+  var sb='';
+  if(j.src==='BOTH')sb='<span class="src-both">in+MCF</span>';
+  else if(j.src==='LinkedIn')sb='<span class="src-li">LinkedIn</span>';
+  else if(j.src==='MCF')sb='<span class="src-mcf">MCF</span>';
+  var sal='';
+  if(j.salText&&j.salText!=='Not stated'&&j.salText!=='See on LinkedIn')sal='<div class="card-sal"><span class="msym">payments</span> '+eh(j.salText)+'</div>';
+  else if(j.salText)sal='<div class="card-sal dim"><span class="msym">payments</span> '+eh(j.salText)+'</div>';
+  var btns='';
+  if(j.liUrl)btns+='<a class="btn-li" href="'+eh(j.liUrl)+'" target="_blank" rel="noopener">LinkedIn →</a>';
+  if(j.mcfUrl)btns+='<a class="btn-mcf" href="'+eh(j.mcfUrl)+'" target="_blank" rel="noopener">MCF →</a>';
+  return '<div class="card'+(j.isDream?' dream':'')+'" data-role="'+j.role+'" data-tier="'+j.tier+'" data-src="'+j.src+'" data-salmin="'+j.salmin+'" data-salmax="'+j.salmax+'" data-score="'+j.score+'">'
+    +'<div class="card-top"><div class="card-title">'+eh(j.title)+'</div>'+rkEl+'</div>'
+    +'<div class="card-co"><span class="msym">business</span> <span>'+eh(j.company)+'</span>'+sb+'</div>'
+    +'<div class="card-tags">'
+      +'<span class="tag-role" style="background:'+rm.b+';color:'+rm.c+'"><span class="msym">work</span> '+rm.l+'</span>'
+      +'<span class="tag-score"><span class="msym filled">star</span> '+j.score+' Score</span>'
+    +'</div>'
+    +sal
+    +'<div class="card-foot"><span class="card-posted">'+(j.posted?'Posted: '+eh(j.posted):'')+' </span><div class="card-btns">'+btns+'</div></div>'
+    +'</div>';
 }
 function render(){
   var q=srch,filtered=JOBS.filter(function(j){
@@ -562,11 +615,11 @@ function chips(){
   document.getElementById('src-chips').innerHTML=SRCS.map(function(c){var a=c.f==='dream'?F.dream:F.src===c.v;return '<button class="chip'+(a?' active':'')+'" data-f="'+c.f+'" data-v="'+c.v+'">'+c.l+'</button>';}).join('');
   document.querySelectorAll('.chip').forEach(function(e){e.addEventListener('click',function(){var f=e.dataset.f,v=e.dataset.v;if(f==='dream'){F.dream=!F.dream;}else{F[f]=v;}chips();render();});});
 }
-function toggleFilters(){var p=document.getElementById('filter-panel'),b=document.getElementById('filter-btn');p.classList.toggle('open');b.classList.toggle('open',p.classList.contains('open'));}
+function toggleSidebar(){var sb=document.getElementById('sidebar'),bd=document.getElementById('sb-backdrop');sb.classList.toggle('open');bd.classList.toggle('show');}
+function clearFilters(){F={role:'all',tier:'all',src:'all',dream:false};minSal=0;minScore=0;document.getElementById('salSlider').value=0;document.getElementById('scoreSlider').value=0;document.getElementById('salVal').textContent='Any salary';document.getElementById('scoreVal').textContent='Any score';chips();render();}
 document.getElementById('salSlider').addEventListener('input',function(){minSal=parseInt(this.value)||0;document.getElementById('salVal').textContent=minSal?'Max ≥ $'+minSal.toLocaleString()+'/mo':'Any salary';render();});
 document.getElementById('scoreSlider').addEventListener('input',function(){minScore=parseInt(this.value)||0;document.getElementById('scoreVal').textContent=minScore?minScore+'+':'Any score';render();});
 document.getElementById('searchBox').addEventListener('input',function(){srch=this.value.toLowerCase().trim();render();});
-if(window.innerWidth>=700)document.getElementById('filter-panel').classList.add('open');
 chips();render();
 </script></body></html>`;
 }
