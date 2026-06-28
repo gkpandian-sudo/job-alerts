@@ -1,0 +1,93 @@
+name: Refresh Meta Access Token
+
+on:
+  schedule:
+    # Every 45 days at 08:00 SGT (00:00 UTC) — well before 60-day expiry
+    - cron: '0 0 13 */1 *'   # runs ~monthly; GitHub doesn't support every-45-days natively
+  workflow_dispatch:          # allow manual trigger at any time
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Exchange long-lived token for a fresh 60-day token
+        id: refresh
+        env:
+          FB_APP_ID:         ${{ secrets.FB_APP_ID }}
+          FB_APP_SECRET:     ${{ secrets.FB_APP_SECRET }}
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+        run: |
+          RESPONSE=$(curl -sf \
+            "https://graph.facebook.com/oauth/access_token\
+?grant_type=fb_exchange_token\
+&client_id=${FB_APP_ID}\
+&client_secret=${FB_APP_SECRET}\
+&fb_exchange_token=${META_ACCESS_TOKEN}")
+
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          if 'access_token' not in d:
+              print('ERROR: no access_token in response:', d, file=sys.stderr)
+              sys.exit(1)
+          tok = d['access_token']
+          exp = d.get('expires_in', 'unknown')
+          print(f'NEW_TOKEN={tok}')
+          print(f'EXPIRES_IN={exp}')
+          " >> $GITHUB_OUTPUT
+
+      - name: Update META_ACCESS_TOKEN secret via GitHub API
+        env:
+          GH_PAT:       ${{ secrets.GH_PAT }}
+          NEW_TOKEN:    ${{ steps.refresh.outputs.NEW_TOKEN }}
+          EXPIRES_IN:   ${{ steps.refresh.outputs.EXPIRES_IN }}
+          REPO:         ${{ github.repository }}
+        run: |
+          pip install -q PyNaCl requests
+
+          python3 - <<'PYEOF'
+          import os, base64, json, requests
+          from nacl import encoding, public as nacl_public
+
+          pat   = os.environ['GH_PAT']
+          repo  = os.environ['REPO']
+          token = os.environ['NEW_TOKEN']
+          exp   = os.environ['EXPIRES_IN']
+
+          headers = {
+              'Authorization': f'Bearer {pat}',
+              'Accept': 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28',
+          }
+
+          # Get repo public key for secret encryption
+          r = requests.get(f'https://api.github.com/repos/{repo}/actions/secrets/public-key', headers=headers)
+          r.raise_for_status()
+          key_data = r.json()
+          pub_key  = nacl_public.PublicKey(key_data['key'].encode(), encoding.Base64Encoder())
+          box      = nacl_public.SealedBox(pub_key)
+          encrypted = base64.b64encode(box.encrypt(token.encode())).decode()
+
+          # Update the secret
+          payload = {'encrypted_value': encrypted, 'key_id': key_data['key_id']}
+          r = requests.put(
+              f'https://api.github.com/repos/{repo}/actions/secrets/META_ACCESS_TOKEN',
+              headers=headers, json=payload
+          )
+          r.raise_for_status()
+
+          days = int(exp) // 86400 if exp.isdigit() else '?'
+          print(f'✓ META_ACCESS_TOKEN refreshed — new token expires in {days} days')
+          PYEOF
+
+      - name: Summary
+        run: |
+          echo "## Token Refresh Complete" >> $GITHUB_STEP_SUMMARY
+          echo "- **Expires in:** ${{ steps.refresh.outputs.EXPIRES_IN }} seconds (~$(( ${{ steps.refresh.outputs.EXPIRES_IN }} / 86400 )) days)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Next auto-refresh:** ~45 days from now" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tip:** Convert to a System User token in Meta Business Manager to eliminate expiry entirely." >> $GITHUB_STEP_SUMMARY
