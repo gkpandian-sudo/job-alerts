@@ -52,15 +52,20 @@ def write_counter(index: int):
 
 
 def commit_and_push(image_path: Path) -> str:
-    """Commit the image to the repo and return its raw GitHub CDN URL."""
-    repo   = os.environ.get('GITHUB_REPOSITORY', '')
+    """Copy image into public/, commit, push, and return the Vercel CDN URL."""
+    import shutil
     branch = 'main'
-    rel    = image_path.relative_to(ROOT).as_posix()
+
+    # Mirror the image into public/social/posts/ so Vercel serves it publicly
+    pub_dir = ROOT / 'public' / 'social' / 'posts'
+    pub_dir.mkdir(parents=True, exist_ok=True)
+    pub_path = pub_dir / image_path.name
+    shutil.copy2(image_path, pub_path)
 
     cmds = [
         ['git', 'config', 'user.email', 'github-actions[bot]@users.noreply.github.com'],
         ['git', 'config', 'user.name',  'github-actions[bot]'],
-        ['git', 'add', str(image_path)],
+        ['git', 'add', str(pub_path)],
         ['git', 'commit', '-m', f'auto: social post {date.today()} [skip ci]'],
         ['git', 'push', 'origin', branch],
     ]
@@ -69,7 +74,26 @@ def commit_and_push(image_path: Path) -> str:
         if result.returncode != 0 and 'nothing to commit' not in (result.stdout + result.stderr):
             print(result.stderr, file=sys.stderr)
 
-    return f'https://raw.githubusercontent.com/{repo}/{branch}/{rel}'
+    brand_site = os.environ.get('BRAND_SITE', '').rstrip('/')
+    return f'{brand_site}/social/posts/{image_path.name}'
+
+
+def wait_for_url(url: str, timeout: int = 180, interval: int = 10):
+    """Poll url until HTTP 200 or timeout (Vercel deploy can take ~60s)."""
+    import urllib.request
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        try:
+            code = urllib.request.urlopen(url, timeout=5).getcode()
+            if code == 200:
+                print(f'  CDN ready ({url})')
+                return
+        except Exception:
+            pass
+        remaining = int(deadline - time.time())
+        print(f'  waiting for Vercel deploy... ({remaining}s remaining)')
+        time.sleep(interval)
+    raise TimeoutError(f'Image URL not reachable after {timeout}s: {url}')
 
 
 def decide_post_type(today: date) -> str:
@@ -146,9 +170,8 @@ def main():
     image_url = commit_and_push(image_path)
     print(f'  url:   {image_url}')
 
-    # ── Wait for GitHub CDN to propagate ─────────────────────────
-    print('  waiting 20s for CDN...')
-    time.sleep(20)
+    # ── Wait for Vercel CDN to serve the image ───────────────────
+    wait_for_url(image_url)
 
     # ── Post to Instagram (URL-based) ─────────────────────────────
     if os.environ.get('IG_USER_ID') and os.environ.get('META_ACCESS_TOKEN'):
