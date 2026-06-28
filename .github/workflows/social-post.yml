@@ -2,13 +2,7 @@ name: Social Auto-Post (Instagram + LinkedIn)
 
 on:
   schedule:
-    # Mon–Fri 08:00 SGT = 00:00 UTC
-    - cron: '0 0 * * 1'   # Monday   → weekly digest
-    - cron: '0 0 * * 2'   # Tuesday  → career tip
-    - cron: '0 0 * * 3'   # Wednesday → top jobs
-    - cron: '0 0 * * 4'   # Thursday → career tip
-    - cron: '0 0 * * 5'   # Friday   → top jobs
-    - cron: '0 0 1 * *'   # 1st of month → monthly pulse
+    - cron: '0 0 * * *'   # Daily 08:00 SGT (00:00 UTC) → top jobs with links
   workflow_dispatch:
     inputs:
       post_type:

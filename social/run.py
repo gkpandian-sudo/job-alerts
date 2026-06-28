@@ -98,16 +98,8 @@ def wait_for_url(url: str, timeout: int = 180, interval: int = 10):
 
 
 def decide_post_type(today: date) -> str:
-    """Determine post type from today's date and weekday."""
-    if today.day <= 2:
-        return 'monthly'
-    wd = today.weekday()  # 0=Mon
-    if wd == 0:
-        return 'weekly'
-    if wd in (1, 3):      # Tue, Thu
-        return 'tip'
-    if wd in (2, 4):      # Wed, Fri
-        return 'jobs'
+    """Daily schedule always posts jobs with links (same as Telegram style).
+    Other types (tip, weekly, monthly) are available via workflow_dispatch."""
     return 'jobs'
 
 

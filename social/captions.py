@@ -5,9 +5,21 @@ Each function returns (instagram_caption, linkedin_caption).
 
 import os
 
-SITE         = os.environ.get('BRAND_SITE',     'veralevel-job-alerts.vercel.app')
-TELEGRAM     = os.environ.get('BRAND_TELEGRAM', 't.me/pandiangk')
+SITE         = os.environ.get('BRAND_SITE',     'https://veralevel-job-alerts.vercel.app')
+TELEGRAM     = os.environ.get('BRAND_TELEGRAM', 'https://t.me/pandiangk')
 LINKEDIN_URL = os.environ.get('BRAND_LINKEDIN', 'linkedin.com/in/pandiangk')
+
+ROLE_EMOJI = {
+    'TPM':      '⚙️',
+    'SA':       '🏗',
+    'PRESALES': '🤝',
+    'NETWORK':  '🌐',
+    'INFRA_BD': '📡',
+    'INFRA':    '🖥',
+    'BD':       '💼',
+    'OTHER':    '🔷',
+}
+NUMS = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟']
 
 IG_TAGS = (
     "#singapore #sgjobs #singaporejobs #hiring #techjobs "
@@ -31,22 +43,37 @@ def _role_label(role: str) -> str:
 
 
 def top_jobs(jobs: list, date_str: str) -> tuple[str, str]:
-    """Caption for a top-jobs card."""
-    top3 = jobs[:3]
+    """Caption for a top-jobs card — Telegram-style with direct apply links."""
+    top5 = jobs[:5]
 
-    # Instagram
+    # Instagram — mirrors Telegram format with clickable URLs
     ig_lines = [
         f'🔍 Top Singapore Tech Roles — {date_str}',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
         '',
     ]
-    for j in top3:
-        sal = f"${j['salaryMin']:,}/mo" if j.get('salaryMin') else 'Salary TBD'
-        ig_lines.append(f"▶ {j['title']} @ {j['company']}")
-        ig_lines.append(f"  💰 {sal}")
+    for i, j in enumerate(top5):
+        sal_min = j.get('salaryMin') or 0
+        sal_max = j.get('salaryMax') or 0
+        if sal_min and sal_max:
+            sal = f"${sal_min:,} – ${sal_max:,}/mo"
+        elif sal_min:
+            sal = f"${sal_min:,}+/mo"
+        else:
+            sal = 'Salary TBD'
+        src = '📋 MCF' if j.get('source') == 'MCF' else '🔗 LinkedIn'
+        num  = NUMS[i] if i < len(NUMS) else f'{i+1}.'
+        role = ROLE_EMOJI.get(j.get('role', 'OTHER'), '🔷')
+        ig_lines.append(f'{num} {role} {j["title"]}')
+        ig_lines.append(f'🏢 {j["company"]}')
+        ig_lines.append(f'💰 {sal}')
+        ig_lines.append(f'{src}: {j["url"]}')
         ig_lines.append('')
+
     ig_lines += [
-        f'📋 Full list → {SITE}',
-        f'📱 Daily alerts → {TELEGRAM}',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        f'📋 Full dashboard → {SITE}',
+        f'📱 Daily Telegram alerts → {TELEGRAM}',
         '',
         IG_TAGS,
     ]
@@ -58,10 +85,13 @@ def top_jobs(jobs: list, date_str: str) -> tuple[str, str]:
         'Curated picks from MyCareersFuture + LinkedIn today:',
         '',
     ]
-    for j in top3:
-        sal = f"${j['salaryMin']:,} – ${j['salaryMax']:,}/mo" if j.get('salaryMin') and j.get('salaryMax') else 'Salary not disclosed'
+    for j in top5:
+        sal_min = j.get('salaryMin') or 0
+        sal_max = j.get('salaryMax') or 0
+        sal = f"${sal_min:,} – ${sal_max:,}/mo" if sal_min and sal_max else 'Salary not disclosed'
         li_lines.append(f"• {j['title']}")
         li_lines.append(f"  {j['company']}  ·  {_role_label(j.get('role', 'OTHER'))}  ·  {sal}")
+        li_lines.append(f"  {j['url']}")
         li_lines.append('')
     li_lines += [
         f'Browse all curated roles: {SITE}',
