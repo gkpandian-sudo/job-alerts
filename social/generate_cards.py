@@ -159,12 +159,12 @@ def make_top_jobs_card(jobs: list, date_str: str) -> Path:
                     transform=ax.transAxes)
 
             # Salary (right, smaller)
-            sal_min = job.get('salaryMin', 0)
-            sal_max = job.get('salaryMax', 0)
+            sal_min = int(job.get('salaryMin') or 0)
+            sal_max = int(job.get('salaryMax') or 0)
             if sal_min and sal_max:
-                sal_text = f'${sal_min:,}–${sal_max:,}/mo'
+                sal_text = f'${sal_min // 1000}k–${sal_max // 1000}k/mo'
             elif sal_min:
-                sal_text = f'${sal_min:,}+/mo'
+                sal_text = f'${sal_min // 1000}k+/mo'
             else:
                 sal_text = ''
             if sal_text:
@@ -227,12 +227,12 @@ def make_career_tip_card(tip: dict, date_str: str) -> Path:
     # Body text
     body_wrapped = textwrap.wrap(tip['body'], width=55)
     body_y = 0.620
-    for line in body_wrapped[:4]:
+    for line in body_wrapped[:6]:
         ax.text(0.06, body_y, line,
                 ha='left', va='center', color='#94a3b8',
-                fontsize=13, fontfamily='DejaVu Sans',
+                fontsize=12, fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
-        body_y -= 0.046
+        body_y -= 0.040
 
     # Divider
     ax.axhline(y=body_y - 0.015, color='#1e3a5f', linewidth=1.5, xmin=0.06, xmax=0.94)

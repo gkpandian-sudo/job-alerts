@@ -1,16 +1,16 @@
 [
   {
-    "title": "Technical Program Manager, 3P SaaS",
-    "company": "Google",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 31,
-    "isDream": true,
-    "postedDate": "2026-06-27",
-    "url": "https://www.linkedin.com/jobs/view/4424557911"
+    "title": "Infrastructure Delivery Manager, AVP",
+    "company": "OVERSEA-CHINESE BANKING CORPORATION LIMITED",
+    "role": "INFRA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 12600,
+    "score": 21,
+    "isDream": false,
+    "postedDate": "2026-06-28",
+    "url": "https://www.mycareersfuture.gov.sg/job/688472414b15fc29b76f136f3a1d7d82"
   },
   {
     "title": "Solution Architect (Public Sector)",
@@ -40,6 +40,19 @@
   },
   {
     "title": "Solutions Architect",
+    "company": "AUREAFIVE",
+    "role": "SA",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 19,
+    "isDream": false,
+    "postedDate": "2026-06-27",
+    "url": "https://www.linkedin.com/jobs/view/4433474348"
+  },
+  {
+    "title": "Solutions Architect",
     "company": "Global Workforce Advisory",
     "role": "SA",
     "tier": "other",
@@ -50,19 +63,6 @@
     "isDream": false,
     "postedDate": "2026-06-27",
     "url": "https://www.linkedin.com/jobs/view/4433437628"
-  },
-  {
-    "title": "Business Development Manager, CaaS",
-    "company": "Keppel (Infrastructure Division)",
-    "role": "BD",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 17,
-    "isDream": false,
-    "postedDate": "2026-06-27",
-    "url": "https://www.linkedin.com/jobs/view/4411190678"
   },
   {
     "title": "PRINCIPAL AI ENGINEER - AGENTIC CYBER SYSTEMS",
@@ -104,19 +104,6 @@
     "url": "https://www.linkedin.com/jobs/view/4421141256"
   },
   {
-    "title": "Engineering Program Manager, Data Solutions &amp; Initiatives",
-    "company": "Apple",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 14,
-    "isDream": false,
-    "postedDate": "2026-06-27",
-    "url": "https://www.linkedin.com/jobs/view/4433429655"
-  },
-  {
     "title": "Enterprise Architect - Network Security (CAO)",
     "company": "Synapxe",
     "role": "SA",
@@ -143,19 +130,6 @@
     "url": "https://www.linkedin.com/jobs/view/4407853846"
   },
   {
-    "title": "Senior Solutions Engineer - Singapore",
-    "company": "NinjaOne",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 13,
-    "isDream": false,
-    "postedDate": "2026-06-27",
-    "url": "https://www.linkedin.com/jobs/view/4424761369"
-  },
-  {
     "title": "Senior Staff Engineering Program Manager – Custom Silicon (APAC)",
     "company": "Marvell Technology",
     "role": "TPM",
@@ -169,23 +143,23 @@
     "url": "https://www.linkedin.com/jobs/view/4411565613"
   },
   {
-    "title": "SVP Program Manager, GETO",
-    "company": "UOB",
-    "role": "TPM",
-    "tier": "enterprise",
+    "title": "Programme Manager",
+    "company": "Thales",
+    "role": "NETWORK",
+    "tier": "other",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
-    "score": 13,
+    "score": 11,
     "isDream": false,
     "postedDate": "2026-06-27",
-    "url": "https://www.linkedin.com/jobs/view/4382871702"
+    "url": "https://www.linkedin.com/jobs/view/4403757869"
   },
   {
     "title": "Project Manager",
-    "company": "Singapore Energy Interconnections",
+    "company": "Shopee",
     "role": "TPM",
-    "tier": "other",
+    "tier": "enterprise",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
@@ -200,12 +174,12 @@
     "role": "NETWORK",
     "tier": "other",
     "source": "MCF",
-    "salaryMin": 6000,
-    "salaryMax": 12000,
+    "salaryMin": 8000,
+    "salaryMax": 14000,
     "score": 24,
     "isDream": false,
     "postedDate": "2026-06-26",
-    "url": "https://www.mycareersfuture.gov.sg/job/1378e38f6546eae38725d953f1e7f8c5"
+    "url": "https://www.mycareersfuture.gov.sg/job/1a904153c2429e1312b38fd4105bc9d1"
   },
   {
     "title": "Technical Program Manager (Data Centre Infrastructure Delivery)",
@@ -251,7 +225,7 @@
     "company": "HITACHI RAIL SINGAPORE PTE. LTD.",
     "role": "SA",
     "tier": "other",
-    "source": "BOTH",
+    "source": "MCF",
     "salaryMin": 8000,
     "salaryMax": 10000,
     "score": 21,
@@ -299,19 +273,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/98e78d6571f8954376d8212d8ef533da"
   },
   {
-    "title": "Technical Program Manager",
-    "company": "DayOne",
-    "role": "TPM",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 20,
-    "isDream": false,
-    "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4414945833"
-  },
-  {
     "title": "Technical Program Manager 4",
     "company": "Lam Research",
     "role": "TPM",
@@ -338,8 +299,21 @@
     "url": "https://www.mycareersfuture.gov.sg/job/ec5c58f82c4bf76e7f97e4945ecdad28"
   },
   {
-    "title": "Presales Engineer",
-    "company": "Certis",
+    "title": "Technical Program Manager",
+    "company": "DayOne",
+    "role": "TPM",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 19,
+    "isDream": false,
+    "postedDate": "2026-06-26",
+    "url": "https://www.linkedin.com/jobs/view/4414945833"
+  },
+  {
+    "title": "Sales Engineer",
+    "company": "Rehlko",
     "role": "PRESALES",
     "tier": "other",
     "source": "LinkedIn",
@@ -348,33 +322,20 @@
     "score": 18,
     "isDream": false,
     "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4418089810"
+    "url": "https://www.linkedin.com/jobs/view/3951910859"
   },
   {
-    "title": "Business Development Manager / Senior Manager",
-    "company": "Datwyler IT Infra",
-    "role": "BD",
+    "title": "Sales Engineer",
+    "company": "Phoenix Contact",
+    "role": "PRESALES",
     "tier": "other",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
-    "score": 17,
+    "score": 18,
     "isDream": false,
     "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4430612019"
-  },
-  {
-    "title": "Senior Executive, Business Development &amp; Special Projects",
-    "company": "K2 STRATEGIC",
-    "role": "BD",
-    "tier": "enterprise",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 17,
-    "isDream": false,
-    "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4396032154"
+    "url": "https://www.linkedin.com/jobs/view/4406503059"
   },
   {
     "title": "GCC+ Cloud Architect (Freelance)",
@@ -429,21 +390,8 @@
     "url": "https://www.mycareersfuture.gov.sg/job/e7c3968acd5ddcb0800121ecdb38b60e"
   },
   {
-    "title": "Senior Network Specialist",
-    "company": "Singtel",
-    "role": "NETWORK",
-    "tier": "telco",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 16,
-    "isDream": false,
-    "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4414585759"
-  },
-  {
-    "title": "Business Development Manager, OTC &amp; Payment",
-    "company": "BIT Official",
+    "title": "Business Development Manager, Enterprise Sales",
+    "company": "Ingram Micro",
     "role": "BD",
     "tier": "other",
     "source": "LinkedIn",
@@ -452,12 +400,25 @@
     "score": 15,
     "isDream": false,
     "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4406976143"
+    "url": "https://www.linkedin.com/jobs/view/4424517485"
   },
   {
-    "title": "Senior Cybersecurity Consultant (Attack Simulation Grp)",
-    "company": "Cyber Security Agency of Singapore (CSA)",
-    "role": "SA",
+    "title": "Business Development Manager",
+    "company": "Thoughtworks",
+    "role": "BD",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 15,
+    "isDream": false,
+    "postedDate": "2026-06-26",
+    "url": "https://www.linkedin.com/jobs/view/4424426980"
+  },
+  {
+    "title": "[LPS] IT Infrastructure Manager - Nutanix",
+    "company": "Lenovo",
+    "role": "INFRA",
     "tier": "other",
     "source": "LinkedIn",
     "salaryMin": 0,
@@ -465,7 +426,7 @@
     "score": 14,
     "isDream": false,
     "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4211344511"
+    "url": "https://www.linkedin.com/jobs/view/4433216560"
   },
   {
     "title": "Senior Infrastructure Engineer",
@@ -481,19 +442,6 @@
     "url": "https://www.linkedin.com/jobs/view/4432969165"
   },
   {
-    "title": "[Singapore] Forward Deployed Engineer",
-    "company": "Rebellions",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 13,
-    "isDream": false,
-    "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4433557332"
-  },
-  {
     "title": "Senior Program Manager",
     "company": "Hamilton Barnes 🌳",
     "role": "TPM",
@@ -507,22 +455,9 @@
     "url": "https://www.linkedin.com/jobs/view/4430269981"
   },
   {
-    "title": "Consultant, Technical Program Management",
-    "company": "Dell Technologies",
-    "role": "TPM",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 12,
-    "isDream": false,
-    "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4433244588"
-  },
-  {
-    "title": "Integration Manager",
-    "company": "DayOne",
-    "role": "TPM",
+    "title": "Assistant Banquet Sales Manager",
+    "company": "NUSS - National University of Singapore Society",
+    "role": "NETWORK",
     "tier": "other",
     "source": "LinkedIn",
     "salaryMin": 0,
@@ -530,12 +465,12 @@
     "score": 11,
     "isDream": false,
     "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4414952678"
+    "url": "https://www.linkedin.com/jobs/view/4430299002"
   },
   {
-    "title": "Solutions Engineer, ASEAN",
-    "company": "Verkada",
-    "role": "PRESALES",
+    "title": "Strategy &amp; Transformation Lead (Technology)",
+    "company": "SGX Group",
+    "role": "INFRA_BD",
     "tier": "other",
     "source": "LinkedIn",
     "salaryMin": 0,
@@ -543,7 +478,7 @@
     "score": 11,
     "isDream": false,
     "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4415317568"
+    "url": "https://www.linkedin.com/jobs/view/4432980147"
   },
   {
     "title": "First VP/Senior VP, AI/GenAI Program Manager, Enterprise AI, Group Innovation",
@@ -559,6 +494,45 @@
     "url": "https://www.linkedin.com/jobs/view/4424519359"
   },
   {
+    "title": "Integration Manager",
+    "company": "DayOne",
+    "role": "TPM",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 11,
+    "isDream": false,
+    "postedDate": "2026-06-26",
+    "url": "https://www.linkedin.com/jobs/view/4414952678"
+  },
+  {
+    "title": "[LPS] Enterprise Architect",
+    "company": "LPS",
+    "role": "SA",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 10,
+    "isDream": false,
+    "postedDate": "2026-06-26",
+    "url": "https://www.linkedin.com/jobs/view/4424514586"
+  },
+  {
+    "title": "Project Manager",
+    "company": "AccountStaff",
+    "role": "TPM",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 10,
+    "isDream": false,
+    "postedDate": "2026-06-26",
+    "url": "https://www.linkedin.com/jobs/view/4330493923"
+  },
+  {
     "title": "Senior Manager",
     "company": "Keppel Ltd.",
     "role": "SA",
@@ -570,32 +544,6 @@
     "isDream": false,
     "postedDate": "2026-06-26",
     "url": "https://www.linkedin.com/jobs/view/4411192616"
-  },
-  {
-    "title": "Program Manager",
-    "company": "StarHub",
-    "role": "TPM",
-    "tier": "telco",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 9,
-    "isDream": false,
-    "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4405494592"
-  },
-  {
-    "title": "PMO / Project Coordinator",
-    "company": "Capgemini",
-    "role": "TPM",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 9,
-    "isDream": false,
-    "postedDate": "2026-06-26",
-    "url": "https://www.linkedin.com/jobs/view/4425473646"
   },
   {
     "title": "Presales Solution Architect (Cloud – Azure / AWS / GCC)",
@@ -624,6 +572,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/da7e07fe04753e1515b00cd62ccebcb6"
   },
   {
+    "title": "Senior Director, Enterprise Business Development, APAC",
+    "company": "Circle",
+    "role": "BD",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-06-25",
+    "url": "https://www.linkedin.com/jobs/view/4420150066"
+  },
+  {
     "title": "Senior Technical Program Manager",
     "company": "HEWLETT PACKARD ENTERPRISE SINGAPORE PTE. LTD.",
     "role": "TPM",
@@ -648,5 +609,44 @@
     "isDream": false,
     "postedDate": "2026-06-25",
     "url": "https://www.mycareersfuture.gov.sg/job/bf506a3b17b65ed3aecae37b214791a1"
+  },
+  {
+    "title": "Senior Solution Architect - A26156",
+    "company": "ACTIVATE INTERACTIVE PTE LTD",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 10000,
+    "salaryMax": 20000,
+    "score": 21,
+    "isDream": false,
+    "postedDate": "2026-06-25",
+    "url": "https://www.mycareersfuture.gov.sg/job/2dd81112976a32c9ed930b41e06934a6"
+  },
+  {
+    "title": "CX Business & Salesforce Solution Architect",
+    "company": "RANDSTAD PTE. LIMITED",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 9000,
+    "salaryMax": 10000,
+    "score": 21,
+    "isDream": false,
+    "postedDate": "2026-06-25",
+    "url": "https://www.mycareersfuture.gov.sg/job/0eef00aa945f8cebe2611f93e956b642"
+  },
+  {
+    "title": "Solution Architect",
+    "company": "JULIAN GREY CORPORATE ADVISORY PTE. LTD.",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 8000,
+    "salaryMax": 9000,
+    "score": 21,
+    "isDream": false,
+    "postedDate": "2026-06-25",
+    "url": "https://www.mycareersfuture.gov.sg/job/a2184938ed67f39cc4184b69f533633e"
   }
 ]
