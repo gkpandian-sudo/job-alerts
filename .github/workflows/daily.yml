@@ -38,7 +38,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/index.html state/
+          git add public/index.html public/jobs.json state/
           git diff --staged --quiet && echo "Nothing to commit" || \
             git commit -m "chore: daily refresh $(date -u '+%Y-%m-%d')"
           git push

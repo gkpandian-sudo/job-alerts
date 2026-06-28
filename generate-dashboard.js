@@ -680,6 +680,24 @@ async function run() {
 
   const html = buildDashboard(jobs, {}, now.toISOString());
   fs.writeFileSync(OUT, html, 'utf8');
+
+  const JOBS_JSON_OUT = path.join(__dirname, 'public', 'jobs.json');
+  const topJobs = jobs.slice(0, 50).map(j => ({
+    title:     j.title,
+    company:   j.company,
+    role:      j.role,
+    tier:      j.tier,
+    source:    j.source,
+    salaryMin: j.salaryMin,
+    salaryMax: j.salaryMax,
+    score:     j.score,
+    isDream:   j.isDream,
+    postedDate: j.postedDate,
+    url:       j.url,
+  }));
+  fs.writeFileSync(JOBS_JSON_OUT, JSON.stringify(topJobs, null, 2), 'utf8');
+  console.log(`  ✓ Jobs JSON → ${JOBS_JSON_OUT}`);
+
   console.log('─'.repeat(54));
   console.log(`  ✓ Saved → ${OUT}`);
   console.log(`  Double-click to open.\n`);

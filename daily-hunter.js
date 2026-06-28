@@ -829,6 +829,25 @@ async function run() {
   const html = buildHtml(allJobsByDate, now.toISOString());
   fs.writeFileSync(DASHBOARD_OUT, html, 'utf8');
   console.log(`Dashboard refreshed → ${DASHBOARD_OUT}`);
+
+  // ── 10. Export jobs.json for social auto-poster ────────────────
+  const JOBS_JSON_OUT = path.join(__dirname, 'public', 'jobs.json');
+  const topJobsForSocial = allJobs.slice(0, 50).map(j => ({
+    title:     j.title,
+    company:   j.company,
+    role:      j.role,
+    tier:      j.tier,
+    source:    j.source,
+    salaryMin: j.salaryMin,
+    salaryMax: j.salaryMax,
+    score:     j.score,
+    isDream:   j.isDream,
+    postedDate: j.postedDate,
+    url:       j.url,
+  }));
+  fs.writeFileSync(JOBS_JSON_OUT, JSON.stringify(topJobsForSocial, null, 2), 'utf8');
+  console.log(`Jobs JSON → ${JOBS_JSON_OUT}`);
+
   console.log(`[${new Date().toISOString()}] Done.\n`);
 }
 
