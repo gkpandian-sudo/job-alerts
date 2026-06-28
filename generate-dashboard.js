@@ -394,6 +394,7 @@ function buildDashboard(jobs, stats, generatedAt) {
     salText: fmtSalary(j.salaryMin, j.salaryMax) || (j.source !== 'MCF' ? 'See on LinkedIn' : 'Not stated'),
     posted:  daysAgo(j.postedDate) || '',
     isDream: j.isDream || false,  score: j.score,  rank: i + 1,
+    salmax:  j.salaryMax || 0,
     liUrl:   j.source === 'LinkedIn' ? j.url : (j.source === 'BOTH' ? (j.urlAlt || j.url) : null),
     mcfUrl:  j.source === 'MCF'      ? j.url : (j.source === 'BOTH' ? j.url             : null),
   }));
@@ -502,6 +503,10 @@ footer{max-width:1440px;margin:24px auto 0;padding:0 16px;font-size:11px;color:#
       <input type="range" id="salSlider" min="0" max="25000" step="1000" value="0">
       <span id="salVal">Any salary</span>
     </div>
+    <div class="frow sal-row"><span class="flbl">Score</span>
+      <input type="range" id="scoreSlider" min="0" max="40" step="5" value="0">
+      <span id="scoreVal">Any score</span>
+    </div>
   </div>
 </div>
 <div id="stats-bar"><div class="si">
@@ -522,7 +527,7 @@ var ROLES=[{v:'all',l:'All'},{v:'TPM',l:'TPM'},{v:'SA',l:'Solution Arch'},{v:'NE
 var TIERS=[{v:'all',l:'All'},{v:'hyperscaler',l:'Hyperscaler'},{v:'telco',l:'Telco'},{v:'enterprise',l:'Enterprise'},{v:'tech',l:'Tech Co'},{v:'other',l:'Other'}];
 var SRCS=[{v:'all',l:'All Sources',f:'src'},{v:'LinkedIn',l:'LinkedIn',f:'src'},{v:'MCF',l:'MCF',f:'src'},{v:'BOTH',l:'in + MCF',f:'src'},{v:'dream',l:'Dream',f:'dream'}];
 var STATS=[{l:'TPM',r:'TPM',c:'#4338ca',b:'#ede9fe'},{l:'Sol.Arch',r:'SA',c:'#1d4ed8',b:'#dbeafe'},{l:'PreSales',r:'PRESALES',c:'#065f46',b:'#d1fae5'},{l:'Network',r:'NETWORK',c:'#b45309',b:'#fef3c7'},{l:'Infra BD',r:'INFRA_BD',c:'#be185d',b:'#fce7f3'},{l:'Infra',r:'INFRA',c:'#7c3aed',b:'#f3e8ff'},{l:'Biz Dev',r:'BD',c:'#c2410c',b:'#ffedd5'}];
-var F={role:'all',tier:'all',src:'all',dream:false},minSal=0,srch='';
+var F={role:'all',tier:'all',src:'all',dream:false},minSal=0,minScore=0,srch='';
 function eh(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function card(j){
   var rm=RM[j.role]||RM.OTHER,tm=TM[j.tier]||TM.other;
@@ -541,14 +546,14 @@ function card(j){
 function render(){
   var q=srch,filtered=JOBS.filter(function(j){
     var srcOk=F.src==='all'||(F.src==='BOTH'?j.src==='BOTH':(j.src===F.src||j.src==='BOTH'));
-    return srcOk&&(F.role==='all'||j.role===F.role)&&(F.tier==='all'||j.tier===F.tier)&&(!F.dream||j.isDream)&&(minSal===0||j.salmin>=minSal)&&(!q||j.title.toLowerCase().includes(q)||j.company.toLowerCase().includes(q));
+    return srcOk&&(F.role==='all'||j.role===F.role)&&(F.tier==='all'||j.tier===F.tier)&&(!F.dream||j.isDream)&&(minSal===0||j.salmax>=minSal)&&(minScore===0||j.score>=minScore)&&(!q||j.title.toLowerCase().includes(q)||j.company.toLowerCase().includes(q));
   });
   document.getElementById('grid').innerHTML=filtered.map(card).join('');
   document.getElementById('sc').textContent=filtered.length;
   document.getElementById('sof').textContent='of '+TOTAL;
   document.getElementById('no-results').className=filtered.length===0?'show':'';
   document.getElementById('schips').innerHTML=STATS.map(function(s){var n=filtered.filter(function(j){return j.role===s.r;}).length;return n?'<span class="sch" style="background:'+s.b+';color:'+s.c+'">'+s.l+' <strong>'+n+'</strong></span>':'';}).join('');
-  var ac=(F.role!=='all'?1:0)+(F.tier!=='all'?1:0)+(F.src!=='all'?1:0)+(F.dream?1:0)+(minSal>0?1:0);
+  var ac=(F.role!=='all'?1:0)+(F.tier!=='all'?1:0)+(F.src!=='all'?1:0)+(F.dream?1:0)+(minSal>0?1:0)+(minScore>0?1:0);
   var fd=document.getElementById('fdot');fd.textContent=ac;fd.className='fdot'+(ac?' on':'');
 }
 function chips(){
@@ -558,7 +563,8 @@ function chips(){
   document.querySelectorAll('.chip').forEach(function(e){e.addEventListener('click',function(){var f=e.dataset.f,v=e.dataset.v;if(f==='dream'){F.dream=!F.dream;}else{F[f]=v;}chips();render();});});
 }
 function toggleFilters(){var p=document.getElementById('filter-panel'),b=document.getElementById('filter-btn');p.classList.toggle('open');b.classList.toggle('open',p.classList.contains('open'));}
-document.getElementById('salSlider').addEventListener('input',function(){minSal=parseInt(this.value)||0;document.getElementById('salVal').textContent=minSal?'$'+minSal.toLocaleString()+'/mo+':'Any salary';render();});
+document.getElementById('salSlider').addEventListener('input',function(){minSal=parseInt(this.value)||0;document.getElementById('salVal').textContent=minSal?'Max ≥ $'+minSal.toLocaleString()+'/mo':'Any salary';render();});
+document.getElementById('scoreSlider').addEventListener('input',function(){minScore=parseInt(this.value)||0;document.getElementById('scoreVal').textContent=minScore?minScore+'+':'Any score';render();});
 document.getElementById('searchBox').addEventListener('input',function(){srch=this.value.toLowerCase().trim();render();});
 if(window.innerWidth>=700)document.getElementById('filter-panel').classList.add('open');
 chips();render();
