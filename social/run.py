@@ -66,7 +66,7 @@ def commit_and_push(image_path: Path) -> str:
         ['git', 'config', 'user.email', 'github-actions[bot]@users.noreply.github.com'],
         ['git', 'config', 'user.name',  'github-actions[bot]'],
         ['git', 'add', str(pub_path)],
-        ['git', 'commit', '-m', f'auto: social post {date.today()} [skip ci]'],
+        ['git', 'commit', '-m', f'auto: social post {date.today()}'],
         ['git', 'push', 'origin', branch],
     ]
     for cmd in cmds:
