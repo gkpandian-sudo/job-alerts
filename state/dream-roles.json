@@ -1,3 +1,52 @@
 {
-  "dreamRoles": []
+  "dreamRoles": [
+    {
+      "uuid": "451386fb081bbe3c79e10be7219ca1e7",
+      "firstSeenDate": "2026-07-01",
+      "job": {
+        "uuid": "451386fb081bbe3c79e10be7219ca1e7",
+        "title": "Technical Program Manager, Lightpath Fiber Asset Delivery, Global Network Solutions - Singapore",
+        "postedCompany": {
+          "uen": "200817984R",
+          "description": "<p>GOOGLE ASIA PACIFIC PTE. LTD.</p>\r\n",
+          "name": "GOOGLE ASIA PACIFIC PTE. LTD.",
+          "ssicCode": "63120",
+          "employeeCount": null,
+          "companyUrl": null,
+          "lastSyncDate": "2026-07-01T01:11:49.000Z",
+          "ssicCode2020": "63901",
+          "_links": {
+            "self": {
+              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R"
+            },
+            "jobs": {
+              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/jobs"
+            },
+            "addresses": {
+              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/addresses"
+            },
+            "schemes": {
+              "href": "https://api.mycareersfuture.gov.sg/v2/companies/200817984R/schemes"
+            }
+          },
+          "logoFileName": "26b00abe7acb9b5449204a64fb45ab5a/google-asia-pacific.png",
+          "logoUploadPath": "https://static.mycareersfuture.gov.sg/images/company/logos/26b00abe7acb9b5449204a64fb45ab5a/google-asia-pacific.png",
+          "responsiveEmployer": {
+            "isResponsive": true
+          }
+        },
+        "salary": {
+          "maximum": 18000,
+          "minimum": 9000,
+          "type": {
+            "id": 4,
+            "salaryType": "Monthly"
+          }
+        },
+        "metadata": {
+          "newPostingDate": "2026-07-01"
+        }
+      }
+    }
+  ]
 }
