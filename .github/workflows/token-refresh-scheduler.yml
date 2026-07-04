@@ -1,0 +1,33 @@
+name: Token Refresh Scheduler
+
+on:
+  schedule:
+    # 20th of every month at 08:00 SGT (00:00 UTC)
+    # Token lasts 60 days; monthly refresh keeps it well within expiry.
+    - cron: '0 0 20 * *'
+  workflow_dispatch: {}   # allow manual trigger for testing
+
+permissions:
+  actions: write
+
+jobs:
+  trigger-refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Enable refresh-meta-token workflow
+        run: gh workflow enable refresh-meta-token.yml
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Dispatch token refresh
+        run: gh workflow run refresh-meta-token.yml
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Summary
+        run: |
+          echo "## Token Refresh Triggered" >> $GITHUB_STEP_SUMMARY
+          echo "refresh-meta-token workflow enabled and dispatched." >> $GITHUB_STEP_SUMMARY
+          echo "It will self-disable once the refresh completes." >> $GITHUB_STEP_SUMMARY
