@@ -1,7 +1,7 @@
 name: Refresh Meta Access Token
 
 on:
-  push:                       # declared so GitHub doesn't report "No jobs were run" on push
+  push:         # registered so GitHub never reports "No jobs were run" on push
   schedule:
     # Every 45 days at 08:00 SGT (00:00 UTC) — well before 60-day expiry
     - cron: '0 0 13 */1 *'   # runs ~monthly; GitHub doesn't support every-45-days natively
@@ -12,13 +12,18 @@ permissions:
 
 jobs:
   refresh:
-    # Only execute on schedule or manual dispatch — skip silently on push
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
+      # On plain push events this step exits cleanly so the run shows "success".
+      # The actual token refresh only runs on schedule or manual dispatch.
+      - name: Skip on push
+        if: github.event_name == 'push'
+        run: echo "Push event — token refresh only runs on schedule or workflow_dispatch. Skipping."
+
       - name: Exchange long-lived token for a fresh 60-day token
+        if: github.event_name != 'push'
         id: refresh
         env:
           FB_APP_ID:         ${{ secrets.FB_APP_ID }}
@@ -45,6 +50,7 @@ jobs:
           " >> $GITHUB_OUTPUT
 
       - name: Update META_ACCESS_TOKEN secret via GitHub API
+        if: github.event_name != 'push'
         env:
           GH_PAT:       ${{ secrets.GH_PAT }}
           NEW_TOKEN:    ${{ steps.refresh.outputs.NEW_TOKEN }}
@@ -89,6 +95,7 @@ jobs:
           PYEOF
 
       - name: Summary
+        if: github.event_name != 'push'
         run: |
           echo "## Token Refresh Complete" >> $GITHUB_STEP_SUMMARY
           echo "- **Expires in:** ${{ steps.refresh.outputs.EXPIRES_IN }} seconds (~$(( ${{ steps.refresh.outputs.EXPIRES_IN }} / 86400 )) days)" >> $GITHUB_STEP_SUMMARY
