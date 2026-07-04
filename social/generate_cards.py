@@ -1,6 +1,7 @@
 """
 Card generators for Veralevel Jobs social posts.
 All cards are 1080x1080 @ 100 DPI using matplotlib + PIL.
+Colors match the live dashboard at veralevel-job-alerts.vercel.app.
 """
 
 from pathlib import Path
@@ -12,25 +13,29 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.figure import Figure
 
-# ── Brand palette ─────────────────────────────────────────────────────────────
-NAVY   = '#00183d'
-BLUE   = '#005eb5'
-LIGHT  = '#f6faff'
+# ── Brand palette — exact values from the website CSS variables ────────────────
+NAVY   = '#001835'   # --pri  sidebar / header background
+BLUE   = '#005eb5'   # --sec  footer / link accent
+BG     = '#f4f7fb'   # --bg   page background (light blue-grey)
+SURF   = '#ffffff'   # --surf card / row surface
+BDR    = '#e2e8f0'   # --bdr-s border between rows
+TXT    = '#0d1117'   # --txt  main text (near-black)
+TXT2   = '#6b7280'   # --txt2 secondary text (grey)
+OUT    = '#9ca3af'   # --out  muted / placeholder
+GRN    = '#059669'   # --grn  green (salary, MCF badge)
+GOLD   = '#d97706'   # --gold dream star / score highlight
 WHITE  = '#ffffff'
-GREY   = '#44474f'
-BORDER = '#c4c6d0'
-GREEN  = '#0F6B3C'
-GOLD   = '#d97706'
 
+# Role pill colours — (text, background) — matching the website tag-role classes
 ROLE_COLORS = {
-    'TPM':      ('#4338ca', '#ede9fe'),
-    'SA':       ('#1d4ed8', '#dbeafe'),
-    'PRESALES': ('#065f46', '#d1fae5'),
-    'NETWORK':  ('#b45309', '#fef3c7'),
-    'INFRA_BD': ('#be185d', '#fce7f3'),
-    'INFRA':    ('#7c3aed', '#f3e8ff'),
-    'BD':       ('#c2410c', '#ffedd5'),
-    'OTHER':    ('#64748b', '#f1f5f9'),
+    'TPM':      ('#4338ca', '#ede9fe'),   # indigo
+    'SA':       ('#1d4ed8', '#dbeafe'),   # blue
+    'PRESALES': ('#065f46', '#d1fae5'),   # green
+    'NETWORK':  ('#b45309', '#fef3c7'),   # amber
+    'INFRA_BD': ('#be185d', '#fce7f3'),   # pink
+    'INFRA':    ('#7c3aed', '#f3e8ff'),   # purple
+    'BD':       ('#c2410c', '#ffedd5'),   # orange
+    'OTHER':    ('#64748b', '#f1f5f9'),   # slate
 }
 
 ROLE_LABELS = {
@@ -42,7 +47,7 @@ ROLE_LABELS = {
 OUT_DIR = Path(__file__).resolve().parent / 'posts'
 
 
-def _fig_ax(bg=NAVY):
+def _fig_ax(bg=BG):
     """Create a 1080x1080 figure with a solid background colour."""
     fig = Figure(figsize=(10.8, 10.8), dpi=100)
     ax  = fig.add_axes([0, 0, 1, 1])
@@ -54,19 +59,23 @@ def _fig_ax(bg=NAVY):
     return fig, ax
 
 
-def _rect(ax, x, y, w, h, color, alpha=1.0, radius=0.0):
+def _rect(ax, x, y, w, h, color, alpha=1.0, radius=0.0, edgecolor=None, linewidth=0):
     """Draw a filled rectangle on the axes."""
     if radius > 0:
         r = patches.FancyBboxPatch(
             (x, y), w, h,
             boxstyle=f'round,pad=0,rounding_size={radius}',
-            linewidth=0, facecolor=color, alpha=alpha,
+            linewidth=linewidth,
+            edgecolor=edgecolor or 'none',
+            facecolor=color, alpha=alpha,
             transform=ax.transAxes,
         )
     else:
         r = patches.Rectangle(
             (x, y), w, h,
-            linewidth=0, facecolor=color, alpha=alpha,
+            linewidth=linewidth,
+            edgecolor=edgecolor or 'none',
+            facecolor=color, alpha=alpha,
             transform=ax.transAxes,
         )
     ax.add_patch(r)
@@ -84,106 +93,138 @@ def _save(fig, filename: str) -> Path:
 
 def make_top_jobs_card(jobs: list, date_str: str, post_date=None) -> Path:
     """
-    Top-5 scoring jobs card (1080x1080, dark navy).
-    Returns saved PNG path.
+    Top-5 scoring jobs card — light theme matching the website.
+    Background: #f4f7fb | Header: #001835 | Rows: white cards.
     """
-    fig, ax = _fig_ax(NAVY)
+    fig, ax = _fig_ax(BG)
     top5 = jobs[:5] if jobs else []
 
-    # ── Header strip ──────────────────────────────────────────────
-    _rect(ax, 0, 0.88, 1, 0.12, NAVY)
+    # ── Header strip (dark navy, matching sidebar) ─────────────────
+    _rect(ax, 0, 0.87, 1, 0.13, NAVY)
 
-    ax.text(0.5, 0.955, 'VERALEVEL JOBS',
+    # Brand wordmark
+    ax.text(0.06, 0.955, 'Veralevel',
+            ha='left', va='center', color=WHITE,
+            fontsize=26, fontweight='bold', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+    ax.text(0.345, 0.955, 'Jobs',
+            ha='left', va='center', color=GOLD,
+            fontsize=26, fontweight='normal', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+
+    ax.text(0.06, 0.900, f'Top Roles in Singapore  ·  {date_str}',
+            ha='left', va='center', color=(1, 1, 1, 0.65),
+            fontsize=12, fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+
+    # Blue accent right edge (mirroring site's --sec colour dot)
+    _rect(ax, 0.93, 0.87, 0.07, 0.13, BLUE)
+    ax.text(0.965, 0.933, '382\nroles',
             ha='center', va='center', color=WHITE,
-            fontsize=28, fontweight='bold', fontfamily='DejaVu Sans',
+            fontsize=8, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
-    ax.text(0.5, 0.908, f'Top Roles in Singapore  ·  {date_str}',
-            ha='center', va='center', color='#93c5fd',
-            fontsize=13, fontfamily='DejaVu Sans',
-            transform=ax.transAxes)
-
-    # Gold divider
-    ax.axhline(y=0.875, color=GOLD, linewidth=2.5, xmin=0.04, xmax=0.96)
 
     # ── Job rows ──────────────────────────────────────────────────
-    row_h   = 0.145
+    row_h   = 0.148
     row_top = 0.855
+    pad     = 0.030   # horizontal padding
 
     if not top5:
         ax.text(0.5, 0.5, 'No jobs data available',
-                ha='center', va='center', color=WHITE,
+                ha='center', va='center', color=TXT2,
                 fontsize=20, fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
     else:
         for i, job in enumerate(top5):
             y_top = row_top - i * row_h
-            y_mid = y_top - row_h / 2
+            row_y = y_top - row_h + 0.006
 
-            # Row background (subtle alternating)
-            bg_col = '#001833' if i % 2 == 0 else '#001025'
-            _rect(ax, 0.03, y_top - row_h + 0.005, 0.94, row_h - 0.008, bg_col, radius=0.008)
+            is_dream = job.get('isDream', False)
 
-            # Role pill
-            role     = job.get('role', 'OTHER')
+            # White row card with subtle border
+            _rect(ax, pad, row_y, 1 - 2 * pad, row_h - 0.010,
+                  SURF, radius=0.010,
+                  edgecolor=BDR, linewidth=0.8)
+
+            # Dream job: gold left accent bar (matches website card left border)
+            if is_dream:
+                _rect(ax, pad, row_y, 0.007, row_h - 0.010, GOLD, radius=0.003)
+
+            # ── Role pill ─────────────────────────────────────────
+            role = job.get('role', 'OTHER')
             rc_text, rc_bg = ROLE_COLORS.get(role, ROLE_COLORS['OTHER'])
-            pill_x, pill_y = 0.06, y_top - row_h * 0.28
-            _rect(ax, pill_x, pill_y - 0.018, 0.095, 0.038, rc_bg, radius=0.004)
-            ax.text(pill_x + 0.0475, pill_y - 0.001,
+            pill_x = pad + 0.018 + (0.010 if is_dream else 0)
+            pill_y = y_top - row_h * 0.30
+            pill_w = 0.12
+            _rect(ax, pill_x, pill_y - 0.016, pill_w, 0.034, rc_bg, radius=0.005)
+            ax.text(pill_x + pill_w / 2, pill_y - 0.001,
                     ROLE_LABELS.get(role, role),
                     ha='center', va='center', color=rc_text,
                     fontsize=9, fontweight='bold', fontfamily='DejaVu Sans',
                     transform=ax.transAxes)
 
-            # Job title (primary — large, on top)
-            title = (job.get('title') or '')[:52]
-            ax.text(0.175, y_top - row_h * 0.26,
+            # ── Job title ─────────────────────────────────────────
+            title_x = pill_x + pill_w + 0.018
+            title = (job.get('title') or '')[:50]
+            ax.text(title_x, y_top - row_h * 0.27,
                     title,
-                    ha='left', va='center', color=WHITE,
+                    ha='left', va='center', color=NAVY,
                     fontsize=13, fontweight='bold', fontfamily='DejaVu Sans',
                     transform=ax.transAxes)
 
-            # Company name (secondary — smaller, below title)
-            company = (job.get('company') or 'Unknown')[:32]
-            ax.text(0.175, y_top - row_h * 0.62,
+            # ── Company name ──────────────────────────────────────
+            company = (job.get('company') or 'Unknown')[:36]
+            ax.text(title_x, y_top - row_h * 0.60,
                     company,
-                    ha='left', va='center', color='#93c5fd',
+                    ha='left', va='center', color=TXT2,
                     fontsize=11, fontfamily='DejaVu Sans',
                     transform=ax.transAxes)
 
-            # Score badge (right side)
-            score = job.get('score', 0)
-            ax.text(0.88, y_top - row_h * 0.32,
-                    f'▲ {score}',
-                    ha='center', va='center', color=GOLD,
-                    fontsize=13, fontweight='bold', fontfamily='DejaVu Sans',
-                    transform=ax.transAxes)
-
-            # Salary (right, smaller)
+            # ── Salary (green, matching --grn) ────────────────────
             sal_min = int(job.get('salaryMin') or 0)
             sal_max = int(job.get('salaryMax') or 0)
             if sal_min and sal_max:
-                sal_text = f'${sal_min // 1000}k–${sal_max // 1000}k/mo'
+                sal_text = f'S\\${sal_min:,} – S\\${sal_max:,}/mo'
             elif sal_min:
-                sal_text = f'${sal_min // 1000}k+/mo'
+                sal_text = f'S\\${sal_min:,}+/mo'
             else:
                 sal_text = ''
             if sal_text:
-                ax.text(0.88, y_top - row_h * 0.68,
+                ax.text(title_x, y_top - row_h * 0.85,
                         sal_text,
-                        ha='center', va='center', color='#4ade80',
-                        fontsize=9, fontfamily='DejaVu Sans',
+                        ha='left', va='center', color=GRN,
+                        fontsize=9.5, fontfamily='DejaVu Sans',
                         transform=ax.transAxes)
 
-            # Row separator
-            if i < len(top5) - 1:
-                sep_y = y_top - row_h + 0.003
-                ax.axhline(y=sep_y, color='#1e3a5f', linewidth=0.8, xmin=0.04, xmax=0.96)
+            # ── Score badge (right side) ──────────────────────────
+            score = job.get('score', 0)
+            score_x, score_y = 0.88, y_top - row_h * 0.50
+            _rect(ax, score_x - 0.045, score_y - 0.022, 0.10, 0.044,
+                  '#f0f4f9', radius=0.006)
+            ax.text(score_x - 0.010, score_y,
+                    '▲', ha='center', va='center', color=GOLD,
+                    fontsize=10, fontweight='bold', fontfamily='DejaVu Sans',
+                    transform=ax.transAxes)
+            ax.text(score_x + 0.022, score_y,
+                    str(score), ha='center', va='center', color=TXT2,
+                    fontsize=11, fontweight='bold', fontfamily='DejaVu Sans',
+                    transform=ax.transAxes)
 
-    # ── Footer strip ──────────────────────────────────────────────
-    _rect(ax, 0, 0, 1, 0.10, BLUE)
-    ax.text(0.5, 0.05, 'veralevel-job-alerts.vercel.app',
+            # Dream star
+            if is_dream:
+                ax.text(0.94, y_top - row_h * 0.20, '★',
+                        ha='center', va='center', color=GOLD,
+                        fontsize=14, transform=ax.transAxes)
+
+    # ── Footer strip (--sec blue, matching site's button colour) ──
+    _rect(ax, 0, 0, 1, 0.082, BLUE)
+    ax.text(0.5, 0.048, 'veralevel-job-alerts.vercel.app',
             ha='center', va='center', color=WHITE,
             fontsize=14, fontweight='bold', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+    ax.text(0.5, 0.016, 'Daily Singapore tech job alerts',
+            ha='center', va='center', color=(1, 1, 1, 0.7),
+            fontsize=10, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
     return _save(fig, f'{(post_date or _date.today()).isoformat()}-top-jobs.png')
@@ -192,78 +233,100 @@ def make_top_jobs_card(jobs: list, date_str: str, post_date=None) -> Path:
 # ── Card 2: Career Tip ────────────────────────────────────────────────────────
 
 def make_career_tip_card(tip: dict, date_str: str, post_date=None) -> Path:
-    """Career tip card (1080x1080, dark navy with gold accent)."""
-    fig, ax = _fig_ax(NAVY)
+    """Career tip card — light theme with gold accent header."""
+    fig, ax = _fig_ax(BG)
 
-    # Gold accent bar at top
-    _rect(ax, 0, 0.955, 1, 0.045, GOLD)
-    ax.text(0.5, 0.978, 'C A R E E R   T I P',
+    # Dark navy header
+    _rect(ax, 0, 0.87, 1, 0.13, NAVY)
+    ax.text(0.06, 0.955, 'Veralevel',
+            ha='left', va='center', color=WHITE,
+            fontsize=26, fontweight='bold', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+    ax.text(0.345, 0.955, 'Jobs',
+            ha='left', va='center', color=GOLD,
+            fontsize=26, fontweight='normal', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+    ax.text(0.06, 0.900, 'Career Tip',
+            ha='left', va='center', color=(1, 1, 1, 0.65),
+            fontsize=12, fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+
+    # Gold accent right
+    _rect(ax, 0.93, 0.87, 0.07, 0.13, GOLD)
+    ax.text(0.965, 0.933, f'#{tip["tip_num"]}',
             ha='center', va='center', color=NAVY,
             fontsize=11, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    # Tip number (large, faded)
-    ax.text(0.08, 0.875, f'#{tip["tip_num"]}',
-            ha='left', va='center', color='#0a2550',
-            fontsize=72, fontweight='bold', fontfamily='DejaVu Sans',
-            transform=ax.transAxes, alpha=0.6)
+    # Main content area — white card
+    _rect(ax, 0.03, 0.09, 0.94, 0.765, SURF, radius=0.012,
+          edgecolor=BDR, linewidth=0.8)
+
+    # Tip number (large watermark)
+    ax.text(0.88, 0.78, f'#{tip["tip_num"]}',
+            ha='right', va='top', color=BG,
+            fontsize=80, fontweight='bold', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
 
     # Tag badge
-    _rect(ax, 0.06, 0.825, 0.16, 0.036, GOLD, radius=0.004)
-    ax.text(0.14, 0.843, tip['tag'],
+    _rect(ax, 0.06, 0.795, 0.18, 0.036, GOLD, radius=0.005)
+    ax.text(0.15, 0.813, tip['tag'],
             ha='center', va='center', color=NAVY,
             fontsize=10, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
     # Title
-    title_lines = textwrap.wrap(tip['title'], width=26)
+    title_lines = textwrap.wrap(tip['title'], width=28)
     for li, line in enumerate(title_lines[:3]):
-        ax.text(0.06, 0.785 - li * 0.075,
+        ax.text(0.06, 0.760 - li * 0.072,
                 line,
-                ha='left', va='center', color=WHITE,
-                fontsize=32, fontweight='bold', fontfamily='DejaVu Sans',
+                ha='left', va='center', color=NAVY,
+                fontsize=30, fontweight='bold', fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
-
-    # Body text
-    body_wrapped = textwrap.wrap(tip['body'], width=55)
-    body_y = 0.620
-    for line in body_wrapped[:6]:
-        ax.text(0.06, body_y, line,
-                ha='left', va='center', color='#94a3b8',
-                fontsize=12, fontfamily='DejaVu Sans',
-                transform=ax.transAxes)
-        body_y -= 0.040
 
     # Divider
-    ax.axhline(y=body_y - 0.015, color='#1e3a5f', linewidth=1.5, xmin=0.06, xmax=0.94)
+    divider_y = 0.760 - len(title_lines[:3]) * 0.072 - 0.025
+    ax.axhline(y=divider_y, color=BDR, linewidth=1.5, xmin=0.06, xmax=0.94)
+
+    # Body text
+    body_wrapped = textwrap.wrap(tip['body'], width=58)
+    body_y = divider_y - 0.042
+    for line in body_wrapped[:5]:
+        ax.text(0.06, body_y, line,
+                ha='left', va='center', color=TXT2,
+                fontsize=12, fontfamily='DejaVu Sans',
+                transform=ax.transAxes)
+        body_y -= 0.038
 
     # Bullets
-    bullet_y = body_y - 0.065
+    bullet_y = body_y - 0.025
     for bullet in tip.get('bullets', [])[:3]:
-        bwrapped = textwrap.wrap(bullet, width=52)
-        ax.text(0.07, bullet_y,
-                '→  ' + bwrapped[0],
-                ha='left', va='center', color=WHITE,
-                fontsize=13, fontfamily='DejaVu Sans',
+        bwrapped = textwrap.wrap(bullet, width=54)
+        # Gold bullet dot
+        _rect(ax, 0.06, bullet_y - 0.008, 0.012, 0.012, GOLD, radius=0.003)
+        ax.text(0.085, bullet_y - 0.001,
+                bwrapped[0],
+                ha='left', va='center', color=TXT,
+                fontsize=12, fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
         if len(bwrapped) > 1:
-            ax.text(0.095, bullet_y - 0.038,
+            ax.text(0.085, bullet_y - 0.036,
                     bwrapped[1],
-                    ha='left', va='center', color=WHITE,
-                    fontsize=13, fontfamily='DejaVu Sans',
+                    ha='left', va='center', color=TXT,
+                    fontsize=12, fontfamily='DejaVu Sans',
                     transform=ax.transAxes)
-            bullet_y -= 0.038
-        bullet_y -= 0.058
+            bullet_y -= 0.036
+        bullet_y -= 0.050
 
-    # Footer strip
-    _rect(ax, 0, 0, 1, 0.10, BLUE)
-    ax.text(0.5, 0.055, 'Follow for daily Singapore job alerts',
+    # Footer
+    _rect(ax, 0, 0, 1, 0.082, BLUE)
+    ax.text(0.5, 0.048, 'Follow for daily Singapore job alerts',
             ha='center', va='center', color=WHITE,
             fontsize=13, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
-    ax.text(0.5, 0.022, 'veralevel-job-alerts.vercel.app',
-            ha='center', va='center', color='#93c5fd',
-            fontsize=11, fontfamily='DejaVu Sans',
+    ax.text(0.5, 0.016, 'veralevel-job-alerts.vercel.app',
+            ha='center', va='center', color=(1, 1, 1, 0.7),
+            fontsize=10, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
     return _save(fig, f'{(post_date or _date.today()).isoformat()}-career-tip.png')
@@ -272,39 +335,45 @@ def make_career_tip_card(tip: dict, date_str: str, post_date=None) -> Path:
 # ── Card 3: Weekly Digest ─────────────────────────────────────────────────────
 
 def make_weekly_digest_card(jobs: list, date_str: str, post_date=None) -> Path:
-    """Weekly digest card (1080x1080, light background)."""
-    fig, ax = _fig_ax(LIGHT)
+    """Weekly digest card — light theme matching website."""
+    fig, ax = _fig_ax(BG)
 
-    # Header navy strip
-    _rect(ax, 0, 0.875, 1, 0.125, NAVY)
-    ax.text(0.5, 0.950, 'WEEK IN JOBS',
-            ha='center', va='center', color=WHITE,
+    # Header
+    _rect(ax, 0, 0.87, 1, 0.13, NAVY)
+    ax.text(0.06, 0.955, 'Veralevel',
+            ha='left', va='center', color=WHITE,
             fontsize=26, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
-    ax.text(0.5, 0.900, f'Singapore  ·  {date_str}',
-            ha='center', va='center', color='#93c5fd',
-            fontsize=14, fontfamily='DejaVu Sans',
+    ax.text(0.345, 0.955, 'Jobs',
+            ha='left', va='center', color=GOLD,
+            fontsize=26, fontweight='normal', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+    ax.text(0.06, 0.900, f'Week in Jobs  ·  Singapore  ·  {date_str}',
+            ha='left', va='center', color=(1, 1, 1, 0.65),
+            fontsize=12, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    # Role counts
+    # Role counts section — white card
+    _rect(ax, 0.03, 0.63, 0.94, 0.230, SURF, radius=0.012,
+          edgecolor=BDR, linewidth=0.8)
+
     role_order = ['TPM', 'SA', 'PRESALES', 'NETWORK', 'INFRA_BD', 'INFRA', 'BD']
     role_counts = {r: sum(1 for j in jobs if j.get('role') == r) for r in role_order}
 
     ax.text(0.06, 0.840, 'ROLES THIS WEEK',
-            ha='left', va='center', color=NAVY,
-            fontsize=11, fontweight='bold', fontfamily='DejaVu Sans',
+            ha='left', va='center', color=TXT2,
+            fontsize=10, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    pill_x, pill_y = 0.06, 0.790
-    max_per_row = 4
-    col = 0
+    pill_x, pill_y = 0.06, 0.800
+    max_per_row, col = 4, 0
+    pill_w = 0.205
     for role in role_order:
         count = role_counts.get(role, 0)
         if count == 0:
             continue
         rc_text, rc_bg = ROLE_COLORS.get(role, ROLE_COLORS['OTHER'])
-        pill_w = 0.20
-        _rect(ax, pill_x, pill_y - 0.030, pill_w, 0.048, rc_bg, radius=0.006)
+        _rect(ax, pill_x, pill_y - 0.028, pill_w, 0.044, rc_bg, radius=0.006)
         ax.text(pill_x + pill_w / 2, pill_y - 0.006,
                 f'{ROLE_LABELS.get(role, role)}: {count}',
                 ha='center', va='center', color=rc_text,
@@ -312,63 +381,83 @@ def make_weekly_digest_card(jobs: list, date_str: str, post_date=None) -> Path:
                 transform=ax.transAxes)
         col += 1
         if col % max_per_row == 0:
-            pill_x  = 0.06
-            pill_y -= 0.068
+            pill_x = 0.06
+            pill_y -= 0.065
         else:
-            pill_x += pill_w + 0.025
+            pill_x += pill_w + 0.018
 
-    # Total count
-    total_y = 0.640
-    ax.text(0.06, total_y,
-            f'Total: {len(jobs)} curated roles',
+    ax.text(0.06, 0.652, f'{len(jobs)} curated roles total',
             ha='left', va='center', color=NAVY,
-            fontsize=14, fontweight='bold', fontfamily='DejaVu Sans',
+            fontsize=13, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    # Top 3 highlighted jobs
+    # Top picks section — white card
+    _rect(ax, 0.03, 0.09, 0.94, 0.522, SURF, radius=0.012,
+          edgecolor=BDR, linewidth=0.8)
+
+    ax.text(0.06, 0.591, 'TOP PICKS THIS WEEK',
+            ha='left', va='center', color=TXT2,
+            fontsize=10, fontweight='bold', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+
     dream_jobs = [j for j in jobs if j.get('isDream')]
     top3 = (dream_jobs + [j for j in jobs if not j.get('isDream')])[:3]
 
-    ax.axhline(y=0.615, color=BORDER, linewidth=1.0, xmin=0.04, xmax=0.96)
-    ax.text(0.06, 0.590, 'TOP PICKS THIS WEEK',
-            ha='left', va='center', color=NAVY,
-            fontsize=11, fontweight='bold', fontfamily='DejaVu Sans',
-            transform=ax.transAxes)
-
     for i, job in enumerate(top3):
-        y = 0.540 - i * 0.110
+        y = 0.545 - i * 0.140
         role = job.get('role', 'OTHER')
         rc_text, rc_bg = ROLE_COLORS.get(role, ROLE_COLORS['OTHER'])
-        _rect(ax, 0.06, y - 0.020, 0.088, 0.034, rc_bg, radius=0.004)
-        ax.text(0.104, y - 0.003,
+
+        # Role pill
+        _rect(ax, 0.06, y - 0.016, 0.100, 0.032, rc_bg, radius=0.004)
+        ax.text(0.110, y - 0.001,
                 ROLE_LABELS.get(role, role),
                 ha='center', va='center', color=rc_text,
                 fontsize=9, fontweight='bold', fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
-        ax.text(0.165, y + 0.004,
-                (job.get('company') or '')[:30],
+
+        # Score badge
+        score = job.get('score', 0)
+        _rect(ax, 0.175, y - 0.016, 0.065, 0.032, '#f0f4f9', radius=0.004)
+        ax.text(0.183, y - 0.001, '▲',
+                ha='left', va='center', color=GOLD,
+                fontsize=9, fontfamily='DejaVu Sans',
+                transform=ax.transAxes)
+        ax.text(0.207, y - 0.001, str(score),
+                ha='left', va='center', color=TXT2,
+                fontsize=9, fontweight='bold', fontfamily='DejaVu Sans',
+                transform=ax.transAxes)
+
+        # Job title (now primary)
+        ax.text(0.255, y + 0.006,
+                (job.get('title') or '')[:46],
                 ha='left', va='center', color=NAVY,
-                fontsize=13, fontweight='bold', fontfamily='DejaVu Sans',
+                fontsize=12, fontweight='bold', fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
-        ax.text(0.165, y - 0.028,
-                (job.get('title') or '')[:48],
-                ha='left', va='center', color=GREY,
-                fontsize=11, fontfamily='DejaVu Sans',
+        # Company
+        ax.text(0.255, y - 0.028,
+                (job.get('company') or '')[:36],
+                ha='left', va='center', color=TXT2,
+                fontsize=10, fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
+
         if job.get('isDream'):
-            ax.text(0.935, y - 0.008, '★',
+            ax.text(0.935, y - 0.006, '★',
                     ha='center', va='center', color=GOLD,
-                    fontsize=18, transform=ax.transAxes)
+                    fontsize=16, transform=ax.transAxes)
+
+        if i < 2:
+            ax.axhline(y=y - 0.072, color=BDR, linewidth=0.8, xmin=0.04, xmax=0.96)
 
     # Footer
-    _rect(ax, 0, 0, 1, 0.10, BLUE)
-    ax.text(0.5, 0.055, 'veralevel-job-alerts.vercel.app',
+    _rect(ax, 0, 0, 1, 0.082, BLUE)
+    ax.text(0.5, 0.048, 'veralevel-job-alerts.vercel.app',
             ha='center', va='center', color=WHITE,
             fontsize=14, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
-    ax.text(0.5, 0.022, 'Follow for daily Singapore job alerts',
-            ha='center', va='center', color='#93c5fd',
-            fontsize=11, fontfamily='DejaVu Sans',
+    ax.text(0.5, 0.016, 'Daily Singapore tech job alerts',
+            ha='center', va='center', color=(1, 1, 1, 0.7),
+            fontsize=10, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
     return _save(fig, f'{(post_date or _date.today()).isoformat()}-weekly.png')
@@ -377,80 +466,98 @@ def make_weekly_digest_card(jobs: list, date_str: str, post_date=None) -> Path:
 # ── Card 4: Monthly Pulse ─────────────────────────────────────────────────────
 
 def make_monthly_pulse_card(jobs: list, date_str: str, post_date=None) -> Path:
-    """Monthly pulse card with horizontal bar chart of role counts."""
-    fig, ax = _fig_ax(NAVY)
+    """Monthly pulse card with horizontal bar chart — light theme."""
+    fig, ax = _fig_ax(BG)
 
-    # Header
-    _rect(ax, 0, 0.88, 1, 0.12, '#000d20')
-    ax.text(0.5, 0.955, 'SINGAPORE JOB MARKET',
-            ha='center', va='center', color=WHITE,
-            fontsize=22, fontweight='bold', fontfamily='DejaVu Sans',
-            transform=ax.transAxes)
     from datetime import date as d
     month_year = d.today().strftime('%B %Y')
-    ax.text(0.5, 0.905, month_year,
-            ha='center', va='center', color=GOLD,
-            fontsize=16, fontfamily='DejaVu Sans',
+
+    # Header
+    _rect(ax, 0, 0.87, 1, 0.13, NAVY)
+    ax.text(0.06, 0.955, 'Veralevel',
+            ha='left', va='center', color=WHITE,
+            fontsize=26, fontweight='bold', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+    ax.text(0.345, 0.955, 'Jobs',
+            ha='left', va='center', color=GOLD,
+            fontsize=26, fontweight='normal', fontfamily='DejaVu Sans',
+            transform=ax.transAxes)
+    ax.text(0.06, 0.900, f'Market Pulse  ·  Singapore  ·  {month_year}',
+            ha='left', va='center', color=(1, 1, 1, 0.65),
+            fontsize=12, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    # Role counts
+    # White content card
+    _rect(ax, 0.03, 0.09, 0.94, 0.765, SURF, radius=0.012,
+          edgecolor=BDR, linewidth=0.8)
+
+    # Role bar chart
     role_order = ['TPM', 'SA', 'PRESALES', 'NETWORK', 'INFRA_BD', 'INFRA', 'BD']
     role_counts = [(r, sum(1 for j in jobs if j.get('role') == r)) for r in role_order]
     role_counts = [(r, c) for r, c in role_counts if c > 0]
     max_count   = max((c for _, c in role_counts), default=1)
 
-    ax.text(0.06, 0.848, 'ROLE DISTRIBUTION',
-            ha='left', va='center', color='#94a3b8',
-            fontsize=11, fontweight='bold', fontfamily='DejaVu Sans',
+    ax.text(0.06, 0.833, 'ROLE DISTRIBUTION',
+            ha='left', va='center', color=TXT2,
+            fontsize=10, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    bar_y      = 0.798
-    bar_height = 0.058
-    bar_gap    = 0.022
-    bar_max_w  = 0.72
+    bar_left   = 0.18
+    bar_max_w  = 0.66
+    bar_y      = 0.795
+    bar_h      = 0.050
+    bar_gap    = 0.018
 
     for role, count in role_counts:
-        rc_text, _ = ROLE_COLORS.get(role, ROLE_COLORS['OTHER'])
-        bar_w = bar_max_w * (count / max_count) if max_count > 0 else 0.05
-        _rect(ax, 0.06, bar_y - bar_height, bar_w, bar_height - 0.005, rc_text, radius=0.003)
-        ax.text(0.055, bar_y - bar_height / 2,
+        rc_text, rc_bg = ROLE_COLORS.get(role, ROLE_COLORS['OTHER'])
+        bar_w = max(bar_max_w * (count / max_count), 0.04)
+
+        # Label (left)
+        ax.text(bar_left - 0.012, bar_y - bar_h / 2,
                 ROLE_LABELS.get(role, role),
-                ha='right', va='center', color=WHITE,
+                ha='right', va='center', color=TXT,
                 fontsize=10, fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
-        ax.text(0.06 + bar_w + 0.012, bar_y - bar_height / 2,
+
+        # Bar background track
+        _rect(ax, bar_left, bar_y - bar_h + 0.004, bar_max_w, bar_h - 0.008,
+              '#f0f4f9', radius=0.004)
+
+        # Filled bar
+        _rect(ax, bar_left, bar_y - bar_h + 0.004, bar_w, bar_h - 0.008,
+              rc_text, radius=0.004)
+
+        # Count label
+        ax.text(bar_left + bar_w + 0.014, bar_y - bar_h / 2,
                 str(count),
-                ha='left', va='center', color=WHITE,
-                fontsize=11, fontweight='bold', fontfamily='DejaVu Sans',
+                ha='left', va='center', color=TXT,
+                fontsize=10, fontweight='bold', fontfamily='DejaVu Sans',
                 transform=ax.transAxes)
-        bar_y -= bar_height + bar_gap
+
+        bar_y -= bar_h + bar_gap
 
     # Total
-    ax.text(0.06, bar_y - 0.02,
-            f'{len(jobs)} total roles tracked this month',
-            ha='left', va='center', color='#94a3b8',
-            fontsize=12, fontfamily='DejaVu Sans',
+    ax.axhline(y=bar_y - 0.010, color=BDR, linewidth=1.0, xmin=0.04, xmax=0.96)
+    ax.text(0.06, bar_y - 0.038,
+            f'{len(jobs)} total roles tracked',
+            ha='left', va='center', color=NAVY,
+            fontsize=13, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
-
-    # Gold divider
-    ax.axhline(y=bar_y - 0.06, color=GOLD, linewidth=1.5, xmin=0.04, xmax=0.96)
-
-    # CTA text above footer
-    ax.text(0.5, bar_y - 0.10,
-            'Updated daily from MCF + LinkedIn',
-            ha='center', va='center', color='#94a3b8',
-            fontsize=12, fontfamily='DejaVu Sans',
+    ax.text(0.06, bar_y - 0.065,
+            'Updated daily from MyCareersFuture + LinkedIn',
+            ha='left', va='center', color=TXT2,
+            fontsize=10, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
     # Footer
-    _rect(ax, 0, 0, 1, 0.10, BLUE)
-    ax.text(0.5, 0.055, 'veralevel-job-alerts.vercel.app',
+    _rect(ax, 0, 0, 1, 0.082, BLUE)
+    ax.text(0.5, 0.048, 'veralevel-job-alerts.vercel.app',
             ha='center', va='center', color=WHITE,
             fontsize=14, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
-    ax.text(0.5, 0.022, 'Follow for daily Singapore job alerts',
-            ha='center', va='center', color='#93c5fd',
-            fontsize=11, fontfamily='DejaVu Sans',
+    ax.text(0.5, 0.016, 'Daily Singapore tech job alerts',
+            ha='center', va='center', color=(1, 1, 1, 0.7),
+            fontsize=10, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
     return _save(fig, f'{(post_date or _date.today()).isoformat()}-monthly.png')
