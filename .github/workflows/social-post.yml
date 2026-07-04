@@ -52,7 +52,6 @@ jobs:
           POST_TYPE:              ${{ github.event.inputs.post_type }}
           POST_DATE:              ${{ github.event.inputs.post_date }}
           BRAND_SITE:             ${{ secrets.BRAND_SITE }}
-          BRAND_TELEGRAM:         ${{ secrets.BRAND_TELEGRAM }}
           BRAND_LINKEDIN:         ${{ secrets.BRAND_LINKEDIN }}
         run: python social/run.py
 

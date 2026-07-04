@@ -2,8 +2,8 @@
 
 import os
 
-SITE     = os.environ.get('BRAND_SITE',     'https://veralevel-job-alerts.vercel.app')
-TELEGRAM = os.environ.get('BRAND_TELEGRAM', 'https://t.me/pandiangk')
+SITE    = os.environ.get('BRAND_SITE', 'https://veralevel-job-alerts.vercel.app')
+IG_HANDLE = '@veralevel_jobs_sg'
 
 ROLE_EMOJI = {
     'TPM':      '⚙️',
@@ -20,7 +20,7 @@ NUMS = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8
 IG_TAGS = (
     "#singapore #sgjobs #singaporejobs #hiring #techjobs "
     "#tpm #solutionarchitect #presales #networkengineer "
-    "#careerinsg #jobhunt #sgtech #pandian "
+    "#careerinsg #jobhunt #sgtech "
     "#jobsearch #veraleveljobs #sgprofessionals"
 )
 
@@ -68,7 +68,7 @@ def top_jobs(jobs: list, date_str: str) -> tuple[str, str]:
     ig_lines += [
         '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
         f'📋 Full dashboard → {SITE}',
-        f'📱 Daily alerts → {TELEGRAM}',
+        f'📷 Follow {IG_HANDLE} for daily alerts',
         '',
         IG_TAGS,
     ]
@@ -91,7 +91,7 @@ def career_tip(tip: dict) -> tuple[str, str]:
         '💾 Save this post — you\'ll want it later.',
         '',
         f'📋 Browse SG jobs → {SITE}',
-        f'📱 Daily alerts → {TELEGRAM}',
+        f'📷 Follow {IG_HANDLE} for daily alerts',
         '',
         IG_TAGS,
     ]
@@ -120,7 +120,7 @@ def weekly_digest(jobs: list, date_str: str) -> tuple[str, str]:
         '🏆 Dream roles flagged · Salary data included',
         '',
         f'📋 Full dashboard → {SITE}',
-        f'📱 Daily alerts → {TELEGRAM}',
+        f'📷 Follow {IG_HANDLE} for daily alerts',
         '',
         IG_TAGS,
     ]
@@ -149,7 +149,7 @@ def monthly_pulse(jobs: list, date_str: str) -> tuple[str, str]:
     ig_lines += [
         '',
         f'📋 Browse all → {SITE}',
-        f'📱 Alerts → {TELEGRAM}',
+        f'📷 Follow {IG_HANDLE} for daily alerts',
         '',
         IG_TAGS,
     ]
