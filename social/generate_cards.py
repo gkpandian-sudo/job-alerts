@@ -134,18 +134,18 @@ def make_top_jobs_card(jobs: list, date_str: str, post_date=None) -> Path:
                     fontsize=9, fontweight='bold', fontfamily='DejaVu Sans',
                     transform=ax.transAxes)
 
-            # Company name
-            company = (job.get('company') or 'Unknown')[:32]
+            # Job title (primary — large, on top)
+            title = (job.get('title') or '')[:52]
             ax.text(0.175, y_top - row_h * 0.26,
-                    company,
+                    title,
                     ha='left', va='center', color=WHITE,
                     fontsize=13, fontweight='bold', fontfamily='DejaVu Sans',
                     transform=ax.transAxes)
 
-            # Job title
-            title = (job.get('title') or '')[:52]
-            ax.text(0.175, y_top - row_h * 0.60,
-                    title,
+            # Company name (secondary — smaller, below title)
+            company = (job.get('company') or 'Unknown')[:32]
+            ax.text(0.175, y_top - row_h * 0.62,
+                    company,
                     ha='left', va='center', color='#93c5fd',
                     fontsize=11, fontfamily='DejaVu Sans',
                     transform=ax.transAxes)
