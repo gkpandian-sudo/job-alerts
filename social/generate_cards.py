@@ -82,7 +82,7 @@ def _save(fig, filename: str) -> Path:
 
 # ── Card 1: Top Jobs ──────────────────────────────────────────────────────────
 
-def make_top_jobs_card(jobs: list, date_str: str) -> Path:
+def make_top_jobs_card(jobs: list, date_str: str, post_date=None) -> Path:
     """
     Top-5 scoring jobs card (1080x1080, dark navy).
     Returns saved PNG path.
@@ -186,12 +186,12 @@ def make_top_jobs_card(jobs: list, date_str: str) -> Path:
             fontsize=14, fontweight='bold', fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    return _save(fig, f'{_date.today().isoformat()}-top-jobs.png')
+    return _save(fig, f'{(post_date or _date.today()).isoformat()}-top-jobs.png')
 
 
 # ── Card 2: Career Tip ────────────────────────────────────────────────────────
 
-def make_career_tip_card(tip: dict, date_str: str) -> Path:
+def make_career_tip_card(tip: dict, date_str: str, post_date=None) -> Path:
     """Career tip card (1080x1080, dark navy with gold accent)."""
     fig, ax = _fig_ax(NAVY)
 
@@ -266,12 +266,12 @@ def make_career_tip_card(tip: dict, date_str: str) -> Path:
             fontsize=11, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    return _save(fig, f'{_date.today().isoformat()}-career-tip.png')
+    return _save(fig, f'{(post_date or _date.today()).isoformat()}-career-tip.png')
 
 
 # ── Card 3: Weekly Digest ─────────────────────────────────────────────────────
 
-def make_weekly_digest_card(jobs: list, date_str: str) -> Path:
+def make_weekly_digest_card(jobs: list, date_str: str, post_date=None) -> Path:
     """Weekly digest card (1080x1080, light background)."""
     fig, ax = _fig_ax(LIGHT)
 
@@ -371,12 +371,12 @@ def make_weekly_digest_card(jobs: list, date_str: str) -> Path:
             fontsize=11, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    return _save(fig, f'{_date.today().isoformat()}-weekly.png')
+    return _save(fig, f'{(post_date or _date.today()).isoformat()}-weekly.png')
 
 
 # ── Card 4: Monthly Pulse ─────────────────────────────────────────────────────
 
-def make_monthly_pulse_card(jobs: list, date_str: str) -> Path:
+def make_monthly_pulse_card(jobs: list, date_str: str, post_date=None) -> Path:
     """Monthly pulse card with horizontal bar chart of role counts."""
     fig, ax = _fig_ax(NAVY)
 
@@ -453,4 +453,4 @@ def make_monthly_pulse_card(jobs: list, date_str: str) -> Path:
             fontsize=11, fontfamily='DejaVu Sans',
             transform=ax.transAxes)
 
-    return _save(fig, f'{_date.today().isoformat()}-monthly.png')
+    return _save(fig, f'{(post_date or _date.today()).isoformat()}-monthly.png')

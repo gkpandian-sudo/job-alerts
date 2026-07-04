@@ -78,21 +78,27 @@ def commit_and_push(image_path: Path) -> str:
     return f'{brand_site}/social/posts/{image_path.name}'
 
 
-def wait_for_url(url: str, timeout: int = 180, interval: int = 10):
-    """Poll url until HTTP 200 or timeout."""
+def wait_for_url(url: str, timeout: int = 300, interval: int = 10):
+    """Poll url until HTTP 200 with image content-type, or timeout.
+
+    Vercel has a catch-all SPA rewrite (index.html) that returns HTTP 200 for
+    any path — even before a new deployment is live. We must check Content-Type
+    is 'image/*' to confirm the actual PNG has been deployed, not index.html.
+    """
     import requests as _req
     deadline = time.time() + timeout
     while time.time() < deadline:
         try:
             r = _req.get(url, timeout=8, headers={'User-Agent': 'Mozilla/5.0'})
-            print(f'  poll: HTTP {r.status_code}')
-            if r.status_code == 200:
+            ct = r.headers.get('content-type', '')
+            print(f'  poll: HTTP {r.status_code} ({ct})')
+            if r.status_code == 200 and ct.startswith('image/'):
                 print(f'  CDN ready')
                 return
         except Exception as e:
             print(f'  poll error: {type(e).__name__}: {e}')
         remaining = int(deadline - time.time())
-        print(f'  waiting... ({remaining}s remaining)')
+        print(f'  waiting for Vercel deploy... ({remaining}s remaining)')
         time.sleep(interval)
     raise TimeoutError(f'Image URL not reachable after {timeout}s: {url}')
 
@@ -126,7 +132,8 @@ def main():
         has_linkedin = False
 
     jobs      = load_jobs()
-    today     = date.today()
+    post_date_env = os.environ.get('POST_DATE')
+    today     = date.fromisoformat(post_date_env) if post_date_env else date.today()
     date_str  = today.strftime('%d %b %Y')
     post_type = os.environ.get('POST_TYPE') or decide_post_type(today)
 
@@ -140,21 +147,21 @@ def main():
         idx  = read_counter()
         tip  = get_tip(idx)
         print(f'  tip #{tip["tip_num"]}: {tip["title"]}')
-        image_path = make_career_tip_card(tip, date_str)
+        image_path = make_career_tip_card(tip, date_str, post_date=today)
         ig_caption, li_caption = career_tip(tip)
         write_counter((idx + 1) % 10)
         print(f'  counter advanced: {idx} → {(idx + 1) % 10}')
 
     elif post_type == 'weekly':
-        image_path = make_weekly_digest_card(jobs, date_str)
+        image_path = make_weekly_digest_card(jobs, date_str, post_date=today)
         ig_caption, li_caption = weekly_digest(jobs, date_str)
 
     elif post_type == 'monthly':
-        image_path = make_monthly_pulse_card(jobs, date_str)
+        image_path = make_monthly_pulse_card(jobs, date_str, post_date=today)
         ig_caption, li_caption = monthly_pulse(jobs, date_str)
 
     else:  # 'jobs' (default)
-        image_path = make_top_jobs_card(jobs, date_str)
+        image_path = make_top_jobs_card(jobs, date_str, post_date=today)
         ig_caption, li_caption = top_jobs(jobs, date_str)
 
     print(f'  saved: {image_path}')

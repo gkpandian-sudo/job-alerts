@@ -9,6 +9,10 @@ on:
         description: 'Post type: jobs | tip | weekly | monthly'
         required: false
         default: 'jobs'
+      post_date:
+        description: 'Override post date (YYYY-MM-DD). Leave blank for today.'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -46,6 +50,7 @@ jobs:
           GITHUB_TOKEN:           ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY:      ${{ github.repository }}
           POST_TYPE:              ${{ github.event.inputs.post_type }}
+          POST_DATE:              ${{ github.event.inputs.post_date }}
           BRAND_SITE:             ${{ secrets.BRAND_SITE }}
           BRAND_TELEGRAM:         ${{ secrets.BRAND_TELEGRAM }}
           BRAND_LINKEDIN:         ${{ secrets.BRAND_LINKEDIN }}
