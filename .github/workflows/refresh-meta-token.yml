@@ -1,6 +1,7 @@
 name: Refresh Meta Access Token
 
 on:
+  push:                       # declared so GitHub doesn't report "No jobs were run" on push
   schedule:
     # Every 45 days at 08:00 SGT (00:00 UTC) — well before 60-day expiry
     - cron: '0 0 13 */1 *'   # runs ~monthly; GitHub doesn't support every-45-days natively
@@ -11,6 +12,8 @@ permissions:
 
 jobs:
   refresh:
+    # Only execute on schedule or manual dispatch — skip silently on push
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
