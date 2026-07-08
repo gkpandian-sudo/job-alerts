@@ -1,5 +1,44 @@
 [
   {
+    "title": "Technical infrastructure program manager, AGIS Interconnection - APAC",
+    "company": "Amazon Web Services (AWS)",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 46,
+    "isDream": true,
+    "postedDate": "2026-07-05",
+    "url": "https://www.linkedin.com/jobs/view/4400651354"
+  },
+  {
+    "title": "Backbone Technical Program Manager, APAC Backbone",
+    "company": "Amazon Web Services (AWS)",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 42,
+    "isDream": true,
+    "postedDate": "2026-06-04",
+    "url": "https://www.linkedin.com/jobs/view/4383721221"
+  },
+  {
+    "title": "Infrastructure Technical Business Developer, Network Planning and Acquisition",
+    "company": "Amazon Web Services (AWS)",
+    "role": "INFRA_BD",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 41,
+    "isDream": true,
+    "postedDate": "2026-07-06",
+    "url": "https://www.linkedin.com/jobs/view/4342473522"
+  },
+  {
     "title": "Technical Program Manager, AWS DC Planning &amp; Delivery",
     "company": "Amazon Web Services (AWS)",
     "role": "TPM",
@@ -30,7 +69,7 @@
     "company": "GOOGLE ASIA PACIFIC PTE. LTD.",
     "role": "TPM",
     "tier": "hyperscaler",
-    "source": "MCF",
+    "source": "BOTH",
     "salaryMin": 9000,
     "salaryMax": 18000,
     "score": 36,
@@ -52,19 +91,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/4adca93740d4c39989bc3aa153193d9c"
   },
   {
-    "title": "Network Engineer, Foundation and Support (Edge/Backbone Infrastructure Design)",
-    "company": "Meta",
-    "role": "NETWORK",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 35,
-    "isDream": true,
-    "postedDate": "2026-07-04",
-    "url": "https://www.linkedin.com/jobs/view/4406795036"
-  },
-  {
     "title": "Technical Program Manager, Google Pay India",
     "company": "Google",
     "role": "TPM",
@@ -78,7 +104,7 @@
     "url": "https://www.linkedin.com/jobs/view/4426809233"
   },
   {
-    "title": "Technical Program Manager, 3P SaaS",
+    "title": "Technical Program Manager, Street View Operations",
     "company": "Google",
     "role": "TPM",
     "tier": "hyperscaler",
@@ -87,8 +113,21 @@
     "salaryMax": 0,
     "score": 34,
     "isDream": true,
-    "postedDate": "2026-06-27",
-    "url": "https://www.linkedin.com/jobs/view/4424557911"
+    "postedDate": "2026-07-07",
+    "url": "https://www.linkedin.com/jobs/view/4426811229"
+  },
+  {
+    "title": "Technical Program Manager, Generative AI Safety",
+    "company": "Google",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 34,
+    "isDream": true,
+    "postedDate": "2026-06-24",
+    "url": "https://www.linkedin.com/jobs/view/4423983024"
   },
   {
     "title": "Technical Program Manager, Global Network Acquisition, Longhaul Planning",
@@ -104,6 +143,19 @@
     "url": "https://www.linkedin.com/jobs/view/4425850882"
   },
   {
+    "title": "Sr. Technical Program Manager, AWS Manufacturing",
+    "company": "Amazon Web Services (AWS)",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 34,
+    "isDream": true,
+    "postedDate": "2026-06-20",
+    "url": "https://www.linkedin.com/jobs/view/4421358086"
+  },
+  {
     "title": "Technical Program Manager, Global Network Delivery, DCNet Delivery",
     "company": "Google",
     "role": "TPM",
@@ -111,49 +163,62 @@
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
-    "score": 32,
+    "score": 33,
     "isDream": true,
     "postedDate": "2026-06-18",
     "url": "https://www.linkedin.com/jobs/view/4429314662"
   },
   {
-    "title": "Solutions Architect, Data Center MEP",
-    "company": "NVIDIA",
-    "role": "SA",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 32,
-    "isDream": true,
-    "postedDate": "2026-07-03",
-    "url": "https://www.linkedin.com/jobs/view/4395475410"
-  },
-  {
-    "title": "Technical Program Manager, Network Solutions and Automation",
-    "company": "Google",
+    "title": "Submarine Technical Program Manager, Subsea Engineering",
+    "company": "Amazon Web Services (AWS)",
     "role": "TPM",
     "tier": "hyperscaler",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
-    "score": 31,
+    "score": 33,
     "isDream": true,
-    "postedDate": "2026-06-16",
-    "url": "https://www.linkedin.com/jobs/view/4428413334"
+    "postedDate": "2026-06-18",
+    "url": "https://www.linkedin.com/jobs/view/4380583416"
   },
   {
-    "title": "Physical Security Architect, Data Center Design Engineering",
-    "company": "Amazon Web Services (AWS)",
+    "title": "Cybersecurity Pre-sales / Solution Architect– 215k",
+    "company": "RANDSTAD PTE. LIMITED",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 8000,
+    "salaryMax": 18000,
+    "score": 32,
+    "isDream": false,
+    "postedDate": "2026-07-08",
+    "url": "https://www.mycareersfuture.gov.sg/job/5c4c7edac8368a0118935c96a4730e1e"
+  },
+  {
+    "title": "IP Solution Architect",
+    "company": "Nokia",
     "role": "SA",
-    "tier": "hyperscaler",
+    "tier": "telco",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
     "score": 31,
     "isDream": true,
-    "postedDate": "2026-07-04",
-    "url": "https://www.linkedin.com/jobs/view/4417777572"
+    "postedDate": "2026-06-29",
+    "url": "https://www.linkedin.com/jobs/view/4421595085"
+  },
+  {
+    "title": "PRINCIPAL PROGRAM MANAGER",
+    "company": "Microsoft",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 30,
+    "isDream": false,
+    "postedDate": "2026-07-08",
+    "url": "https://www.linkedin.com/jobs/view/4438206743"
   },
   {
     "title": "Program Manager, Infrastructure Expansion",
@@ -182,6 +247,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/73b53625ade7e796cefe43d86c02c166"
   },
   {
+    "title": "Vice President, Network Architect/ Architect/ Principal Architect - APAC Core Technology Infrastructure",
+    "company": "MERRILL LYNCH GLOBAL SERVICES PTE. LTD.",
+    "role": "NETWORK",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 10000,
+    "salaryMax": 20000,
+    "score": 29,
+    "isDream": false,
+    "postedDate": "2026-07-08",
+    "url": "https://www.mycareersfuture.gov.sg/job/859d30c33b229111636b7005a87de700"
+  },
+  {
     "title": "Presales Solutions Architect (ATFM)",
     "company": "PCCW SOLUTIONS INSYS PTE. LTD.",
     "role": "PRESALES",
@@ -192,7 +270,7 @@
     "score": 28,
     "isDream": false,
     "postedDate": "2026-07-02",
-    "url": "https://www.mycareersfuture.gov.sg/job/514e2e8f3653a52af966b521512abd77"
+    "url": "https://www.mycareersfuture.gov.sg/job/c30f5546cf9d8e3fe74c4d2ded329726"
   },
   {
     "title": "Principal Technical Program Manager",
@@ -221,8 +299,8 @@
     "url": "https://www.mycareersfuture.gov.sg/job/fc527f57315440b42989e1da90769d30"
   },
   {
-    "title": "Presales Solution Architect",
-    "company": "Xtremax",
+    "title": "Presales Solutions Consultant (Solution Architect)",
+    "company": "Fujitsu",
     "role": "PRESALES",
     "tier": "other",
     "source": "LinkedIn",
@@ -230,47 +308,8 @@
     "salaryMax": 0,
     "score": 26,
     "isDream": false,
-    "postedDate": "2026-05-08",
-    "url": "https://www.linkedin.com/jobs/view/4409677205"
-  },
-  {
-    "title": "Lead Infrastructure Engineer, Network Planning",
-    "company": "JPMorganChase",
-    "role": "NETWORK",
-    "tier": "enterprise",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-06-30",
-    "url": "https://www.linkedin.com/jobs/view/4425984263"
-  },
-  {
-    "title": "Cloud Presales Solution Architect",
-    "company": "LPS",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-07-07",
-    "url": "https://www.linkedin.com/jobs/view/4437770311"
-  },
-  {
-    "title": "Presales Solutions Architect",
-    "company": "iSoftStone",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-07-03",
-    "url": "https://www.linkedin.com/jobs/view/4399208448"
+    "postedDate": "2026-06-10",
+    "url": "https://www.linkedin.com/jobs/view/4401163798"
   },
   {
     "title": "Lead Technical Program Manager",
@@ -286,19 +325,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/d1d6fadee3630e0c8f291355a2e8c372"
   },
   {
-    "title": "Business Development Director, AI Infrastructure",
-    "company": "Kerry Consulting",
-    "role": "INFRA_BD",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-06-15",
-    "url": "https://www.linkedin.com/jobs/view/4425751402"
-  },
-  {
     "title": "Senior Consultant/Principal, Data & AI Solution Architect",
     "company": "SLALOM CONSULTING SINGAPORE PTE. LTD.",
     "role": "SA",
@@ -312,17 +338,17 @@
     "url": "https://www.mycareersfuture.gov.sg/job/d146a3dfd550ef7748a945a435601df1"
   },
   {
-    "title": "AVP – Technology (Solution Architect)",
-    "company": "KONVERGE TECHNOLOGIES PTE. LTD.",
+    "title": "Cloud Architect (Infra)(DSC|SN)",
+    "company": "ST ENGINEERING INFO-SECURITY PTE. LTD.",
     "role": "SA",
-    "tier": "other",
+    "tier": "enterprise",
     "source": "MCF",
-    "salaryMin": 9000,
-    "salaryMax": 11000,
+    "salaryMin": 7000,
+    "salaryMax": 9500,
     "score": 25,
     "isDream": false,
-    "postedDate": "2026-07-03",
-    "url": "https://www.mycareersfuture.gov.sg/job/72ae87e3e64a14a06eb85b6acf2af524"
+    "postedDate": "2026-07-08",
+    "url": "https://www.mycareersfuture.gov.sg/job/443bc6da6a286cbaf72b074301c3b945"
   },
   {
     "title": "Physical Security Architect",
@@ -351,6 +377,32 @@
     "url": "https://www.mycareersfuture.gov.sg/job/348127d1c6c2537798744f877d46341c"
   },
   {
+    "title": "Program Manager - Procurement Process Improvement &amp; Excellence, Data Center Procurement Governance (DCPG)",
+    "company": "Amazon Web Services (AWS)",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 25,
+    "isDream": true,
+    "postedDate": "2026-07-07",
+    "url": "https://www.linkedin.com/jobs/view/4418942418"
+  },
+  {
+    "title": "Colo Physical Security Architect, Colocation Regional Engineering",
+    "company": "Amazon Web Services (AWS)",
+    "role": "SA",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 25,
+    "isDream": false,
+    "postedDate": "2026-06-25",
+    "url": "https://www.linkedin.com/jobs/view/4433360747"
+  },
+  {
     "title": "Senior Consultant (Presales, Cybersecurity/Infra)",
     "company": "NCS Group",
     "role": "PRESALES",
@@ -362,6 +414,19 @@
     "isDream": false,
     "postedDate": "2026-07-03",
     "url": "https://www.linkedin.com/jobs/view/4433174264"
+  },
+  {
+    "title": "Data Center Operations Manager",
+    "company": "Google",
+    "role": "INFRA",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 24,
+    "isDream": true,
+    "postedDate": "2026-07-03",
+    "url": "https://www.linkedin.com/jobs/view/4426946323"
   },
   {
     "title": "Network Infrastructure Project Manager",
@@ -394,7 +459,7 @@
     "company": "KEPPEL TECHNOLOGY SOLUTIONS PTE. LTD.",
     "role": "INFRA",
     "tier": "other",
-    "source": "MCF",
+    "source": "BOTH",
     "salaryMin": 8500,
     "salaryMax": 11000,
     "score": 24,
@@ -403,11 +468,24 @@
     "url": "https://www.mycareersfuture.gov.sg/job/78a5922537ad77ad428d6ddeeb0bf2e4"
   },
   {
+    "title": "AI Data Center Development Manager",
+    "company": "Meta",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 24,
+    "isDream": true,
+    "postedDate": "2026-06-19",
+    "url": "https://www.linkedin.com/jobs/view/4428226721"
+  },
+  {
     "title": "Solution Architect",
     "company": "COHESITY SINGAPORE PTE. LTD.",
     "role": "SA",
     "tier": "other",
-    "source": "BOTH",
+    "source": "MCF",
     "salaryMin": 16000,
     "salaryMax": 19000,
     "score": 23,
@@ -453,19 +531,6 @@
     "isDream": false,
     "postedDate": "2026-06-22",
     "url": "https://www.linkedin.com/jobs/view/4430333590"
-  },
-  {
-    "title": "Senior Director, Enterprise Business Development, APAC",
-    "company": "Circle",
-    "role": "BD",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-06-25",
-    "url": "https://www.linkedin.com/jobs/view/4420150066"
   },
   {
     "title": "Technical Program Manager",
@@ -520,34 +585,21 @@
     "url": "https://www.mycareersfuture.gov.sg/job/365d6710e3db7fb0b112053ba4dc45a2"
   },
   {
-    "title": "Technical Program Manager",
-    "company": "SALT TALENT SEARCH PTE. LTD.",
-    "role": "TPM",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 10000,
-    "salaryMax": 12000,
-    "score": 22,
-    "isDream": false,
-    "postedDate": "2026-06-08",
-    "url": "https://www.mycareersfuture.gov.sg/job/948f5291f540c84f0da3f952ecb75796"
-  },
-  {
-    "title": "Senior Solution Architect",
-    "company": "KORN FERRY (SG) PTE. LTD.",
+    "title": "AL and ML Solution Architect",
+    "company": "HEWLETT PACKARD ENTERPRISE SINGAPORE PTE. LTD.",
     "role": "SA",
     "tier": "other",
     "source": "MCF",
-    "salaryMin": 13000,
-    "salaryMax": 18750,
+    "salaryMin": 12000,
+    "salaryMax": 23000,
     "score": 22,
     "isDream": false,
-    "postedDate": "2026-07-03",
-    "url": "https://www.mycareersfuture.gov.sg/job/2178e27afe881de43e3f2a3c05123db8"
+    "postedDate": "2026-07-08",
+    "url": "https://www.mycareersfuture.gov.sg/job/d2be5639d17e6459c0633d0e7cae6407"
   },
   {
-    "title": "Senior Solutions Architect",
-    "company": "TECH DATA ADVANCED SOLUTIONS (SINGAPORE) PTE. LTD.",
+    "title": "SAP ERP Solution Architect (SA) / Pillar Manager",
+    "company": "ABEAM CONSULTING (SINGAPORE) PTE. LTD.",
     "role": "SA",
     "tier": "other",
     "source": "MCF",
@@ -555,98 +607,46 @@
     "salaryMax": 15000,
     "score": 22,
     "isDream": false,
-    "postedDate": "2026-07-01",
-    "url": "https://www.mycareersfuture.gov.sg/job/b4a3d9ddb48625388ae6b416b5bff866"
+    "postedDate": "2026-07-08",
+    "url": "https://www.mycareersfuture.gov.sg/job/bb21a513b71ec2a1a9f016ea36141e52"
   },
   {
-    "title": "Senior Network Architect - IT Infrastructure - Singapore",
-    "company": "ByteDance",
-    "role": "NETWORK",
-    "tier": "other",
+    "title": "Principal Tech Ops Engineer, AWS Rack Manufacturing",
+    "company": "Amazon Web Services (AWS)",
+    "role": "TPM",
+    "tier": "hyperscaler",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
     "score": 22,
     "isDream": false,
-    "postedDate": "2026-07-07",
-    "url": "https://www.linkedin.com/jobs/view/4436528846"
+    "postedDate": "2026-06-20",
+    "url": "https://www.linkedin.com/jobs/view/4421341182"
   },
   {
-    "title": "Regional Business Development Manager - Singapore",
-    "company": "Fortinet",
-    "role": "BD",
+    "title": "AI Specialist Solution Architect, Southeast Asia (Singapore)",
+    "company": "Red Hat",
+    "role": "SA",
     "tier": "tech",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
     "score": 22,
     "isDream": false,
-    "postedDate": "2026-07-07",
-    "url": "https://www.linkedin.com/jobs/view/4437737552"
+    "postedDate": "2026-06-27",
+    "url": "https://www.linkedin.com/jobs/view/4383250515"
   },
   {
-    "title": "Scrum Master and Technical Project Manager / Director",
-    "company": "SGInnovate",
-    "role": "TPM",
-    "tier": "other",
+    "title": "Edge Specialist Solution Architect",
+    "company": "Red Hat",
+    "role": "SA",
+    "tier": "tech",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
     "score": 22,
     "isDream": false,
-    "postedDate": "2026-06-08",
-    "url": "https://www.linkedin.com/jobs/view/4425052403"
-  },
-  {
-    "title": "Head of Security Architecture",
-    "company": "Kerry Consulting",
-    "role": "SA",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 21,
-    "isDream": false,
-    "postedDate": "2026-07-06",
-    "url": "https://www.linkedin.com/jobs/view/4433901869"
-  },
-  {
-    "title": "AI Strategic Pursuit Lead, Google Cloud, Automotive - Singapore",
-    "company": "GOOGLE ASIA PACIFIC PTE. LTD.",
-    "role": "PRESALES",
-    "tier": "hyperscaler",
-    "source": "MCF",
-    "salaryMin": 13000,
-    "salaryMax": 26000,
-    "score": 21,
-    "isDream": false,
-    "postedDate": "2026-07-07",
-    "url": "https://www.mycareersfuture.gov.sg/job/52009e9b3da4630e4ef118fd2c73ef54"
-  },
-  {
-    "title": "Technical Program Manager",
-    "company": "SILICON BOX PTE. LTD.",
-    "role": "TPM",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 5400,
-    "salaryMax": 9600,
-    "score": 21,
-    "isDream": false,
-    "postedDate": "2026-06-30",
-    "url": "https://www.mycareersfuture.gov.sg/job/033d917b25cb2221344c1390a0263450"
-  },
-  {
-    "title": "Technical Program Manager, Robotics",
-    "company": "AVETICS GLOBAL PTE. LTD.",
-    "role": "TPM",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 6000,
-    "salaryMax": 9000,
-    "score": 21,
-    "isDream": false,
-    "postedDate": "2026-06-22",
-    "url": "https://www.mycareersfuture.gov.sg/job/188b9b154f7e40ffe3ba54b2c8b35652"
+    "postedDate": "2026-07-08",
+    "url": "https://www.linkedin.com/jobs/view/4418503449"
   }
 ]
