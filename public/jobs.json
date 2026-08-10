@@ -117,19 +117,6 @@
     "url": "https://www.linkedin.com/jobs/view/4448560205"
   },
   {
-    "title": "Technical Program Manager, Lightpath Fiber Asset Delivery, Global Network Solutions",
-    "company": "Google",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 33,
-    "isDream": true,
-    "postedDate": "2026-07-31",
-    "url": "https://www.linkedin.com/jobs/view/4437586752"
-  },
-  {
     "title": "Cybersecurity Pre-sales / Solution Architect– 215k",
     "company": "RANDSTAD PTE. LIMITED",
     "role": "PRESALES",
@@ -351,32 +338,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/2299f622d536e430765f347e06144244"
   },
   {
-    "title": "Presales Architect (Enterprise Infrastructure)",
-    "company": "EAMES CONSULTING GROUP (SINGAPORE) PTE. LTD.",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 8000,
-    "salaryMax": 10000,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-08-04",
-    "url": "https://www.mycareersfuture.gov.sg/job/ea44379ea15e1324e7a88aa0022e13d2"
-  },
-  {
-    "title": "Cloud Architect (Infra)(DSC|SN)",
-    "company": "ST ENGINEERING INFO-SECURITY PTE. LTD.",
-    "role": "SA",
-    "tier": "enterprise",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 9500,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-07-24",
-    "url": "https://www.mycareersfuture.gov.sg/job/443bc6da6a286cbaf72b074301c3b945"
-  },
-  {
     "title": "Principal Technical Project Manager",
     "company": "QORVO INTERNATIONAL PTE. LTD.",
     "role": "TPM",
@@ -416,17 +377,17 @@
     "url": "https://www.mycareersfuture.gov.sg/job/7952723a128bfb7fc3a957f3f29f96d0"
   },
   {
-    "title": "Senior Business Developer, National Security &amp; Defence, Asia Pacific, Global Government",
-    "company": "Amazon Web Services (AWS)",
-    "role": "BD",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
+    "title": "Cloud Architect (Infra)(DSC|SN)",
+    "company": "ST ENGINEERING INFO-SECURITY PTE. LTD.",
+    "role": "SA",
+    "tier": "enterprise",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 9500,
     "score": 25,
     "isDream": false,
-    "postedDate": "2026-07-21",
-    "url": "https://www.linkedin.com/jobs/view/4443026727"
+    "postedDate": "2026-07-24",
+    "url": "https://www.mycareersfuture.gov.sg/job/443bc6da6a286cbaf72b074301c3b945"
   },
   {
     "title": "Senior Consultant (Presales, Cybersecurity/Infra)",
@@ -452,7 +413,7 @@
     "score": 24,
     "isDream": false,
     "postedDate": "2026-08-09",
-    "url": "https://www.mycareersfuture.gov.sg/job/d7223651af96561e0510b09d9042ba3a"
+    "url": "https://www.mycareersfuture.gov.sg/job/437c550dfd8ffbd173c9f50ec35c257b"
   },
   {
     "title": "Infrastructure Project Manager",
@@ -492,6 +453,19 @@
     "isDream": false,
     "postedDate": "2026-07-31",
     "url": "https://www.mycareersfuture.gov.sg/job/25c1112f0b86d9d6dcb54d3e214bd708"
+  },
+  {
+    "title": "Infrastructure Project Manager",
+    "company": "SMART IMS TECHNOLOGIES PTE. LTD.",
+    "role": "INFRA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 8000,
+    "salaryMax": 15000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-07-16",
+    "url": "https://www.mycareersfuture.gov.sg/job/28199005d8846721702a812472febadf"
   },
   {
     "title": "Principal Solution Architect",
@@ -559,19 +533,6 @@
     "url": "https://www.linkedin.com/jobs/view/4353031581"
   },
   {
-    "title": "AI Data Center Development Manager",
-    "company": "Meta",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 24,
-    "isDream": true,
-    "postedDate": "2026-07-31",
-    "url": "https://www.linkedin.com/jobs/view/4428226721"
-  },
-  {
     "title": "Network Security Architect",
     "company": "ST Engineering",
     "role": "SA",
@@ -583,19 +544,6 @@
     "isDream": false,
     "postedDate": "2026-06-21",
     "url": "https://www.linkedin.com/jobs/view/4430338619"
-  },
-  {
-    "title": "Senior Solution Architect – OpenBlue (APAC)",
-    "company": "JOHNSON CONTROLS (S) PTE. LTD.",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 8000,
-    "salaryMax": 12000,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-08-04",
-    "url": "https://www.mycareersfuture.gov.sg/job/864ba0574cb6ec829d04ca0f2cb65be5"
   },
   {
     "title": "Principal Security Architect",
@@ -648,5 +596,57 @@
     "isDream": false,
     "postedDate": "2026-07-27",
     "url": "https://www.mycareersfuture.gov.sg/job/a62411e568a6e01273541d8df0c09899"
+  },
+  {
+    "title": "Pre-Sales Customer Engineer, Digital Native",
+    "company": "Cloudflare",
+    "role": "PRESALES",
+    "tier": "tech",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-08-06",
+    "url": "https://www.linkedin.com/jobs/view/4419699677"
+  },
+  {
+    "title": "Infrastructure Project Manager",
+    "company": "QUESS SELECTION & SERVICES PTE. LTD.",
+    "role": "INFRA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 8000,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-08-05",
+    "url": "https://www.mycareersfuture.gov.sg/job/7f2899777fe359e520d0f230f016e5c0"
+  },
+  {
+    "title": "Infrastructure Project Manager",
+    "company": "BASE CAMP DIGITAL PTE. LTD.",
+    "role": "INFRA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 10000,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-07-29",
+    "url": "https://www.mycareersfuture.gov.sg/job/8be671f8a6ab6311a405052b6f26a4c1"
+  },
+  {
+    "title": "Lead Technical Program Manager",
+    "company": "Grab",
+    "role": "TPM",
+    "tier": "enterprise",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-06-22",
+    "url": "https://www.linkedin.com/jobs/view/4430333590"
   }
 ]
