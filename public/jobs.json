@@ -39,6 +39,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/75e9ddfbd277e9090e2af4b16c3cbdfe"
   },
   {
+    "title": "Technical Program Manager, Data Center Construction Cost Estimator - Singapore",
+    "company": "GOOGLE ASIA PACIFIC PTE. LTD.",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "MCF",
+    "salaryMin": 12000,
+    "salaryMax": 24000,
+    "score": 37,
+    "isDream": true,
+    "postedDate": "2026-08-12",
+    "url": "https://www.mycareersfuture.gov.sg/job/75d120a2b4be6698bc8e532aa257734e"
+  },
+  {
     "title": "Technical Program Manager, Product Development and Insertion for Data Centers - Singapore",
     "company": "GOOGLE ASIA PACIFIC PTE. LTD.",
     "role": "TPM",
@@ -104,19 +117,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/9abe712559d24685adb8f0f6d87661e6"
   },
   {
-    "title": "Lead Technical Program Manager, Long Haul Planning",
-    "company": "Google",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 34,
-    "isDream": true,
-    "postedDate": "2026-08-04",
-    "url": "https://www.linkedin.com/jobs/view/4439445892"
-  },
-  {
     "title": "Technical Program Manager, Global Network Delivery, DCNet Delivery",
     "company": "Google",
     "role": "TPM",
@@ -130,6 +130,19 @@
     "url": "https://www.linkedin.com/jobs/view/4448560205"
   },
   {
+    "title": "Technical Program Manager, Lightpath Fiber Asset Delivery, Global Network Solutions",
+    "company": "Google",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 33,
+    "isDream": true,
+    "postedDate": "2026-08-11",
+    "url": "https://www.linkedin.com/jobs/view/4451680655"
+  },
+  {
     "title": "AI Solutions Architect - Presales",
     "company": "BEATHCHAPMAN (PTE. LTD.)",
     "role": "PRESALES",
@@ -141,19 +154,6 @@
     "isDream": false,
     "postedDate": "2026-08-11",
     "url": "https://www.mycareersfuture.gov.sg/job/8385a14311e8b95c12213f3b56186665"
-  },
-  {
-    "title": "Cloud Solution Architect (Field CTO, Digital Natives)",
-    "company": "Microsoft",
-    "role": "SA",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 31,
-    "isDream": true,
-    "postedDate": "2026-08-07",
-    "url": "https://www.linkedin.com/jobs/view/4441970806"
   },
   {
     "title": "Senior Network Engineer, DGX Cloud - Backbone",
@@ -221,6 +221,19 @@
     "url": "https://www.linkedin.com/jobs/view/4426023216"
   },
   {
+    "title": "Principal Architect/ Senior Solutions Architect (Pre-sales, SI)",
+    "company": "Hays",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 30,
+    "isDream": false,
+    "postedDate": "2026-07-28",
+    "url": "https://www.linkedin.com/jobs/view/4445475849"
+  },
+  {
     "title": "Senior Network Engineer, DGX Cloud - Backbone",
     "company": "NVIDIA AI",
     "role": "NETWORK",
@@ -256,21 +269,8 @@
     "salaryMax": 0,
     "score": 29,
     "isDream": true,
-    "postedDate": "2026-07-21",
+    "postedDate": "2026-08-12",
     "url": "https://www.linkedin.com/jobs/view/4421595085"
-  },
-  {
-    "title": "Regional Schedule Lead, Data Center Project Controls",
-    "company": "Google",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 27,
-    "isDream": true,
-    "postedDate": "2026-07-22",
-    "url": "https://www.linkedin.com/jobs/view/4443145448"
   },
   {
     "title": "Presales/Solution Architect",
@@ -284,6 +284,19 @@
     "isDream": false,
     "postedDate": "2026-08-06",
     "url": "https://www.mycareersfuture.gov.sg/job/2006471b2daf21d6ec56116e34161f20"
+  },
+  {
+    "title": "Senior Consultant (Presales, Cybersecurity/Infra)",
+    "company": "NCS Group",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 27,
+    "isDream": false,
+    "postedDate": "2026-07-03",
+    "url": "https://www.linkedin.com/jobs/view/4433174264"
   },
   {
     "title": "Vice President, Network Architect/ Architect/ Principal Architect - APAC Core Technology Infrastructure",
@@ -347,8 +360,21 @@
     "salaryMax": 0,
     "score": 26,
     "isDream": false,
-    "postedDate": "2026-07-22",
+    "postedDate": "2026-08-12",
     "url": "https://www.linkedin.com/jobs/view/4442997091"
+  },
+  {
+    "title": "Presales Solutions Architect (ATFM)",
+    "company": "LPS",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-07-15",
+    "url": "https://www.linkedin.com/jobs/view/4440958275"
   },
   {
     "title": "Senior Staff Engineer, IT Infrastructure Solution Architect",
@@ -403,6 +429,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/7952723a128bfb7fc3a957f3f29f96d0"
   },
   {
+    "title": "Senior Infrastructure Project Manager – Network & Data Centre",
+    "company": "MTS GLOBAL PTE. LTD.",
+    "role": "NETWORK",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 12000,
+    "salaryMax": 15000,
+    "score": 25,
+    "isDream": false,
+    "postedDate": "2026-08-12",
+    "url": "https://www.mycareersfuture.gov.sg/job/8a86b5cdfc95fb068864bc43afbe7981"
+  },
+  {
     "title": "Cloud Architect (Infra)(DSC|SN)",
     "company": "ST ENGINEERING INFO-SECURITY PTE. LTD.",
     "role": "SA",
@@ -414,19 +453,6 @@
     "isDream": false,
     "postedDate": "2026-07-24",
     "url": "https://www.mycareersfuture.gov.sg/job/443bc6da6a286cbaf72b074301c3b945"
-  },
-  {
-    "title": "Senior Consultant (Presales, Cybersecurity/Infra)",
-    "company": "NCS Group",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-07-03",
-    "url": "https://www.linkedin.com/jobs/view/4433174264"
   },
   {
     "title": "Presales Solution Consultant (IT infrastructure) - East",
@@ -494,19 +520,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/25c1112f0b86d9d6dcb54d3e214bd708"
   },
   {
-    "title": "Principal Solution Architect",
-    "company": "TECH MAHINDRA LIMITED (Singapore Branch)",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 12000,
-    "salaryMax": 15000,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-07-29",
-    "url": "https://www.mycareersfuture.gov.sg/job/83a6fea0f4fa195014c763640c80b95b"
-  },
-  {
     "title": "Lead Technical Program Manager, Markets Technology",
     "company": "JPMorganChase",
     "role": "TPM",
@@ -520,7 +533,7 @@
     "url": "https://www.linkedin.com/jobs/view/4444248866"
   },
   {
-    "title": "Principal Technical Program Manager (TPM) – Data Center Last Mile",
+    "title": "Lead Principal Technical Program Manager (TPM) – Data Center Last Mile",
     "company": "Oracle",
     "role": "TPM",
     "tier": "other",
@@ -529,8 +542,8 @@
     "salaryMax": 0,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-07-31",
-    "url": "https://www.linkedin.com/jobs/view/4435912903"
+    "postedDate": "2026-07-24",
+    "url": "https://www.linkedin.com/jobs/view/4432772471"
   },
   {
     "title": "Network Engineer, Operations &amp; Support (Subsea)",
@@ -559,17 +572,17 @@
     "url": "https://www.linkedin.com/jobs/view/4353031581"
   },
   {
-    "title": "Network Security Architect",
-    "company": "ST Engineering",
-    "role": "SA",
-    "tier": "enterprise",
+    "title": "Pre-Sales Engineer (Cybersecurity)",
+    "company": "Red Alpha Cybersecurity",
+    "role": "PRESALES",
+    "tier": "other",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
-    "score": 24,
+    "score": 23,
     "isDream": false,
-    "postedDate": "2026-06-21",
-    "url": "https://www.linkedin.com/jobs/view/4430338619"
+    "postedDate": "2026-08-11",
+    "url": "https://www.linkedin.com/jobs/view/4451626186"
   },
   {
     "title": "Principal Security Architect",
@@ -635,18 +648,5 @@
     "isDream": false,
     "postedDate": "2026-08-06",
     "url": "https://www.linkedin.com/jobs/view/4419699677"
-  },
-  {
-    "title": "Infrastructure Project Manager",
-    "company": "QUESS SELECTION & SERVICES PTE. LTD.",
-    "role": "INFRA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 8000,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-08-05",
-    "url": "https://www.mycareersfuture.gov.sg/job/7f2899777fe359e520d0f230f016e5c0"
   }
 ]
