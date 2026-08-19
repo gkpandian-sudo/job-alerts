@@ -9,7 +9,7 @@
     "salaryMax": 0,
     "score": 46,
     "isDream": true,
-    "postedDate": "2026-08-18",
+    "postedDate": "2026-08-19",
     "url": "https://www.linkedin.com/jobs/view/4455795525"
   },
   {
@@ -22,7 +22,7 @@
     "salaryMax": 0,
     "score": 41,
     "isDream": true,
-    "postedDate": "2026-08-18",
+    "postedDate": "2026-08-19",
     "url": "https://www.linkedin.com/jobs/view/4455785855"
   },
   {
@@ -156,6 +156,19 @@
     "url": "https://www.linkedin.com/jobs/view/4454239671"
   },
   {
+    "title": "Senior Technical Program Manager, AWS Cloud Logistics",
+    "company": "Amazon Web Services (AWS)",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 34,
+    "isDream": true,
+    "postedDate": "2026-08-19",
+    "url": "https://www.linkedin.com/jobs/view/4455921023"
+  },
+  {
     "title": "Technical Program Manager, Lightpath Fiber Asset Delivery, Global Network Solutions",
     "company": "Google",
     "role": "TPM",
@@ -182,17 +195,17 @@
     "url": "https://www.linkedin.com/jobs/view/4441970806"
   },
   {
-    "title": "Senior Technical Program Manager, AWS Cloud Logistics",
-    "company": "Amazon Web Services (AWS)",
-    "role": "TPM",
+    "title": "Senior Network Engineer, DGX Cloud - Backbone",
+    "company": "NVIDIA",
+    "role": "NETWORK",
     "tier": "hyperscaler",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
     "score": 31,
     "isDream": true,
-    "postedDate": "2026-08-18",
-    "url": "https://www.linkedin.com/jobs/view/4455921023"
+    "postedDate": "2026-08-07",
+    "url": "https://www.linkedin.com/jobs/view/4450014156"
   },
   {
     "title": "Senior Manager / Director, Cloud Infrastructure",
@@ -234,19 +247,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/8385a14311e8b95c12213f3b56186665"
   },
   {
-    "title": "Senior Network Engineer, DGX Cloud - Backbone",
-    "company": "NVIDIA",
-    "role": "NETWORK",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 30,
-    "isDream": true,
-    "postedDate": "2026-08-07",
-    "url": "https://www.linkedin.com/jobs/view/4450014156"
-  },
-  {
     "title": "Senior Solutions Architect, Infiniband and Networking Ethernet - NVIS",
     "company": "NVIDIA",
     "role": "SA",
@@ -284,19 +284,6 @@
     "isDream": false,
     "postedDate": "2026-08-17",
     "url": "https://www.mycareersfuture.gov.sg/job/97f7150449b97aa2667febb81b893847"
-  },
-  {
-    "title": "Digital Work Place - Pre Sales Solution Architect",
-    "company": "FUJITSU ASIA PTE LTD",
-    "role": "PRESALES",
-    "tier": "enterprise",
-    "source": "MCF",
-    "salaryMin": 8500,
-    "salaryMax": 10000,
-    "score": 28,
-    "isDream": false,
-    "postedDate": "2026-08-14",
-    "url": "https://www.mycareersfuture.gov.sg/job/566813a11b07cb4c20221c2e4b0701c4"
   },
   {
     "title": "Presales Consultant (IT Infrastructure, Network & Cybersecurity)",
@@ -351,17 +338,17 @@
     "url": "https://www.mycareersfuture.gov.sg/job/5bada569a11bbb3db4a43520e6ad894d"
   },
   {
-    "title": "Presales/Solution Architect (Biometrics / IoT) (Ref 26442)",
-    "company": "JOBLINE RESOURCES PTE. LTD.",
-    "role": "PRESALES",
+    "title": "Vice President, Network Architect/ Architect/ Principal Architect - APAC Core Technology Infrastructure",
+    "company": "Bank of America",
+    "role": "NETWORK",
     "tier": "other",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 10000,
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
     "score": 27,
     "isDream": false,
-    "postedDate": "2026-08-14",
-    "url": "https://www.mycareersfuture.gov.sg/job/087c34fae2ddfc5ba3c08dc0aa984f41"
+    "postedDate": "2026-07-30",
+    "url": "https://www.linkedin.com/jobs/view/4438248806"
   },
   {
     "title": "Lead Technical Program Manager, Workplace Technology",
@@ -442,17 +429,30 @@
     "url": "https://www.mycareersfuture.gov.sg/job/13d52af5971cdae151451ad93b767656"
   },
   {
-    "title": "Senior Business Developer, National Security &amp; Defence, Asia Pacific, Global Government",
-    "company": "Amazon Web Services (AWS)",
-    "role": "BD",
-    "tier": "hyperscaler",
+    "title": "Senior Consultant (Presales, Cybersecurity/Infra)",
+    "company": "NCS Group",
+    "role": "PRESALES",
+    "tier": "other",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
     "score": 25,
     "isDream": false,
-    "postedDate": "2026-08-18",
-    "url": "https://www.linkedin.com/jobs/view/4455797084"
+    "postedDate": "2026-07-03",
+    "url": "https://www.linkedin.com/jobs/view/4433174264"
+  },
+  {
+    "title": "Data Center Server Operations Manager",
+    "company": "Google",
+    "role": "INFRA",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 24,
+    "isDream": true,
+    "postedDate": "2026-08-19",
+    "url": "https://www.linkedin.com/jobs/view/4455409267"
   },
   {
     "title": "Presales Solution Consultant (IT infrastructure) - East",
@@ -464,8 +464,34 @@
     "salaryMax": 8000,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-08-18",
+    "postedDate": "2026-08-19",
     "url": "https://www.mycareersfuture.gov.sg/job/d65e45873d83a16ed2c6602f57ac0d16"
+  },
+  {
+    "title": "lead solution architect - IAM, cloud & cybersecurity (24/7 on call support)(weekends, shift) #IKR",
+    "company": "RECRUIT EXPRESS PTE LTD",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 14000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-08-19",
+    "url": "https://www.mycareersfuture.gov.sg/job/33b143bac3abf013545d8da0e43bcae2"
+  },
+  {
+    "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
+    "company": "TYSON JAY MANAGEMENT PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 6000,
+    "salaryMax": 8000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-08-19",
+    "url": "https://www.mycareersfuture.gov.sg/job/9517d701a60f236c745fa44eb184e9da"
   },
   {
     "title": "Presales / Technical Consultant (Cybersecurity)",
@@ -481,17 +507,17 @@
     "url": "https://www.mycareersfuture.gov.sg/job/b1de578f87e0a7020c5148fa6c9baf48"
   },
   {
-    "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
-    "company": "TYSON JAY MANAGEMENT PTE. LTD.",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 6000,
-    "salaryMax": 8000,
+    "title": "Information Technology - Principal Technologist (Application Security Architect)",
+    "company": "SINGAPORE AIRLINES LIMITED",
+    "role": "SA",
+    "tier": "enterprise",
+    "source": "BOTH",
+    "salaryMin": 12000,
+    "salaryMax": 24000,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-08-17",
-    "url": "https://www.mycareersfuture.gov.sg/job/9517d701a60f236c745fa44eb184e9da"
+    "postedDate": "2026-08-19",
+    "url": "https://www.mycareersfuture.gov.sg/job/979bb44cef672caab3a13c4a378c4b5f"
   },
   {
     "title": "Network Infrastructure Project Manager",
@@ -622,31 +648,5 @@
     "isDream": false,
     "postedDate": "2026-07-31",
     "url": "https://www.mycareersfuture.gov.sg/job/59de57465acfc5d0b0ad4031cd4921c7"
-  },
-  {
-    "title": "Infrastructure Project Manager",
-    "company": "QUESS SELECTION & SERVICES PTE. LTD.",
-    "role": "INFRA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 8000,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-08-05",
-    "url": "https://www.mycareersfuture.gov.sg/job/7f2899777fe359e520d0f230f016e5c0"
-  },
-  {
-    "title": "Infrastructure Project Manager",
-    "company": "BASE CAMP DIGITAL PTE. LTD.",
-    "role": "INFRA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 10000,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-07-29",
-    "url": "https://www.mycareersfuture.gov.sg/job/8be671f8a6ab6311a405052b6f26a4c1"
   }
 ]
