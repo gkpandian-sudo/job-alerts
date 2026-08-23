@@ -2,20 +2,15 @@
 // ============================================================
 // TOL LANGIT Job Hunter
 // Searches MyCareersFuture.gov.sg daily, sends last-24h roles
-// Dream roles get a 2-day consecutive reminder
 // ============================================================
 
 require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
-const { isHighPriority, linkedinLinks } = require('./linkedin');
 
-const TELEGRAM_TOKEN   = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const TELEGRAM_TOKEN    = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_IDS = [process.env.TELEGRAM_CHAT_ID, process.env.TELEGRAM_GROUP_CHAT_ID].filter(Boolean);
 const MAX_JOBS         = parseInt(process.env.MAX_JOBS   || '10');
 const MIN_SALARY       = parseInt(process.env.MIN_SALARY || '14000');
 const HOURS_BACK       = parseInt(process.env.HOURS_BACK || '24');
-const STATE_FILE       = path.join(__dirname, '../state/dream-roles.json');
 
 // ── Job searches ──────────────────────────────────────────────
 const SEARCHES = [
@@ -59,21 +54,6 @@ const DREAM_ROLE_RULES = [
 
 // ── Skip if title contains these ─────────────────────────────
 const TITLE_EXCLUDES = ['intern', 'internship', 'graduate', 'junior', 'entry level', 'fresh'];
-
-// ── State: load / save dream roles seen ──────────────────────
-function loadState() {
-  try {
-    const raw = fs.readFileSync(STATE_FILE, 'utf8');
-    return JSON.parse(raw);
-  } catch {
-    return { dreamRoles: [] };
-  }
-}
-
-function saveState(state) {
-  fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true });
-  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
-}
 
 // ── MCF API ──────────────────────────────────────────────────
 async function searchMCF(query, limit = 30) {
@@ -133,72 +113,31 @@ function isRecent(job) {
   return ageHours <= HOURS_BACK;
 }
 
-// ── Format regular job for digest ────────────────────────────
-function formatJob(job, rank, isDream, score = 0) {
-  const title   = job.title || 'Unknown Role';
-  const company = job.postedCompany?.name || 'Unknown Company';
+// ── Markdown-escape user-controlled text (Telegram legacy Markdown) ──
+function esc(s) {
+  return String(s || '').replace(/([_*`[\]])/g, '\\$1');
+}
+
+// ── Format one job line for the digest ────────────────────────
+function formatJob(job, rank, isDream) {
+  const title   = esc(job.title || 'Unknown role');
+  const company = esc(job.postedCompany?.name || 'Unknown company');
   const minSal  = job.salary?.minimum;
   const maxSal  = job.salary?.maximum;
   const salStr  = minSal
-    ? `$${minSal.toLocaleString()} – $${maxSal?.toLocaleString() || '?'}/mo`
-    : '_Salary not stated_';
+    ? `$${minSal.toLocaleString()}–$${maxSal?.toLocaleString() || '?'}/mo`
+    : 'salary not stated';
   const posted = job.metadata?.newPostingDate?.substring(0, 10) || '';
   const link   = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
-  const nums   = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+  const star   = isDream ? '⭐ ' : '';
 
-  let msg = isDream ? `🌟 *DREAM ROLE* 🌟\n` : '';
-  msg += `${nums[rank] || rank + 1} *${title}*\n`;
-  msg += `🏢 ${company}\n`;
-  msg += `💰 ${salStr}\n`;
-  if (posted) msg += `📅 ${posted}\n`;
-  msg += `🔗 [View & Apply](${link})`;
-  if (isHighPriority(job, score)) {
-    const { recruiterUrl, postsUrl } = linkedinLinks(job);
-    msg += `\n👔 [Find Recruiter](${recruiterUrl}) · 🔍 [LinkedIn Posts](${postsUrl})`;
-  }
+  let msg = `${rank + 1}. ${star}*${title}*\n`;
+  msg += `${company}${posted ? ` · posted ${posted}` : ''} · ${salStr}\n`;
+  msg += `[Apply →](${link})`;
   return msg;
 }
 
-// ── Dream role alert — attractive 2-day reminder ──────────────
-function formatDreamAlert(job, dayNum) {
-  const title   = job.title || 'Unknown Role';
-  const company = job.postedCompany?.name || 'Unknown Company';
-  const minSal  = job.salary?.minimum;
-  const maxSal  = job.salary?.maximum;
-  const salStr  = minSal
-    ? `$${minSal.toLocaleString()} – $${maxSal?.toLocaleString() || '?'}/mo`
-    : 'Not stated';
-  const posted = job.metadata?.newPostingDate?.substring(0, 10) || '';
-  const link   = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
-
-  const dayLabel  = dayNum === 1 ? '🔴 DAY 1 of 2 — Act Today!'  : '🆘 DAY 2 of 2 — Last Chance!';
-  const urgency   = dayNum === 1 ? 'Posted fresh. Apply before the rush.' : 'Final reminder. Do not let this slip.';
-  const dayBorder = dayNum === 1
-    ? '🔥═══════════════════🔥'
-    : '🆘═══════════════════🆘';
-
-  const { recruiterUrl, postsUrl } = linkedinLinks(job);
-
-  return (
-    `╔${dayBorder}╗\n` +
-    `        🎯 *DREAM ROLE ALERT*\n` +
-    `╚${dayBorder}╝\n\n` +
-    `⭐ *${title}*\n` +
-    `🏢 *${company}*\n` +
-    `💰 ${salStr}\n` +
-    `📅 Posted: ${posted}\n\n` +
-    `${dayLabel}\n` +
-    `_${urgency}_\n\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `👔 [Find Recruiter](${recruiterUrl}) · 🔍 [LinkedIn Posts](${postsUrl})\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `🚀 *[APPLY NOW](${link})*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-    `_Matches your Google TPM · Edge · Peering profile_`
-  );
-}
-
-// ── Send Telegram ─────────────────────────────────────────────
+// ── Send Telegram (to every configured recipient) ──────────────
 async function sendTelegram(text) {
   const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
   const chunks = [];
@@ -211,19 +150,30 @@ async function sendTelegram(text) {
   }
   if (rem) chunks.push(rem);
 
-  for (const chunk of chunks) {
-    const resp = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: chunk,
-        parse_mode: 'Markdown',
-        disable_web_page_preview: true,
-      }),
-    });
-    if (!resp.ok) throw new Error(`Telegram error: ${await resp.text()}`);
+  const failed = [];
+  for (const chatId of TELEGRAM_CHAT_IDS) {
+    try {
+      for (const chunk of chunks) {
+        const resp = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: chunk,
+            parse_mode: 'Markdown',
+            disable_web_page_preview: true,
+          }),
+        });
+        if (!resp.ok) throw new Error(await resp.text());
+      }
+    } catch (e) {
+      failed.push(`${chatId} (${e.message})`);
+    }
   }
+  if (failed.length === TELEGRAM_CHAT_IDS.length) {
+    throw new Error(`Telegram: every recipient failed — ${failed.join('; ')}`);
+  }
+  if (failed.length) console.error(`Telegram: ${failed.length} recipient(s) failed — ${failed.join('; ')}`);
 }
 
 // ── Main ──────────────────────────────────────────────────────
@@ -231,17 +181,7 @@ async function run() {
   console.log(`[${new Date().toISOString()}] Job Hunter started`);
 
   try {
-    const state = loadState();
-    const today = new Date().toISOString().substring(0, 10);
-
-    // ── 1. Re-alert dream roles from yesterday (day 2 reminder) ─
-    const dayTwoReminders = state.dreamRoles.filter(r => r.firstSeenDate !== today);
-    for (const r of dayTwoReminders) {
-      await sendTelegram(formatDreamAlert(r.job, 2));
-      console.log(`Day-2 reminder sent: ${r.job.title}`);
-    }
-
-    // ── 2. Search MCF for today's jobs ───────────────────────────
+    // ── Search MCF for today's jobs ───────────────────────────
     const searchResults = await Promise.all(
       SEARCHES.map(s =>
         searchMCF(s.q).then(jobs => ({ ...s, jobs })).catch(() => ({ ...s, jobs: [] }))
@@ -270,48 +210,22 @@ async function run() {
       weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Singapore',
     });
 
-    // ── 3. Send daily digest ──────────────────────────────────────
+    // ── Send daily digest ──────────────────────────────────────
     if (top.length === 0) {
-      await sendTelegram(`🔍 *Job Alert — ${prettyDate}*\n\n_No new roles posted in the last ${HOURS_BACK}h._`);
+      await sendTelegram(`*No new roles* — ${prettyDate}\nNothing posted in the last ${HOURS_BACK}h.`);
       console.log('No new jobs found in last 24h');
     } else {
-      const dreamUuids = new Set(state.dreamRoles.map(r => r.job.uuid));
-      let msg = `🔍 *${top.length} fresh roles — last 24h*\n`;
-      msg += `📅 ${prettyDate}\n`;
-      msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-      msg += top.map(({ job, score }, i) => formatJob(job, i, isDreamRole(job), score)).join('\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n');
-      msg += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_MyCareersFuture.gov.sg · $${MIN_SALARY.toLocaleString()}+/mo · last 24h only_`;
+      const roleWord = top.length === 1 ? 'role' : 'roles';
+      let msg = `*${top.length} new ${roleWord}* · ${prettyDate}\n\n`;
+      msg += top.map(({ job }, i) => formatJob(job, i, isDreamRole(job))).join('\n\n');
+      msg += `\n\n—\n$${MIN_SALARY.toLocaleString()}+/mo · MyCareersFuture.gov.sg`;
       await sendTelegram(msg);
-
-      // ── 4. Send day-1 dream role alerts for new finds ───────────
-      const newDreams = top
-        .filter(({ job }) => isDreamRole(job) && !dreamUuids.has(job.uuid));
-
-      for (const { job } of newDreams) {
-        await sendTelegram(formatDreamAlert(job, 1));
-        console.log(`Day-1 dream alert sent: ${job.title}`);
-      }
-
-      // ── 5. Update state — keep only today's dreams ───────────────
-      // Remove yesterday's (already sent day-2), add today's new ones
-      state.dreamRoles = [
-        ...state.dreamRoles.filter(r => r.firstSeenDate === today), // already found today
-        ...newDreams.map(({ job }) => ({ uuid: job.uuid, firstSeenDate: today, job: {
-          uuid: job.uuid,
-          title: job.title,
-          postedCompany: job.postedCompany,
-          salary: job.salary,
-          metadata: { newPostingDate: job.metadata?.newPostingDate },
-        }})),
-      ];
-      saveState(state);
-
-      console.log(`[${new Date().toISOString()}] Sent ${top.length} jobs · ${newDreams.length} day-1 dream · ${dayTwoReminders.length} day-2 reminder`);
+      console.log(`[${new Date().toISOString()}] Sent ${top.length} jobs`);
     }
 
   } catch (err) {
     console.error(`[${new Date().toISOString()}] FATAL:`, err.message);
-    try { await sendTelegram(`🚨 *Job Hunter Error*\n\`${err.message}\``); } catch {}
+    try { await sendTelegram(`⚠️ *Job hunter error*\n\`${err.message}\``); } catch {}
     process.exit(1);
   }
 }

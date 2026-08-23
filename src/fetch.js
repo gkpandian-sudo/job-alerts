@@ -27,7 +27,7 @@ const HOURS_BACK    = hasFlag('--all') ? Infinity : parseInt(flag('--hours', pro
 const SEND_TELEGRAM = hasFlag('--telegram');
 
 const TELEGRAM_TOKEN   = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const TELEGRAM_CHAT_IDS = [process.env.TELEGRAM_CHAT_ID, process.env.TELEGRAM_GROUP_CHAT_ID].filter(Boolean);
 
 // ── Searches ──────────────────────────────────────────────────
 const SEARCHES = [
@@ -256,16 +256,24 @@ function escHtml(str) {
 }
 
 // ── Telegram send ─────────────────────────────────────────────
+function esc(s) {
+  return String(s || '').replace(/([_*`[\]])/g, '\\$1');
+}
+
 async function sendTelegram(text) {
-  const resp = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID, text, parse_mode: 'Markdown',
-      disable_web_page_preview: true,
-    }),
-  });
-  if (!resp.ok) throw new Error(await resp.text());
+  const failed = [];
+  for (const chatId of TELEGRAM_CHAT_IDS) {
+    const resp = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId, text, parse_mode: 'Markdown',
+        disable_web_page_preview: true,
+      }),
+    });
+    if (!resp.ok) failed.push(`${chatId} (${await resp.text()})`);
+  }
+  if (failed.length) throw new Error(failed.join('; '));
 }
 
 // ── Main ──────────────────────────────────────────────────────
@@ -342,30 +350,24 @@ async function run() {
 
   // ── Optional Telegram push ────────────────────────────────────
   if (SEND_TELEGRAM) {
-    if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
+    if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_IDS.length) {
       console.error('  ✗ --telegram: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not set\n');
       return;
     }
-    const nums = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
-    let msg = `🔍 *${top.length} roles — on-demand*\n📅 ${dateStr} ${timeStr} SGT\n`;
-    msg += `━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-    msg += top.map(({ job, score }, i) => {
-      const title   = job.title || 'Unknown';
-      const company = job.postedCompany?.name || '';
+    const roleWord = top.length === 1 ? 'role' : 'roles';
+    let msg = `*${top.length} ${roleWord} — on-demand* · ${dateStr}, ${timeStr} SGT\n\n`;
+    msg += top.map(({ job }, i) => {
+      const title   = esc(job.title || 'Unknown role');
+      const company = esc(job.postedCompany?.name || '');
       const minSal  = job.salary?.minimum;
       const maxSal  = job.salary?.maximum;
-      const salStr  = minSal ? `$${minSal.toLocaleString()} – $${maxSal?.toLocaleString() || '?'}/mo` : '_Not stated_';
+      const salStr  = minSal ? `$${minSal.toLocaleString()}–$${maxSal?.toLocaleString() || '?'}/mo` : 'salary not stated';
       const posted  = job.metadata?.newPostingDate?.substring(0, 10) || '';
       const link    = `https://www.mycareersfuture.gov.sg/job/${job.uuid}`;
-      const dreamStr = isDream(job) ? `🌟 *DREAM ROLE*\n` : '';
-      let entry = `${dreamStr}${nums[i] || i+1} *${title}*\n🏢 ${company}\n💰 ${salStr}\n${posted ? `📅 ${posted}\n` : ''}🔗 [Apply](${link})`;
-      if (isHighPriority(job, score)) {
-        const { recruiterUrl, postsUrl } = linkedinLinks(job);
-        entry += `\n👔 [Find Recruiter](${recruiterUrl}) · 🔍 [LinkedIn Posts](${postsUrl})`;
-      }
-      return entry;
-    }).join('\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n');
-    msg += `\n\n_$${MIN_SALARY.toLocaleString()}+/mo · ${recencyLabel} · MyCareersFuture_`;
+      const star    = isDream(job) ? '⭐ ' : '';
+      return `${i + 1}. ${star}*${title}*\n${company}${posted ? ` · posted ${posted}` : ''} · ${salStr}\n[Apply →](${link})`;
+    }).join('\n\n');
+    msg += `\n\n—\n$${MIN_SALARY.toLocaleString()}+/mo · ${recencyLabel} · MyCareersFuture`;
 
     try {
       await sendTelegram(msg);

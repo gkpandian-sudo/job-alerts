@@ -12,8 +12,8 @@ const fs   = require('fs');
 const path = require('path');
 
 // ── Config ────────────────────────────────────────────────────
-const TELEGRAM_TOKEN   = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const TELEGRAM_TOKEN    = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_CHAT_IDS = [process.env.TELEGRAM_CHAT_ID, process.env.TELEGRAM_GROUP_CHAT_ID].filter(Boolean);
 const MIN_SALARY       = parseInt(process.env.MIN_SALARY || '8000');
 const MAX_DIGEST       = 15;   // max jobs in the daily digest
 const HOURS_BACK       = 48;   // only alert jobs posted within this window
@@ -224,7 +224,7 @@ function fuzzyDedup(jobs) {
 // ── State ─────────────────────────────────────────────────────
 function loadState() {
   try { return JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); }
-  catch { return { seenIds: {}, dreamRoles: [] }; }
+  catch { return { seenIds: {} }; }
 }
 
 function saveState(state) {
@@ -310,7 +310,7 @@ async function searchLinkedIn(query) {
   return jobs;
 }
 
-// ── Telegram send (chunked for long messages) ─────────────────
+// ── Telegram send (chunked, every configured recipient) ────────
 async function sendTelegram(text) {
   const apiUrl = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
   const chunks = [];
@@ -322,72 +322,48 @@ async function sendTelegram(text) {
     rem = rem.slice(cut).trimStart();
   }
   if (rem.trim()) chunks.push(rem);
-  for (const chunk of chunks) {
-    const res = await fetch(apiUrl, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id:                  TELEGRAM_CHAT_ID,
-        text:                     chunk,
-        parse_mode:               'Markdown',
-        disable_web_page_preview: true,
-      }),
-    });
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(`Telegram: ${err}`);
+
+  const failed = [];
+  for (const chatId of TELEGRAM_CHAT_IDS) {
+    try {
+      for (const chunk of chunks) {
+        const res = await fetch(apiUrl, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id:                  chatId,
+            text:                     chunk,
+            parse_mode:               'Markdown',
+            disable_web_page_preview: true,
+          }),
+        });
+        if (!res.ok) throw new Error(await res.text());
+      }
+    } catch (e) {
+      failed.push(`${chatId} (${e.message})`);
     }
   }
+  if (failed.length === TELEGRAM_CHAT_IDS.length) {
+    throw new Error(`Telegram: every recipient failed — ${failed.join('; ')}`);
+  }
+  if (failed.length) console.error(`Telegram: ${failed.length} recipient(s) failed — ${failed.join('; ')}`);
 }
 
 // ── Telegram message formatting ───────────────────────────────
-const NUMS = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟','1️⃣1️⃣','1️⃣2️⃣','1️⃣3️⃣','1️⃣4️⃣','1️⃣5️⃣'];
-const SEP  = '━━━━━━━━━━━━━━━━━━━━━━━━━━━';
-const ROLE_EMOJI = { TPM: '⚙️', SA: '🏗', PRESALES: '🤝', NETWORK: '🌐', INFRA_BD: '📡', INFRA: '🖥', BD: '💼', OTHER: '🔷' };
-const TIER_LABEL = { hyperscaler: '⚡ Hyperscaler', telco: '📡 Telco', enterprise: '🏢 Enterprise', tech: '🛡 Tech', other: '' };
+const TIER_LABEL = { hyperscaler: 'Hyperscaler', telco: 'Telco', enterprise: 'Enterprise', tech: 'Tech', other: '' };
 
 function fmtJobTelegram(j, rank) {
   const sal = j.salaryMin
-    ? `$${j.salaryMin.toLocaleString()} – $${j.salaryMax?.toLocaleString() || '?'}/mo`
-    : '_Salary not stated_';
-  const srcTag  = j.source === 'LinkedIn' ? '`in`' : '`MCF`';
+    ? `$${j.salaryMin.toLocaleString()}–$${j.salaryMax?.toLocaleString() || '?'}/mo`
+    : 'salary not stated';
+  const src     = j.source === 'LinkedIn' ? 'LinkedIn' : j.source === 'BOTH' ? 'MCF + LinkedIn' : 'MyCareersFuture';
   const tierTag = TIER_LABEL[j.tier] ? ` · ${TIER_LABEL[j.tier]}` : '';
-  const roleTag = ROLE_EMOJI[j.role] || '🔷';
-  const num     = NUMS[rank] || `${rank + 1}.`;
-  let msg = '';
-  msg += `${num} ${roleTag} *${escMd(j.title)}*\n`;
-  msg += `🏢 ${escMd(j.company)}${tierTag}\n`;
-  msg += `💰 ${sal}\n`;
-  if (j.postedDate) msg += `📅 ${j.postedDate} · ${srcTag}\n`;
-  else              msg += `📌 ${srcTag}\n`;
-  msg += `🔗 [View & Apply](${j.url})`;
+  const star    = j.isDream ? '⭐ ' : '';
+  let msg = `${rank + 1}. ${star}*${escMd(j.title)}*\n`;
+  msg += `${escMd(j.company)}${tierTag}\n`;
+  msg += `${sal}${j.postedDate ? ` · posted ${j.postedDate}` : ''} · ${src}\n`;
+  msg += `[Apply →](${j.url})`;
   return msg;
-}
-
-function fmtDreamTelegram(j, dayNum) {
-  const sal = j.salaryMin
-    ? `$${j.salaryMin.toLocaleString()} – $${j.salaryMax?.toLocaleString() || '?'}/mo`
-    : 'Salary TBD';
-  const srcTag = j.source === 'LinkedIn' ? '`LinkedIn`' : '`MCF`';
-  const border = dayNum === 1
-    ? '🔥═══════════════════🔥'
-    : '🆘═══════════════════🆘';
-  const day    = dayNum === 1 ? '🔴 DAY 1 — Act Today!' : '🆘 DAY 2 — Last Chance!';
-  const note   = dayNum === 1 ? 'Fresh posting. Apply before the rush.' : 'Final reminder. Do not miss this.';
-  return (
-    `╔${border}╗\n` +
-    `        🎯 *DREAM ROLE ALERT*\n` +
-    `╚${border}╝\n\n` +
-    `⭐ *${escMd(j.title)}*\n` +
-    `🏢 *${escMd(j.company)}*\n` +
-    `💰 ${sal}\n` +
-    `📅 ${j.postedDate || '?'} · ${srcTag}\n\n` +
-    `${day}\n` +
-    `_${note}_\n\n` +
-    `${SEP}\n` +
-    `🚀 *[APPLY NOW](${j.url})*\n` +
-    `${SEP}`
-  );
 }
 
 // ── HTML dashboard builder ──────────────────────────────────────
@@ -708,22 +684,13 @@ async function run() {
 
   console.log(`\n[${now.toISOString()}] Daily Hunter started`);
 
-  if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
+  if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_IDS.length) {
     console.error('Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID in .env'); process.exit(1);
   }
 
   const state = loadState();
 
-  // ── 1. Dream role day-2 reminders ─────────────────────────────
-  const dayTwoReminders = (state.dreamRoles || []).filter(r => r.firstSeenDate !== today);
-  for (const r of dayTwoReminders) {
-    try {
-      await sendTelegram(fmtDreamTelegram(r, 2));
-      console.log(`Day-2 dream reminder sent: ${r.title}`);
-    } catch (e) { console.error('Day-2 Telegram error:', e.message); }
-  }
-
-  // ── 2. Fetch from MCF ─────────────────────────────────────────
+  // ── Fetch from MCF ─────────────────────────────────────────────
   process.stdout.write('  Fetching MCF');
   const mcfResults = await Promise.all(
     SEARCHES.map(s =>
@@ -794,58 +761,25 @@ async function run() {
 
   if (alertJobs.length === 0) {
     await sendTelegram(
-      `🔍 *Job Alert — ${prettyDate}*\n\n` +
-      `_No new roles to alert (MCF: 0, LinkedIn hyperscalers: 0)._\n\n` +
-      `📊 Dashboard refreshed with ${allJobs.length} total roles.`
+      `*No new roles* — ${prettyDate}\n` +
+      `Nothing to alert (MCF + LinkedIn hyperscalers). Dashboard refreshed with ${allJobs.length} total roles.`
     );
     console.log('No alert-eligible jobs — sent quiet update');
   } else {
     const mcfNew  = alertJobs.filter(j => j.source === 'MCF'  || j.source === 'BOTH').length;
     const liNew   = alertJobs.filter(j => j.source === 'LinkedIn').length;
-    const bothNew = alertJobs.filter(j => j.source === 'BOTH').length;
+    const roleWord = alertJobs.length === 1 ? 'role' : 'roles';
 
-    let msg = `🔍 *${alertJobs.length} new roles — last ${HOURS_BACK}h*\n`;
-    msg += `📅 ${prettyDate} · ${prettyTime} SGT\n`;
-    msg += `📊 MCF: ${mcfNew} · LinkedIn⚡: ${liNew}${bothNew ? ` · Both: ${bothNew}` : ''}\n`;
-    msg += `${SEP}\n\n`;
-
-    if (dreamNew.length) {
-      msg += `🌟 *DREAM ROLES (${dreamNew.length} new)*\n`;
-      msg += `${SEP}\n\n`;
-      msg += dreamNew.map((j, i) => fmtJobTelegram(j, i)).join(`\n\n${SEP}\n\n`);
-      msg += `\n\n${SEP}\n\n`;
-    }
-
-    if (regularNew.length) {
-      msg += `✅ *TOP ROLES*\n`;
-      msg += `${SEP}\n\n`;
-      msg += regularNew.map((j, i) => fmtJobTelegram(j, i + dreamNew.length)).join(`\n\n${SEP}\n\n`);
-    }
-
-    msg += `\n\n${SEP}\n_MCF + LinkedIn · $${MIN_SALARY.toLocaleString()}+/mo · new since last run_`;
+    let msg = `*${alertJobs.length} new ${roleWord}* · ${prettyDate}, ${prettyTime} SGT\n`;
+    msg += `MyCareersFuture ${mcfNew} · LinkedIn ${liNew}\n\n`;
+    msg += digestJobs.map((j, i) => fmtJobTelegram(j, i)).join('\n\n');
+    msg += `\n\n—\n$${MIN_SALARY.toLocaleString()}+/mo · MyCareersFuture + LinkedIn`;
 
     await sendTelegram(msg);
     console.log(`Telegram: sent digest (${digestJobs.length} jobs)`);
 
-    // ── 7. Day-1 dream alerts (separate messages) ──────────────
-    const knownDreamIds = new Set((state.dreamRoles || []).map(r => r.id));
-    const newDreams = dreamNew.filter(j => !knownDreamIds.has(j.id));
-    for (const j of newDreams) {
-      await sendTelegram(fmtDreamTelegram(j, 1));
-      console.log(`Day-1 dream alert: ${j.title} @ ${j.company}`);
-    }
-
-    // ── 8. Update state ────────────────────────────────────────
+    // ── Update state ─────────────────────────────────────────────
     for (const j of newJobs) state.seenIds[j.id] = today;
-    state.dreamRoles = [
-      ...(state.dreamRoles || []).filter(r => r.firstSeenDate === today),
-      ...newDreams.map(j => ({
-        id: j.id, firstSeenDate: today,
-        title: j.title, company: j.company,
-        salaryMin: j.salaryMin, salaryMax: j.salaryMax,
-        postedDate: j.postedDate, url: j.url, source: j.source,
-      })),
-    ];
   }
 
   saveState(state);
@@ -878,6 +812,6 @@ async function run() {
 
 run().catch(async err => {
   console.error(`[${new Date().toISOString()}] FATAL:`, err.message);
-  try { await sendTelegram(`🚨 *Job Hunter Error*\n\`${err.message}\``); } catch {}
+  try { await sendTelegram(`⚠️ *Job hunter error*\n\`${err.message}\``); } catch {}
   process.exit(1);
 });
