@@ -39,6 +39,19 @@
     "url": "https://www.linkedin.com/jobs/view/4455690590"
   },
   {
+    "title": "regional presales / solutions architect–infrastructure & dc",
+    "company": "RANDSTAD PTE. LIMITED",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 8000,
+    "salaryMax": 12000,
+    "score": 34,
+    "isDream": false,
+    "postedDate": "2026-09-15",
+    "url": "https://www.mycareersfuture.gov.sg/job/cb5b91a1e0c83d3a60a6a77fada1d40d"
+  },
+  {
     "title": "Senior Technical Program Manager, AWS Cloud Logistics",
     "company": "Amazon Web Services (AWS)",
     "role": "TPM",
@@ -63,19 +76,6 @@
     "isDream": false,
     "postedDate": "2026-09-09",
     "url": "https://www.mycareersfuture.gov.sg/job/5d113b24e58fa27c1189b3187096fa8c"
-  },
-  {
-    "title": "Cloud Solution Architect",
-    "company": "MICROSOFT OPERATIONS PTE LTD",
-    "role": "SA",
-    "tier": "hyperscaler",
-    "source": "MCF",
-    "salaryMin": 10650,
-    "salaryMax": 22500,
-    "score": 33,
-    "isDream": true,
-    "postedDate": "2026-09-01",
-    "url": "https://www.mycareersfuture.gov.sg/job/4e34218825c265e0a3f625f12538adcf"
   },
   {
     "title": "Pre-Sales Solution Architect (Data Center Infrastructure)",
@@ -169,19 +169,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/627fd34c72fb708621a746f9c36c6363"
   },
   {
-    "title": "Director Solution Architecture",
-    "company": "SHL SINGAPORE PTE. LTD.",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 15000,
-    "salaryMax": 16667,
-    "score": 27,
-    "isDream": false,
-    "postedDate": "2026-09-10",
-    "url": "https://www.mycareersfuture.gov.sg/job/ad86aee54d9cca3a0fbf05f16c94d8e6"
-  },
-  {
     "title": "Cloud Pre-sales (Senior Solution Architect)",
     "company": "HAYS SPECIALIST RECRUITMENT PTE. LTD.",
     "role": "PRESALES",
@@ -193,6 +180,19 @@
     "isDream": false,
     "postedDate": "2026-08-17",
     "url": "https://www.mycareersfuture.gov.sg/job/97f7150449b97aa2667febb81b893847"
+  },
+  {
+    "title": "Principal Solutions Architect, APJC (Developer Platform) - Mandarin Speaking",
+    "company": "Cloudflare",
+    "role": "SA",
+    "tier": "tech",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 27,
+    "isDream": false,
+    "postedDate": "2026-09-09",
+    "url": "https://www.linkedin.com/jobs/view/4463011024"
   },
   {
     "title": "Vice President, Network Architect/ Architect/ Principal Architect - APAC Core Technology Infrastructure",
@@ -260,6 +260,19 @@
     "url": "https://www.linkedin.com/jobs/view/4442997091"
   },
   {
+    "title": "Tencent Cloud - Senior Pre-sales Solution Architect (GenAI &amp; Cloud) -Singapore",
+    "company": "Tencent",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-09-01",
+    "url": "https://www.linkedin.com/jobs/view/4460606752"
+  },
+  {
     "title": "Lead Solutions Architect, Pre-Sales (Singapore)",
     "company": "Cloudwise",
     "role": "PRESALES",
@@ -284,6 +297,32 @@
     "isDream": false,
     "postedDate": "2026-09-03",
     "url": "https://www.linkedin.com/jobs/view/4324808663"
+  },
+  {
+    "title": "Principal Azure Cloud Architect &amp; DevOps Lead",
+    "company": "Singtel",
+    "role": "SA",
+    "tier": "telco",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-09-15",
+    "url": "https://www.linkedin.com/jobs/view/4466150602"
+  },
+  {
+    "title": "Network Development Manager, APAC",
+    "company": "Meta",
+    "role": "NETWORK",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 26,
+    "isDream": true,
+    "postedDate": "2026-09-15",
+    "url": "https://www.linkedin.com/jobs/view/4465557567"
   },
   {
     "title": "Principal Security Solution Architect (IAM)",
@@ -364,19 +403,6 @@
     "url": "https://www.linkedin.com/jobs/view/4455780917"
   },
   {
-    "title": "Tencent Cloud - Senior Pre-sales Solution Architect (GenAI &amp; Cloud) -Singapore",
-    "company": "Tencent",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-09-01",
-    "url": "https://www.linkedin.com/jobs/view/4460606752"
-  },
-  {
     "title": "Technical Infra Program Manager",
     "company": "AMAZON ASIA-PACIFIC RESOURCES PRIVATE LIMITED",
     "role": "TPM",
@@ -388,6 +414,19 @@
     "isDream": false,
     "postedDate": "2026-09-11",
     "url": "https://www.mycareersfuture.gov.sg/job/1942f29fa1adba12d26af0928e852467"
+  },
+  {
+    "title": "Presales Solution Consultant (IT infrastructure) - East -VTTO",
+    "company": "RECRUITPEDIA PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 5000,
+    "salaryMax": 8000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-09-15",
+    "url": "https://www.mycareersfuture.gov.sg/job/a31460f9d9bf5719ae9ceb7e6fe3b641"
   },
   {
     "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
@@ -403,17 +442,17 @@
     "url": "https://www.mycareersfuture.gov.sg/job/63ca05f6a0f0d9ec2f34308b8c78a899"
   },
   {
-    "title": "Presales Solution Consultant (IT infrastructure) - East -VTTO",
-    "company": "RECRUITPEDIA PTE. LTD.",
+    "title": "Principal Solutions Engineer (Pre-Sales) – Control-M / Workload Automation",
+    "company": "D L RESOURCES PTE LTD",
     "role": "PRESALES",
     "tier": "other",
     "source": "MCF",
-    "salaryMin": 5000,
-    "salaryMax": 8000,
+    "salaryMin": 10000,
+    "salaryMax": 20000,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-09-14",
-    "url": "https://www.mycareersfuture.gov.sg/job/8fbd7b2b9a6547b9842c73887072e609"
+    "postedDate": "2026-09-15",
+    "url": "https://www.mycareersfuture.gov.sg/job/adcb636d001538bac4434de41164a126"
   },
   {
     "title": "Scrum Master and Technical Project Manager/Director",
@@ -503,60 +542,8 @@
     "salaryMax": 0,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-08-19",
+    "postedDate": "2026-09-15",
     "url": "https://www.linkedin.com/jobs/view/4454978031"
-  },
-  {
-    "title": "Network Development Manager, Network Investments",
-    "company": "Meta",
-    "role": "NETWORK",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 24,
-    "isDream": true,
-    "postedDate": "2026-09-08",
-    "url": "https://www.linkedin.com/jobs/view/4462500214"
-  },
-  {
-    "title": "AI Data Center Development Manager",
-    "company": "Meta",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 24,
-    "isDream": true,
-    "postedDate": "2026-09-12",
-    "url": "https://www.linkedin.com/jobs/view/4428226721"
-  },
-  {
-    "title": "Cloud Pre-sales/ Solution Architect (SI)",
-    "company": "Hays",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-08-24",
-    "url": "https://www.linkedin.com/jobs/view/4445475849"
-  },
-  {
-    "title": "AI Solution Architect (Chinese-speaking)",
-    "company": "EVOLUTION RECRUITMENT SOLUTIONS PTE. LTD.",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 15000,
-    "salaryMax": 19000,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-09-08",
-    "url": "https://www.mycareersfuture.gov.sg/job/2102e3ada81e047eaf69dfa11c4683b5"
   },
   {
     "title": "Cybersecurity Pre-Sales Engineer (va & Thales Solutions)",
@@ -648,5 +635,18 @@
     "isDream": false,
     "postedDate": "2026-08-21",
     "url": "https://www.mycareersfuture.gov.sg/job/e2739ff0050f5b98199259eea99e7262"
+  },
+  {
+    "title": "AI Security Architect - Associate Director",
+    "company": "MSD INTERNATIONAL GMBH (SINGAPORE BRANCH)",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 11000,
+    "salaryMax": 12500,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-08-20",
+    "url": "https://www.mycareersfuture.gov.sg/job/00a460f7d838a276bf0d7d879429ca46"
   }
 ]
