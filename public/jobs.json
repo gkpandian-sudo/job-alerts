@@ -13,6 +13,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/8000e8b7ec72034541793be52aa36c38"
   },
   {
+    "title": "Senior Security Solution Architect, APJC Customer Security, APJC Customer Security",
+    "company": "AMAZON WEB SERVICES SINGAPORE PRIVATE LIMITED",
+    "role": "SA",
+    "tier": "hyperscaler",
+    "source": "MCF",
+    "salaryMin": 15500,
+    "salaryMax": 24000,
+    "score": 37,
+    "isDream": true,
+    "postedDate": "2026-09-17",
+    "url": "https://www.mycareersfuture.gov.sg/job/818d5d3e02a0d2e0340a3b6179f0aa33"
+  },
+  {
     "title": "Technical Program Manager, Security Engineering - Singapore",
     "company": "GOOGLE ASIA PACIFIC PTE. LTD.",
     "role": "TPM",
@@ -26,7 +39,7 @@
     "url": "https://www.mycareersfuture.gov.sg/job/f93c22ad3f5fd9e1ffab7ef3d964b407"
   },
   {
-    "title": "Technical Program Manager, Google Pay Data Platform",
+    "title": "Senior Technical Program Manager, AI Outcome Engineering",
     "company": "Google",
     "role": "TPM",
     "tier": "hyperscaler",
@@ -35,8 +48,8 @@
     "salaryMax": 0,
     "score": 34,
     "isDream": true,
-    "postedDate": "2026-09-04",
-    "url": "https://www.linkedin.com/jobs/view/4452986888"
+    "postedDate": "2026-09-17",
+    "url": "https://www.linkedin.com/jobs/view/4467558348"
   },
   {
     "title": "Senior Technical Program Manager, Third-Party Data Center Construction and Delivery",
@@ -78,7 +91,7 @@
     "url": "https://www.linkedin.com/jobs/view/4455921023"
   },
   {
-    "title": "Technical Program Manager, DCDE Central Operations, Google Data Centers",
+    "title": "Lead Technical Program Manager, Long Haul Planning",
     "company": "Google",
     "role": "TPM",
     "tier": "hyperscaler",
@@ -87,8 +100,21 @@
     "salaryMax": 0,
     "score": 33,
     "isDream": true,
-    "postedDate": "2026-09-16",
-    "url": "https://www.linkedin.com/jobs/view/4457611363"
+    "postedDate": "2026-09-17",
+    "url": "https://www.linkedin.com/jobs/view/4467550463"
+  },
+  {
+    "title": "Technical Program Manager, Google Pay Data Platform",
+    "company": "Google",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 32,
+    "isDream": true,
+    "postedDate": "2026-09-04",
+    "url": "https://www.linkedin.com/jobs/view/4452986888"
   },
   {
     "title": "Technical Infrastructure Project Manager & Solution Architect",
@@ -247,6 +273,19 @@
     "url": "https://www.linkedin.com/jobs/view/4457445725"
   },
   {
+    "title": "TECHNICAL PROJECT MANAGER, hydrid work ̣̣- Interconnector/Electronics",
+    "company": "JDA WMS PTE. LTD.",
+    "role": "TPM",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 6000,
+    "salaryMax": 11000,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-09-17",
+    "url": "https://www.mycareersfuture.gov.sg/job/a3416421727512e32350206813da2f44"
+  },
+  {
     "title": "Intermediate Presales Engineer / Solutions Architect (Cloud-Native Data Protection)",
     "company": "INTELLECT MINDS PTE. LTD.",
     "role": "PRESALES",
@@ -286,32 +325,6 @@
     "url": "https://www.linkedin.com/jobs/view/4442997091"
   },
   {
-    "title": "Tencent Cloud - Senior Pre-sales Solution Architect (GenAI &amp; Cloud) -Singapore",
-    "company": "Tencent",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-09-01",
-    "url": "https://www.linkedin.com/jobs/view/4460606752"
-  },
-  {
-    "title": "Lead Solutions Architect, Pre-Sales (Singapore)",
-    "company": "Cloudwise",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-08-18",
-    "url": "https://www.linkedin.com/jobs/view/4454497691"
-  },
-  {
     "title": "Pre-Sales Solution Architect (Public Sector Focus)",
     "company": "Cognizant",
     "role": "PRESALES",
@@ -325,19 +338,6 @@
     "url": "https://www.linkedin.com/jobs/view/4324808663"
   },
   {
-    "title": "Principal Azure Cloud Architect &amp; DevOps Lead",
-    "company": "Singtel",
-    "role": "SA",
-    "tier": "telco",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-09-15",
-    "url": "https://www.linkedin.com/jobs/view/4466150602"
-  },
-  {
     "title": "Network Development Manager, APAC",
     "company": "Meta",
     "role": "NETWORK",
@@ -349,19 +349,6 @@
     "isDream": true,
     "postedDate": "2026-09-15",
     "url": "https://www.linkedin.com/jobs/view/4465557567"
-  },
-  {
-    "title": "Principal Security Solution Architect (IAM)",
-    "company": "CYGNIFY PTE. LTD.",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 10000,
-    "salaryMax": 19000,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-09-10",
-    "url": "https://www.mycareersfuture.gov.sg/job/245162c531b9602ec70e04df0d47f2e2"
   },
   {
     "title": "Network Solution Architect (Presales)",
@@ -388,19 +375,6 @@
     "isDream": false,
     "postedDate": "2026-09-04",
     "url": "https://www.linkedin.com/jobs/view/4454096899"
-  },
-  {
-    "title": "Senior Lead Cybersecurity Architect",
-    "company": "JPMorganChase",
-    "role": "SA",
-    "tier": "enterprise",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-08-26",
-    "url": "https://www.linkedin.com/jobs/view/4449065327"
   },
   {
     "title": "Solutions Architect, Technology CS - APJ - CSC Tech",
@@ -465,7 +439,7 @@
     "score": 24,
     "isDream": false,
     "postedDate": "2026-09-16",
-    "url": "https://www.mycareersfuture.gov.sg/job/b3af6dfaab1056e7ddb2e17da16695d4"
+    "url": "https://www.mycareersfuture.gov.sg/job/09dc70d84684902561a8ba4702f0f88f"
   },
   {
     "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
@@ -611,17 +585,17 @@
     "url": "https://www.linkedin.com/jobs/view/4465513931"
   },
   {
-    "title": "Cloud Pre-sales/ Solution Architect (SI)",
-    "company": "Hays",
-    "role": "PRESALES",
+    "title": "Senior Solution Architect, Asia",
+    "company": "COMMVAULT SYSTEMS (SINGAPORE) PRIVATE LIMITED",
+    "role": "SA",
     "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 24,
+    "source": "MCF",
+    "salaryMin": 17500,
+    "salaryMax": 22500,
+    "score": 23,
     "isDream": false,
-    "postedDate": "2026-08-24",
-    "url": "https://www.linkedin.com/jobs/view/4445475849"
+    "postedDate": "2026-09-17",
+    "url": "https://www.mycareersfuture.gov.sg/job/fae08225de3f70e371c78713525af186"
   },
   {
     "title": "Network INFRASTRUCTURE PROJECT MANAGER | 6-MONTH CONTRACT | BANKING #HMS",
@@ -648,5 +622,31 @@
     "isDream": false,
     "postedDate": "2026-09-15",
     "url": "https://www.mycareersfuture.gov.sg/job/e07bac32d34f37275493180733e13004"
+  },
+  {
+    "title": "6 Months Infrastructure Project Manager (Leading Singapore Bank) #BLM",
+    "company": "RECRUIT EXPRESS PTE LTD",
+    "role": "INFRA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 9000,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-09-07",
+    "url": "https://www.mycareersfuture.gov.sg/job/edba2b4e4ab5aa5c3f0e37e8263a0e23"
+  },
+  {
+    "title": "Infrastructure Project Manager (1-year renewable) #IAC",
+    "company": "RECRUIT EXPRESS PTE LTD",
+    "role": "INFRA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 6500,
+    "salaryMax": 8500,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-09-07",
+    "url": "https://www.mycareersfuture.gov.sg/job/f34e95a5745d00233e9cefa1b625896a"
   }
 ]
