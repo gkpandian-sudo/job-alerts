@@ -52,7 +52,7 @@
     "url": "https://www.linkedin.com/jobs/view/4467558348"
   },
   {
-    "title": "Senior Technical Program Manager, Third-Party Data Center Construction and Delivery",
+    "title": "Lead Technical Program Manager, Long Haul Planning",
     "company": "Google",
     "role": "TPM",
     "tier": "hyperscaler",
@@ -61,21 +61,8 @@
     "salaryMax": 0,
     "score": 34,
     "isDream": true,
-    "postedDate": "2026-09-11",
-    "url": "https://www.linkedin.com/jobs/view/4455690590"
-  },
-  {
-    "title": "regional presales / solutions architect–infrastructure & dc",
-    "company": "RANDSTAD PTE. LIMITED",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 8000,
-    "salaryMax": 12000,
-    "score": 34,
-    "isDream": false,
-    "postedDate": "2026-09-15",
-    "url": "https://www.mycareersfuture.gov.sg/job/cb5b91a1e0c83d3a60a6a77fada1d40d"
+    "postedDate": "2026-09-17",
+    "url": "https://www.linkedin.com/jobs/view/4467550463"
   },
   {
     "title": "Senior Technical Program Manager, AWS Cloud Logistics",
@@ -91,7 +78,7 @@
     "url": "https://www.linkedin.com/jobs/view/4455921023"
   },
   {
-    "title": "Lead Technical Program Manager, Long Haul Planning",
+    "title": "Senior Technical Program Manager, Third-Party Data Center Construction and Delivery",
     "company": "Google",
     "role": "TPM",
     "tier": "hyperscaler",
@@ -100,8 +87,21 @@
     "salaryMax": 0,
     "score": 33,
     "isDream": true,
-    "postedDate": "2026-09-17",
-    "url": "https://www.linkedin.com/jobs/view/4467550463"
+    "postedDate": "2026-09-11",
+    "url": "https://www.linkedin.com/jobs/view/4455690590"
+  },
+  {
+    "title": "Associate Director, Business Development",
+    "company": "Singtel",
+    "role": "BD",
+    "tier": "telco",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 33,
+    "isDream": true,
+    "postedDate": "2026-09-18",
+    "url": "https://www.linkedin.com/jobs/view/4469209511"
   },
   {
     "title": "Technical Program Manager, Google Pay Data Platform",
@@ -143,6 +143,19 @@
     "url": "https://www.linkedin.com/jobs/view/4466707863"
   },
   {
+    "title": "Pre Sales Solution Architect (Hybrid Cloud)",
+    "company": "ACCESS PEOPLE (SINGAPORE) PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 15000,
+    "salaryMax": 20000,
+    "score": 30,
+    "isDream": false,
+    "postedDate": "2026-09-19",
+    "url": "https://www.mycareersfuture.gov.sg/job/6c16d78353d81c7bde0027742396636f"
+  },
+  {
     "title": "[MNC] Presales Solutions Architecture Manager - Infrastructure",
     "company": "TALENT TRADER GROUP PTE. LTD.",
     "role": "PRESALES",
@@ -167,6 +180,19 @@
     "isDream": false,
     "postedDate": "2026-09-14",
     "url": "https://www.linkedin.com/jobs/view/4467058672"
+  },
+  {
+    "title": "Technical Program Management, Google Network Acquisition - Singapore",
+    "company": "GOOGLE ASIA PACIFIC PTE. LTD.",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "BOTH",
+    "salaryMin": 12000,
+    "salaryMax": 24000,
+    "score": 29,
+    "isDream": true,
+    "postedDate": "2026-09-18",
+    "url": "https://www.mycareersfuture.gov.sg/job/e206413d65f597ecdd06c0dd408defa7"
   },
   {
     "title": "Technical Infra Program Manager, Data Center Delivery",
@@ -260,6 +286,32 @@
     "url": "https://www.linkedin.com/jobs/view/4438248806"
   },
   {
+    "title": "Intermediate Presales Engineer / Solutions Architect (Cloud-Native Data Protection)",
+    "company": "INTELLECT MINDS PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 9000,
+    "salaryMax": 12000,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-08-27",
+    "url": "https://www.mycareersfuture.gov.sg/job/3450504ea80e10a0d68bd087312af35a"
+  },
+  {
+    "title": "Delivery Consultant - Cloud Architect (Contact Centre), ASEAN Professional Services",
+    "company": "AMAZON WEB SERVICES SINGAPORE PRIVATE LIMITED",
+    "role": "SA",
+    "tier": "hyperscaler",
+    "source": "MCF",
+    "salaryMin": 12000,
+    "salaryMax": 16500,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-09-18",
+    "url": "https://www.mycareersfuture.gov.sg/job/3ddcb6b0bb9fb3fe8690609c74a79c61"
+  },
+  {
     "title": "Senior Solution Architect (Pre-Sales)",
     "company": "PERSOL APAC",
     "role": "PRESALES",
@@ -284,19 +336,6 @@
     "isDream": false,
     "postedDate": "2026-09-17",
     "url": "https://www.mycareersfuture.gov.sg/job/a3416421727512e32350206813da2f44"
-  },
-  {
-    "title": "Intermediate Presales Engineer / Solutions Architect (Cloud-Native Data Protection)",
-    "company": "INTELLECT MINDS PTE. LTD.",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 9000,
-    "salaryMax": 12000,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-08-27",
-    "url": "https://www.mycareersfuture.gov.sg/job/3450504ea80e10a0d68bd087312af35a"
   },
   {
     "title": "Solution Architect (Cloud Native / Pre-Sales)",
@@ -377,6 +416,19 @@
     "url": "https://www.linkedin.com/jobs/view/4454096899"
   },
   {
+    "title": "Senior Lead Cybersecurity Architect",
+    "company": "JPMorganChase",
+    "role": "SA",
+    "tier": "enterprise",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 25,
+    "isDream": false,
+    "postedDate": "2026-09-17",
+    "url": "https://www.linkedin.com/jobs/view/4449065327"
+  },
+  {
     "title": "Solutions Architect, Technology CS - APJ - CSC Tech",
     "company": "Amazon Web Services (AWS)",
     "role": "SA",
@@ -416,6 +468,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/1942f29fa1adba12d26af0928e852467"
   },
   {
+    "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
+    "company": "TYSON JAY MANAGEMENT PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 6000,
+    "salaryMax": 8000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-09-18",
+    "url": "https://www.mycareersfuture.gov.sg/job/63ca05f6a0f0d9ec2f34308b8c78a899"
+  },
+  {
     "title": "Presales Manager- Cybersecurity Products",
     "company": "EX.SEARCH PTE. LTD.",
     "role": "PRESALES",
@@ -439,20 +504,7 @@
     "score": 24,
     "isDream": false,
     "postedDate": "2026-09-16",
-    "url": "https://www.mycareersfuture.gov.sg/job/09dc70d84684902561a8ba4702f0f88f"
-  },
-  {
-    "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
-    "company": "TYSON JAY MANAGEMENT PTE. LTD.",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 6000,
-    "salaryMax": 8000,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-09-16",
-    "url": "https://www.mycareersfuture.gov.sg/job/63ca05f6a0f0d9ec2f34308b8c78a899"
+    "url": "https://www.mycareersfuture.gov.sg/job/2a10ebcaae7903e2943f8023a1eada8d"
   },
   {
     "title": "Business Development Director",
@@ -507,19 +559,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/3e3c6a00b4764663c31a2ef3a1eb1bd8"
   },
   {
-    "title": "Information Technology - Principal Technologist (Application Security Architect)",
-    "company": "SINGAPORE AIRLINES LIMITED",
-    "role": "SA",
-    "tier": "enterprise",
-    "source": "BOTH",
-    "salaryMin": 12000,
-    "salaryMax": 24000,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-08-19",
-    "url": "https://www.mycareersfuture.gov.sg/job/979bb44cef672caab3a13c4a378c4b5f"
-  },
-  {
     "title": "Contract Infrastructure Project Manager (Bank), up to $8000",
     "company": "SUCCESS HUMAN RESOURCE CENTRE PTE. LTD.",
     "role": "INFRA",
@@ -559,6 +598,19 @@
     "url": "https://www.linkedin.com/jobs/view/4435912903"
   },
   {
+    "title": "Principal Technical Program Manager",
+    "company": "Oracle",
+    "role": "TPM",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-09-18",
+    "url": "https://www.linkedin.com/jobs/view/4466697984"
+  },
+  {
     "title": "Infrastructure &amp; OT/IoT Solution Architect (GC/SW)",
     "company": "ST Engineering",
     "role": "SA",
@@ -596,57 +648,5 @@
     "isDream": false,
     "postedDate": "2026-09-17",
     "url": "https://www.mycareersfuture.gov.sg/job/fae08225de3f70e371c78713525af186"
-  },
-  {
-    "title": "Network INFRASTRUCTURE PROJECT MANAGER | 6-MONTH CONTRACT | BANKING #HMS",
-    "company": "RECRUIT EXPRESS PTE LTD",
-    "role": "NETWORK",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 10000,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-09-07",
-    "url": "https://www.mycareersfuture.gov.sg/job/489f5b820b4f29dd5c20b032205583d1"
-  },
-  {
-    "title": "6 Months Infrastructure Project Manager (Bank)  #NJN",
-    "company": "RECRUIT EXPRESS PTE LTD",
-    "role": "INFRA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 10000,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-09-15",
-    "url": "https://www.mycareersfuture.gov.sg/job/e07bac32d34f37275493180733e13004"
-  },
-  {
-    "title": "6 Months Infrastructure Project Manager (Leading Singapore Bank) #BLM",
-    "company": "RECRUIT EXPRESS PTE LTD",
-    "role": "INFRA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 9000,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-09-07",
-    "url": "https://www.mycareersfuture.gov.sg/job/edba2b4e4ab5aa5c3f0e37e8263a0e23"
-  },
-  {
-    "title": "Infrastructure Project Manager (1-year renewable) #IAC",
-    "company": "RECRUIT EXPRESS PTE LTD",
-    "role": "INFRA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 6500,
-    "salaryMax": 8500,
-    "score": 23,
-    "isDream": false,
-    "postedDate": "2026-09-07",
-    "url": "https://www.mycareersfuture.gov.sg/job/f34e95a5745d00233e9cefa1b625896a"
   }
 ]
