@@ -39,19 +39,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/818d5d3e02a0d2e0340a3b6179f0aa33"
   },
   {
-    "title": "Technical Program Manager, Security Engineering",
-    "company": "Google",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 34,
-    "isDream": true,
-    "postedDate": "2026-09-25",
-    "url": "https://www.linkedin.com/jobs/view/4461664250"
-  },
-  {
     "title": "Lead Technical Program Manager, Long Haul Planning",
     "company": "Google",
     "role": "TPM",
@@ -78,21 +65,8 @@
     "url": "https://www.linkedin.com/jobs/view/4455921023"
   },
   {
-    "title": "Associate Director, Business Development",
-    "company": "Singtel",
-    "role": "BD",
-    "tier": "telco",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 33,
-    "isDream": true,
-    "postedDate": "2026-09-18",
-    "url": "https://www.linkedin.com/jobs/view/4469209511"
-  },
-  {
-    "title": "Infrastructure Delivery Manager, AVP",
-    "company": "NVIDIA",
+    "title": "Technical Program Manager, DCDE Central Operations, Google Data Centers",
+    "company": "Google",
     "role": "TPM",
     "tier": "hyperscaler",
     "source": "LinkedIn",
@@ -100,8 +74,8 @@
     "salaryMax": 0,
     "score": 33,
     "isDream": true,
-    "postedDate": "2026-09-27",
-    "url": "https://www.linkedin.com/jobs/view/4426762415"
+    "postedDate": "2026-09-28",
+    "url": "https://www.linkedin.com/jobs/view/4471503825"
   },
   {
     "title": "Gen AI Presales Solution Architect (CL5)",
@@ -130,32 +104,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/d6dd070bd9533348baedb814f1089340"
   },
   {
-    "title": "Presales Solution Architect",
-    "company": "ST ENGINEERING CLOUD AND DATA CENTRE SOLUTIONS PTE. LTD.",
-    "role": "PRESALES",
-    "tier": "enterprise",
-    "source": "MCF",
-    "salaryMin": 10000,
-    "salaryMax": 12500,
-    "score": 31,
-    "isDream": false,
-    "postedDate": "2026-09-23",
-    "url": "https://www.mycareersfuture.gov.sg/job/5d3886ff5c36f174171a8f5aafe82c77"
-  },
-  {
-    "title": "Technical Infrastructure Project Manager & Solution Architect",
-    "company": "VY SYSTEMS PTE. LTD.",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 9000,
-    "salaryMax": 10000,
-    "score": 31,
-    "isDream": false,
-    "postedDate": "2026-09-09",
-    "url": "https://www.mycareersfuture.gov.sg/job/5d113b24e58fa27c1189b3187096fa8c"
-  },
-  {
     "title": "Network Planning Manager",
     "company": "Singtel",
     "role": "NETWORK",
@@ -170,7 +118,7 @@
   },
   {
     "title": "Regional Cyber Security Presales and Solution Architect",
-    "company": "The ITSEC Group",
+    "company": "Thales",
     "role": "PRESALES",
     "tier": "other",
     "source": "LinkedIn",
@@ -284,6 +232,19 @@
     "isDream": true,
     "postedDate": "2026-09-22",
     "url": "https://www.linkedin.com/jobs/view/4470486569"
+  },
+  {
+    "title": "Pre-Sales Solution Architect",
+    "company": "YTL POWERSERAYA PTE. LIMITED",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 11000,
+    "score": 27,
+    "isDream": false,
+    "postedDate": "2026-09-29",
+    "url": "https://www.mycareersfuture.gov.sg/job/be7ae0e2ecdbfa976168ff9aa1c4dd48"
   },
   {
     "title": "TECHNICAL PROJECT MANAGER – NPI / CABLE & INTERCONNECT",
@@ -520,6 +481,19 @@
     "url": "https://www.linkedin.com/jobs/view/4469913340"
   },
   {
+    "title": "Business Development Director (Building &amp; Infrastructure)",
+    "company": "Bureau Veritas",
+    "role": "INFRA_BD",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 25,
+    "isDream": false,
+    "postedDate": "2026-08-11",
+    "url": "https://www.linkedin.com/jobs/view/4451664420"
+  },
+  {
     "title": "Solution Architect/ Technical Senior Manager",
     "company": "ST ENGINEERING URBAN SOLUTIONS LTD.",
     "role": "SA",
@@ -542,8 +516,8 @@
     "salaryMax": 8000,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-09-25",
-    "url": "https://www.mycareersfuture.gov.sg/job/d58c7d28e1c24ea5058c11352348df44"
+    "postedDate": "2026-09-28",
+    "url": "https://www.mycareersfuture.gov.sg/job/1517d45dcd05b6532ab8ef3215424d82"
   },
   {
     "title": "Principal Solutions Engineer (Pre-Sales) – Control-M / Workload Automation",
@@ -624,19 +598,6 @@
     "url": "https://www.linkedin.com/jobs/view/4468703099"
   },
   {
-    "title": "Project Manager",
-    "company": "NVIDIA",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 24,
-    "isDream": true,
-    "postedDate": "2026-06-18",
-    "url": "https://www.linkedin.com/jobs/view/4429011326"
-  },
-  {
     "title": "Solution Architect, AI Transformation (weekends, shift)_short term Contract",
     "company": "NTT SINGAPORE PTE. LTD.",
     "role": "SA",
@@ -648,5 +609,44 @@
     "isDream": false,
     "postedDate": "2026-09-25",
     "url": "https://www.mycareersfuture.gov.sg/job/16a9f3db5f4120738c20f9cf6ff35e16"
+  },
+  {
+    "title": "Manager - Cybersecurity Architect (Offensive AI Security)",
+    "company": "MERCEDES-BENZ SINGAPORE PTE. LTD.",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 8000,
+    "salaryMax": 11500,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-09-28",
+    "url": "https://www.mycareersfuture.gov.sg/job/ae525430eb9a1f833784289170baceba"
+  },
+  {
+    "title": "Principal Security Solution Architect (IAM)",
+    "company": "CYGNIFY PTE. LTD.",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 10000,
+    "salaryMax": 19000,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-09-10",
+    "url": "https://www.mycareersfuture.gov.sg/job/245162c531b9602ec70e04df0d47f2e2"
+  },
+  {
+    "title": "Network Security Architect",
+    "company": "MICHAEL PAGE INTERNATIONAL PTE LTD",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 9000,
+    "salaryMax": 11000,
+    "score": 23,
+    "isDream": false,
+    "postedDate": "2026-09-07",
+    "url": "https://www.mycareersfuture.gov.sg/job/b86db5280f8d1a6080cc662010d11746"
   }
 ]
