@@ -13,19 +13,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/4cfd5a53b6730d8352913d1e369b634e"
   },
   {
-    "title": "Technical Program Manager, Global Network Delivery, DCNet Delivery - Singapore",
-    "company": "GOOGLE ASIA PACIFIC PTE. LTD.",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "BOTH",
-    "salaryMin": 12000,
-    "salaryMax": 24000,
-    "score": 37,
-    "isDream": true,
-    "postedDate": "2026-09-16",
-    "url": "https://www.mycareersfuture.gov.sg/job/8000e8b7ec72034541793be52aa36c38"
-  },
-  {
     "title": "Senior Security Solution Architect, APJC Customer Security, APJC Customer Security",
     "company": "AMAZON WEB SERVICES SINGAPORE PRIVATE LIMITED",
     "role": "SA",
@@ -52,7 +39,7 @@
     "url": "https://www.linkedin.com/jobs/view/4467550463"
   },
   {
-    "title": "Senior Technical Program Manager, AWS Cloud Logistics",
+    "title": "Technical Program Manager",
     "company": "Amazon Web Services (AWS)",
     "role": "TPM",
     "tier": "hyperscaler",
@@ -61,11 +48,11 @@
     "salaryMax": 0,
     "score": 34,
     "isDream": true,
-    "postedDate": "2026-09-09",
-    "url": "https://www.linkedin.com/jobs/view/4455921023"
+    "postedDate": "2026-09-30",
+    "url": "https://www.linkedin.com/jobs/view/4472155620"
   },
   {
-    "title": "Technical Program Manager, DCDE Central Operations, Google Data Centers",
+    "title": "Technical Program Manager, Global Network Delivery, DCNet Delivery",
     "company": "Google",
     "role": "TPM",
     "tier": "hyperscaler",
@@ -74,8 +61,8 @@
     "salaryMax": 0,
     "score": 33,
     "isDream": true,
-    "postedDate": "2026-09-28",
-    "url": "https://www.linkedin.com/jobs/view/4471503825"
+    "postedDate": "2026-09-12",
+    "url": "https://www.linkedin.com/jobs/view/4464872892"
   },
   {
     "title": "Gen AI Presales Solution Architect (CL5)",
@@ -208,6 +195,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/8b70c93fab5976c45196ad65dba2b3c4"
   },
   {
+    "title": "Presales Director / Manager- Cybersecurity",
+    "company": "EX.SEARCH PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 15000,
+    "score": 28,
+    "isDream": false,
+    "postedDate": "2026-09-30",
+    "url": "https://www.mycareersfuture.gov.sg/job/758efa9a3f41b0120fb36e3a59aaed31"
+  },
+  {
     "title": "Pre Sales Solution Architect (Hybrid Cloud)",
     "company": "ACCESS PEOPLE (SINGAPORE) PTE. LTD.",
     "role": "PRESALES",
@@ -245,6 +245,32 @@
     "isDream": true,
     "postedDate": "2026-09-22",
     "url": "https://www.linkedin.com/jobs/view/4470486569"
+  },
+  {
+    "title": "Hybrid IT & Digital Workplace - Pre Sales Solution Architect",
+    "company": "FUJITSU ASIA PTE LTD",
+    "role": "PRESALES",
+    "tier": "enterprise",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 9500,
+    "score": 27,
+    "isDream": false,
+    "postedDate": "2026-09-30",
+    "url": "https://www.mycareersfuture.gov.sg/job/ee326005ab091953653210c3e4c85505"
+  },
+  {
+    "title": "Security Services - Presales Solution Architect",
+    "company": "FUJITSU ASIA PTE LTD",
+    "role": "PRESALES",
+    "tier": "enterprise",
+    "source": "MCF",
+    "salaryMin": 7500,
+    "salaryMax": 9500,
+    "score": 27,
+    "isDream": false,
+    "postedDate": "2026-09-30",
+    "url": "https://www.mycareersfuture.gov.sg/job/e0492e39add64476f17ac4707b1e81a0"
   },
   {
     "title": "Pre-Sales Solution Architect",
@@ -308,7 +334,7 @@
     "salaryMax": 0,
     "score": 27,
     "isDream": false,
-    "postedDate": "2026-09-09",
+    "postedDate": "2026-09-30",
     "url": "https://www.linkedin.com/jobs/view/4463011024"
   },
   {
@@ -429,32 +455,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/39c0c9a41a80f515120d8a1c909550f0"
   },
   {
-    "title": "ServiceNow Solution Architect, Manager / Associate Director",
-    "company": "KPMG SERVICES PTE. LTD.",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 8000,
-    "salaryMax": 13000,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-09-25",
-    "url": "https://www.mycareersfuture.gov.sg/job/71cf8d003379ed82724bac07bd3baa5d"
-  },
-  {
-    "title": "senior consultant - network architect/solution architect (weekends, shift) #IKR",
-    "company": "RECRUIT EXPRESS PTE LTD",
-    "role": "NETWORK",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 7000,
-    "salaryMax": 14000,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-09-16",
-    "url": "https://www.mycareersfuture.gov.sg/job/57a4c581d8afd5b0641f6ca2e9b578cf"
-  },
-  {
     "title": "Lead Cybersecurity Architect",
     "company": "JPMorganChase",
     "role": "SA",
@@ -546,6 +546,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/c57b99b6b539f34e4df422f8f8f37cfe"
   },
   {
+    "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
+    "company": "TYSON JAY MANAGEMENT PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 6000,
+    "salaryMax": 8000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-09-30",
+    "url": "https://www.mycareersfuture.gov.sg/job/1517d45dcd05b6532ab8ef3215424d82"
+  },
+  {
     "title": "Splunk Architect - Service Provider/Telecom",
     "company": "CISCO SYSTEMS (USA) PTE. LTD.",
     "role": "PRESALES",
@@ -557,19 +570,6 @@
     "isDream": false,
     "postedDate": "2026-09-29",
     "url": "https://www.mycareersfuture.gov.sg/job/6b67b419ca0ece21cdc73872b40d97f1"
-  },
-  {
-    "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
-    "company": "TYSON JAY MANAGEMENT PTE. LTD.",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 6000,
-    "salaryMax": 8000,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-09-28",
-    "url": "https://www.mycareersfuture.gov.sg/job/1517d45dcd05b6532ab8ef3215424d82"
   },
   {
     "title": "Principal Solutions Engineer (Pre-Sales) – Control-M / Workload Automation",
@@ -611,19 +611,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/979bb44cef672caab3a13c4a378c4b5f"
   },
   {
-    "title": "Technical Program Manager (Front-end Semiconductor Chip Development)",
-    "company": "Apple",
-    "role": "TPM",
-    "tier": "hyperscaler",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-09-21",
-    "url": "https://www.linkedin.com/jobs/view/4469997942"
-  },
-  {
     "title": "Lead Technical Program Manager, Markets Technology",
     "company": "JPMorganChase",
     "role": "TPM",
@@ -648,5 +635,18 @@
     "isDream": false,
     "postedDate": "2026-09-29",
     "url": "https://www.linkedin.com/jobs/view/4471298988"
+  },
+  {
+    "title": "Business Development Manager (MS Sales, Presales &amp; Bid Management)",
+    "company": "NCS Group",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-09-21",
+    "url": "https://www.linkedin.com/jobs/view/4468703099"
   }
 ]
