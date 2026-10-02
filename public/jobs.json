@@ -39,7 +39,7 @@
     "url": "https://www.linkedin.com/jobs/view/4467550463"
   },
   {
-    "title": "Technical Program Manager",
+    "title": "Senior Technical Program Manager, AWS Cloud Logistics",
     "company": "Amazon Web Services (AWS)",
     "role": "TPM",
     "tier": "hyperscaler",
@@ -48,8 +48,21 @@
     "salaryMax": 0,
     "score": 34,
     "isDream": true,
-    "postedDate": "2026-09-30",
-    "url": "https://www.linkedin.com/jobs/view/4472155620"
+    "postedDate": "2026-10-01",
+    "url": "https://www.linkedin.com/jobs/view/4455921023"
+  },
+  {
+    "title": "Technical Program Manager, DCDE Central Operations, Google Data Centers",
+    "company": "Google",
+    "role": "TPM",
+    "tier": "hyperscaler",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 33,
+    "isDream": true,
+    "postedDate": "2026-09-28",
+    "url": "https://www.linkedin.com/jobs/view/4471503825"
   },
   {
     "title": "Technical Program Manager, Global Network Delivery, DCNet Delivery",
@@ -63,32 +76,6 @@
     "isDream": true,
     "postedDate": "2026-09-12",
     "url": "https://www.linkedin.com/jobs/view/4464872892"
-  },
-  {
-    "title": "Gen AI Presales Solution Architect (CL5)",
-    "company": "ACCENTURE PTE LTD",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 20000,
-    "salaryMax": 28000,
-    "score": 32,
-    "isDream": false,
-    "postedDate": "2026-09-25",
-    "url": "https://www.mycareersfuture.gov.sg/job/ce39a58484d3e58b336085262cc419b3"
-  },
-  {
-    "title": "Data Modernization Presales Solution Architect (CL5)",
-    "company": "ACCENTURE PTE LTD",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 20000,
-    "salaryMax": 28000,
-    "score": 32,
-    "isDream": false,
-    "postedDate": "2026-09-25",
-    "url": "https://www.mycareersfuture.gov.sg/job/d6dd070bd9533348baedb814f1089340"
   },
   {
     "title": "Network Planning Manager",
@@ -325,19 +312,6 @@
     "url": "https://www.linkedin.com/jobs/view/4433174264"
   },
   {
-    "title": "Principal Solutions Architect, APJC (Developer Platform) - Mandarin Speaking",
-    "company": "Cloudflare",
-    "role": "SA",
-    "tier": "tech",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 27,
-    "isDream": false,
-    "postedDate": "2026-09-30",
-    "url": "https://www.linkedin.com/jobs/view/4463011024"
-  },
-  {
     "title": "Vice President, Network Architect/ Architect/ Principal Architect - APAC Core Technology Infrastructure",
     "company": "Bank of America",
     "role": "NETWORK",
@@ -349,19 +323,6 @@
     "isDream": false,
     "postedDate": "2026-09-11",
     "url": "https://www.linkedin.com/jobs/view/4438248806"
-  },
-  {
-    "title": "Senior Solution Architect (Pre-Sales)",
-    "company": "PERSOL APAC",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-09-21",
-    "url": "https://www.linkedin.com/jobs/view/4457445725"
   },
   {
     "title": "Infrastructure Program Manager",
@@ -417,9 +378,9 @@
   },
   {
     "title": "Senior Pre-Sales Engineer (Solution Architect / Technical Advisory)",
-    "company": "We+ Asia",
+    "company": "",
     "role": "PRESALES",
-    "tier": "enterprise",
+    "tier": "other",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
@@ -427,6 +388,32 @@
     "isDream": false,
     "postedDate": "2026-09-22",
     "url": "https://www.linkedin.com/jobs/view/4468506099"
+  },
+  {
+    "title": "Senior Solution Architect (Pre-Sales)",
+    "company": "",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-09-21",
+    "url": "https://www.linkedin.com/jobs/view/4457445725"
+  },
+  {
+    "title": "Solution Architect",
+    "company": "ELLIOTT MOSS CONSULTING PTE. LTD.",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 20500,
+    "salaryMax": 22000,
+    "score": 25,
+    "isDream": false,
+    "postedDate": "2026-10-01",
+    "url": "https://www.mycareersfuture.gov.sg/job/30af2a3d3cbdebed47db735dc419c48c"
   },
   {
     "title": "Senior Solution Architect (Data & AI)",
@@ -503,8 +490,21 @@
     "salaryMax": 0,
     "score": 25,
     "isDream": false,
-    "postedDate": "2026-09-09",
+    "postedDate": "2026-10-01",
     "url": "https://www.linkedin.com/jobs/view/4455780917"
+  },
+  {
+    "title": "Cyber Security Architect (Application/Infrastructure/Cloud)",
+    "company": "OCBC",
+    "role": "SA",
+    "tier": "enterprise",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 25,
+    "isDream": false,
+    "postedDate": "2026-09-20",
+    "url": "https://www.linkedin.com/jobs/view/4406153909"
   },
   {
     "title": "Principal Cyber Security Architect (Application Security)",
@@ -520,6 +520,19 @@
     "url": "https://www.linkedin.com/jobs/view/4469913340"
   },
   {
+    "title": "Director - Cyber Security Architect",
+    "company": "Selby Jennings",
+    "role": "SA",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 25,
+    "isDream": false,
+    "postedDate": "2026-10-01",
+    "url": "https://www.linkedin.com/jobs/view/4448130322"
+  },
+  {
     "title": "Solution Architect",
     "company": "CROWDSTRIKE SINGAPORE PTE. LTD.",
     "role": "SA",
@@ -531,19 +544,6 @@
     "isDream": false,
     "postedDate": "2026-09-29",
     "url": "https://www.mycareersfuture.gov.sg/job/8594b064d714d0e2a212df79f7714795"
-  },
-  {
-    "title": "Solution Architect/ Technical Senior Manager",
-    "company": "ST ENGINEERING URBAN SOLUTIONS LTD.",
-    "role": "SA",
-    "tier": "enterprise",
-    "source": "MCF",
-    "salaryMin": 10000,
-    "salaryMax": 13000,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-09-26",
-    "url": "https://www.mycareersfuture.gov.sg/job/c57b99b6b539f34e4df422f8f8f37cfe"
   },
   {
     "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
