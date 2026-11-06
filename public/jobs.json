@@ -78,19 +78,6 @@
     "url": "https://www.linkedin.com/jobs/view/4479500998"
   },
   {
-    "title": "Senior Cloud Solution Architect",
-    "company": "MICROSOFT REGIONAL SALES PTE. LTD.",
-    "role": "SA",
-    "tier": "hyperscaler",
-    "source": "MCF",
-    "salaryMin": 16230,
-    "salaryMax": 19000,
-    "score": 35,
-    "isDream": true,
-    "postedDate": "2026-10-22",
-    "url": "https://www.mycareersfuture.gov.sg/job/f75aeab8797862fe5db64ef81894e5e5"
-  },
-  {
     "title": "Senior Technical Program Manager, AI Outcome Engineering",
     "company": "Google",
     "role": "TPM",
@@ -191,8 +178,21 @@
     "salaryMax": 0,
     "score": 31,
     "isDream": true,
-    "postedDate": "2026-10-15",
+    "postedDate": "2026-11-05",
     "url": "https://www.linkedin.com/jobs/view/4470984803"
+  },
+  {
+    "title": "KY11 - IT Solutions Architect / Sales Engineer [Tai Seng | Bonus + Allowance | Windows and/or cloud-based Infrastructure offerings]",
+    "company": "THE SUPREME HR ADVISORY PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 8500,
+    "salaryMax": 10000,
+    "score": 30,
+    "isDream": false,
+    "postedDate": "2026-10-20",
+    "url": "https://www.mycareersfuture.gov.sg/job/b39271a2260aec608fe6c50b3560f134"
   },
   {
     "title": "Principal Cyber Security Architect (Infrastructure &amp; Manufacturing)",
@@ -208,6 +208,19 @@
     "url": "https://www.linkedin.com/jobs/view/4479259509"
   },
   {
+    "title": "Presales Director / Manager- Cybersecurity",
+    "company": "EX.SEARCH PTE. LTD.",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 7000,
+    "salaryMax": 15000,
+    "score": 28,
+    "isDream": false,
+    "postedDate": "2026-11-05",
+    "url": "https://www.mycareersfuture.gov.sg/job/abbc2f8421aa6d35df5bbffe906aba9f"
+  },
+  {
     "title": "Manager, Business Development (5G)",
     "company": "Singtel",
     "role": "BD",
@@ -221,26 +234,26 @@
     "url": "https://www.linkedin.com/jobs/view/4470486569"
   },
   {
-    "title": "Head of IT enterprise Architect | Lead Solution Architect | E-commerce | CRM | omnichannel | AI",
-    "company": "RANDSTAD PTE. LIMITED",
-    "role": "SA",
+    "title": "Presales/Solution Architect",
+    "company": "TRINITY CONSULTING SERVICES PTE. LTD.",
+    "role": "PRESALES",
     "tier": "other",
     "source": "MCF",
-    "salaryMin": 15000,
-    "salaryMax": 500000,
+    "salaryMin": 6000,
+    "salaryMax": 9000,
     "score": 27,
     "isDream": false,
-    "postedDate": "2026-10-30",
-    "url": "https://www.mycareersfuture.gov.sg/job/735c762ea38355629a7b812205cddfac"
+    "postedDate": "2026-11-05",
+    "url": "https://www.mycareersfuture.gov.sg/job/5aca4490068346c621a548b7f8030073"
   },
   {
-    "title": "VP Business Development",
+    "title": "SVP Business Development",
     "company": "DAYONE DATA CENTERS SINGAPORE PTE. LTD.",
     "role": "BD",
     "tier": "other",
     "source": "MCF",
-    "salaryMin": 22000,
-    "salaryMax": 34000,
+    "salaryMin": 25000,
+    "salaryMax": 40000,
     "score": 27,
     "isDream": false,
     "postedDate": "2026-10-23",
@@ -520,19 +533,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/55aaaaa857fc6cbf5ad4b3a83ecc98c9"
   },
   {
-    "title": "Principal Solutions Engineer (Pre-Sales) – Control-M / Workload Automation",
-    "company": "D L RESOURCES PTE LTD",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 10000,
-    "salaryMax": 20000,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-10-30",
-    "url": "https://www.mycareersfuture.gov.sg/job/adcb636d001538bac4434de41164a126"
-  },
-  {
     "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
     "company": "TYSON JAY MANAGEMENT PTE. LTD.",
     "role": "PRESALES",
@@ -546,6 +546,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/9a1591b8a0efcfdcfbfcc1969b025af4"
   },
   {
+    "title": "Principal Solutions Engineer (Pre-Sales) – Control-M / Workload Automation",
+    "company": "D L RESOURCES PTE LTD",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 10000,
+    "salaryMax": 20000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-10-30",
+    "url": "https://www.mycareersfuture.gov.sg/job/adcb636d001538bac4434de41164a126"
+  },
+  {
     "title": "Infrastructure Project Manager (6-Month Contract) #NJA",
     "company": "RECRUIT EXPRESS PTE LTD",
     "role": "INFRA",
@@ -557,19 +570,6 @@
     "isDream": false,
     "postedDate": "2026-10-30",
     "url": "https://www.mycareersfuture.gov.sg/job/ead8706cf1f121f9777da18ed343f154"
-  },
-  {
-    "title": "Technical Infrastructure Project Manager - Contract",
-    "company": "RADIANT DIGITAL SOLUTIONS PTE. LTD.",
-    "role": "TPM",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 10000,
-    "salaryMax": 11000,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-10-22",
-    "url": "https://www.mycareersfuture.gov.sg/job/df8fc13b0f846fd14dcf4c58df55bad6"
   },
   {
     "title": "Information Technology - Principal Technologist (Application Security Architect)",
