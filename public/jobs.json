@@ -130,30 +130,30 @@
     "url": "https://www.linkedin.com/jobs/view/4479057902"
   },
   {
-    "title": "Technical Program Manager, Energy Asset Delivery and Management",
-    "company": "Google",
-    "role": "TPM",
+    "title": "Cloud Solution Architect-Digital Native",
+    "company": "Microsoft",
+    "role": "SA",
     "tier": "hyperscaler",
     "source": "LinkedIn",
     "salaryMin": 0,
     "salaryMax": 0,
     "score": 33,
     "isDream": true,
-    "postedDate": "2026-10-30",
-    "url": "https://www.linkedin.com/jobs/view/4475951504"
+    "postedDate": "2026-10-19",
+    "url": "https://www.linkedin.com/jobs/view/4480979413"
   },
   {
-    "title": "Cybersecurity Pre-sales / Solution Architect– 215k",
-    "company": "RANDSTAD PTE. LIMITED",
+    "title": "[MNC] Presales Solutions Architecture Manager - Infrastructure",
+    "company": "TALENT TRADER GROUP PTE. LTD.",
     "role": "PRESALES",
     "tier": "other",
     "source": "MCF",
     "salaryMin": 8000,
-    "salaryMax": 18000,
+    "salaryMax": 12000,
     "score": 32,
     "isDream": false,
-    "postedDate": "2026-10-30",
-    "url": "https://www.mycareersfuture.gov.sg/job/f0a9058208d9815a6ac4e09859b4355c"
+    "postedDate": "2026-11-06",
+    "url": "https://www.mycareersfuture.gov.sg/job/138052d8364746363ca0e670469f4fc9"
   },
   {
     "title": "Senior Cloud Platform Solution Architect (Japanese Speaking)",
@@ -182,17 +182,30 @@
     "url": "https://www.linkedin.com/jobs/view/4470984803"
   },
   {
-    "title": "KY11 - IT Solutions Architect / Sales Engineer [Tai Seng | Bonus + Allowance | Windows and/or cloud-based Infrastructure offerings]",
-    "company": "THE SUPREME HR ADVISORY PTE. LTD.",
+    "title": "Cybersecurity Pre-sales / Solution Architect– 215k",
+    "company": "RANDSTAD PTE. LIMITED",
     "role": "PRESALES",
     "tier": "other",
     "source": "MCF",
-    "salaryMin": 8500,
-    "salaryMax": 10000,
+    "salaryMin": 8000,
+    "salaryMax": 18000,
     "score": 30,
     "isDream": false,
-    "postedDate": "2026-10-20",
-    "url": "https://www.mycareersfuture.gov.sg/job/b39271a2260aec608fe6c50b3560f134"
+    "postedDate": "2026-10-30",
+    "url": "https://www.mycareersfuture.gov.sg/job/f0a9058208d9815a6ac4e09859b4355c"
+  },
+  {
+    "title": "Solution Architect - AI Infrastructure - Data Center / Datacenter",
+    "company": "MENRVA PTE. LTD.",
+    "role": "SA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 140000,
+    "salaryMax": 180000,
+    "score": 29,
+    "isDream": false,
+    "postedDate": "2026-11-04",
+    "url": "https://www.mycareersfuture.gov.sg/job/d91b70eb3aecb33f42a7ebfa24ea34eb"
   },
   {
     "title": "Principal Cyber Security Architect (Infrastructure &amp; Manufacturing)",
@@ -260,32 +273,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/3fad645585aa9e1d71654503f2bf5c02"
   },
   {
-    "title": "Senior Lead Cybersecurity Architect – Blockchain Security (Smart Contracts) Specialist",
-    "company": "JPMORGAN CHASE BANK, N.A.",
-    "role": "SA",
-    "tier": "enterprise",
-    "source": "MCF",
-    "salaryMin": 11000,
-    "salaryMax": 22000,
-    "score": 27,
-    "isDream": false,
-    "postedDate": "2026-10-23",
-    "url": "https://www.mycareersfuture.gov.sg/job/1bdd96253ac22cc7ec9adcbb623d3e04"
-  },
-  {
-    "title": "Head of Application Development Practice, Professional Services - Singapore",
-    "company": "GOOGLE ASIA PACIFIC PTE. LTD.",
-    "role": "PRESALES",
-    "tier": "hyperscaler",
-    "source": "MCF",
-    "salaryMin": 16500,
-    "salaryMax": 33000,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-11-02",
-    "url": "https://www.mycareersfuture.gov.sg/job/09df84772b8b1d656e5d43f2f3f5d09b"
-  },
-  {
     "title": "Staff Technical Program Manager - Infrastructure",
     "company": "MOTIONAL SINGAPORE PTE. LIMITED",
     "role": "TPM",
@@ -304,12 +291,12 @@
     "role": "SA",
     "tier": "other",
     "source": "MCF",
-    "salaryMin": 13000,
-    "salaryMax": 20000,
+    "salaryMin": 12000,
+    "salaryMax": 16500,
     "score": 26,
     "isDream": false,
     "postedDate": "2026-11-03",
-    "url": "https://www.mycareersfuture.gov.sg/job/c33be550ec088be0e083d122b3b1b7f5"
+    "url": "https://www.mycareersfuture.gov.sg/job/c6bb78e21b8da5ff0891fb28f7993a30"
   },
   {
     "title": "Network Solution Architect | Enterprise & Presales",
@@ -323,19 +310,6 @@
     "isDream": false,
     "postedDate": "2026-10-28",
     "url": "https://www.mycareersfuture.gov.sg/job/8eba74edab8e123fca0cb2bcb467ba2c"
-  },
-  {
-    "title": "Presales Solution Architect [LPS]",
-    "company": "LPS",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-10-25",
-    "url": "https://www.linkedin.com/jobs/view/4328959628"
   },
   {
     "title": "Apps Presales Solution Architect",
@@ -364,30 +338,43 @@
     "url": "https://www.linkedin.com/jobs/view/4480046195"
   },
   {
-    "title": "Data Center / Datacenter Solution Architect",
-    "company": "MENRVA PTE. LTD.",
+    "title": "Presales Solution Architect [LPS]",
+    "company": "LPS",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-10-25",
+    "url": "https://www.linkedin.com/jobs/view/4328959628"
+  },
+  {
+    "title": "Senior Presales / Solutions Architect",
+    "company": "SuperX AI Technology Limited | NASDAQ: SUPX",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-11-06",
+    "url": "https://www.linkedin.com/jobs/view/4486955173"
+  },
+  {
+    "title": "Principal Solution Architect - IT Consulting",
+    "company": "MICHAEL PAGE (PERSONNEL) PTE. LTD.",
     "role": "SA",
     "tier": "other",
     "source": "MCF",
-    "salaryMin": 140000,
-    "salaryMax": 180000,
+    "salaryMin": 10000,
+    "salaryMax": 12000,
     "score": 25,
     "isDream": false,
-    "postedDate": "2026-11-04",
-    "url": "https://www.mycareersfuture.gov.sg/job/d91b70eb3aecb33f42a7ebfa24ea34eb"
-  },
-  {
-    "title": "Infrastructure Project Manager (Cloud & Core Banking) | Permanent",
-    "company": "GMP RECRUITMENT SERVICES (S) PTE LTD",
-    "role": "INFRA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 13000,
-    "salaryMax": 14000,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-10-29",
-    "url": "https://www.mycareersfuture.gov.sg/job/12349cc0a7440f0d3fca3b497b2f2b9d"
+    "postedDate": "2026-11-06",
+    "url": "https://www.mycareersfuture.gov.sg/job/3d299a2318f308f9603632d2ff11b06a"
   },
   {
     "title": "Cyber Security Architect / Cyber Security Partner",
@@ -416,6 +403,19 @@
     "url": "https://www.mycareersfuture.gov.sg/job/2614b0092854749549b6c71cd28eee98"
   },
   {
+    "title": "Infrastructure Project Manager (Cloud & Core Banking) | Permanent",
+    "company": "GMP RECRUITMENT SERVICES (S) PTE LTD",
+    "role": "INFRA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 13000,
+    "salaryMax": 14000,
+    "score": 25,
+    "isDream": false,
+    "postedDate": "2026-10-29",
+    "url": "https://www.mycareersfuture.gov.sg/job/12349cc0a7440f0d3fca3b497b2f2b9d"
+  },
+  {
     "title": "Senior ProServe Cloud Architect , Professional Services - ASEAN",
     "company": "Amazon Web Services (AWS)",
     "role": "SA",
@@ -429,7 +429,7 @@
     "url": "https://www.linkedin.com/jobs/view/4469869842"
   },
   {
-    "title": "Solutions Architect, FSI Digital Natives",
+    "title": "Sr. Solutions Architect, AWS SGP, AWS SGP",
     "company": "Amazon Web Services (AWS)",
     "role": "SA",
     "tier": "hyperscaler",
@@ -439,7 +439,7 @@
     "score": 25,
     "isDream": false,
     "postedDate": "2026-10-23",
-    "url": "https://www.linkedin.com/jobs/view/4455780917"
+    "url": "https://www.linkedin.com/jobs/view/4455905903"
   },
   {
     "title": "Lead Cybersecurity Architect",
@@ -464,7 +464,7 @@
     "salaryMax": 0,
     "score": 25,
     "isDream": false,
-    "postedDate": "2026-10-17",
+    "postedDate": "2026-11-08",
     "url": "https://www.linkedin.com/jobs/view/4454096899"
   },
   {
@@ -507,30 +507,17 @@
     "url": "https://www.mycareersfuture.gov.sg/job/7224b3748425de4625dfac0f428927e0"
   },
   {
-    "title": "Technical Program Manager / Taiwan Operations Lead",
-    "company": "SYMATICS TECHNOLOGY PTE. LTD.",
-    "role": "TPM",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 15000,
-    "salaryMax": 18000,
-    "score": 24,
-    "isDream": false,
-    "postedDate": "2026-10-09",
-    "url": "https://www.mycareersfuture.gov.sg/job/a0fdaa4f7107109a725b34a0c24551ff"
-  },
-  {
-    "title": "Network Solution Architect Lead - APAC",
-    "company": "GMP RECRUITMENT SERVICES (S) PTE LTD",
+    "title": "Solution Architect/ Technical Senior Manager",
+    "company": "ST ENGINEERING URBAN SOLUTIONS LTD.",
     "role": "SA",
-    "tier": "other",
+    "tier": "enterprise",
     "source": "MCF",
-    "salaryMin": 12000,
-    "salaryMax": 14000,
+    "salaryMin": 10000,
+    "salaryMax": 13000,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-11-02",
-    "url": "https://www.mycareersfuture.gov.sg/job/55aaaaa857fc6cbf5ad4b3a83ecc98c9"
+    "postedDate": "2026-11-06",
+    "url": "https://www.mycareersfuture.gov.sg/job/c57b99b6b539f34e4df422f8f8f37cfe"
   },
   {
     "title": "Presales Consultant - Network, Security or Cybersecurity (up to $8000 base + AWS + PB)",
@@ -542,7 +529,7 @@
     "salaryMax": 8000,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-11-05",
+    "postedDate": "2026-11-09",
     "url": "https://www.mycareersfuture.gov.sg/job/9a1591b8a0efcfdcfbfcc1969b025af4"
   },
   {
@@ -585,17 +572,17 @@
     "url": "https://www.mycareersfuture.gov.sg/job/979bb44cef672caab3a13c4a378c4b5f"
   },
   {
-    "title": "IT Infrastructure Project Manager",
-    "company": "KRIS INFOTECH PTE. LTD.",
+    "title": "Infrastructure Project Manager- M365",
+    "company": "EXCELTECH COMPUTERS PTE. LTD.",
     "role": "INFRA",
     "tier": "other",
     "source": "MCF",
     "salaryMin": 8000,
-    "salaryMax": 10500,
+    "salaryMax": 12000,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-10-29",
-    "url": "https://www.mycareersfuture.gov.sg/job/1d92dd1780303bb5bd70143223a7b24a"
+    "postedDate": "2026-11-07",
+    "url": "https://www.mycareersfuture.gov.sg/job/9b3db4229cd4c6341c2586e833f289fb"
   },
   {
     "title": "Lead Technical Program Manager, Markets Technology",
@@ -607,7 +594,7 @@
     "salaryMax": 0,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-10-17",
+    "postedDate": "2026-11-07",
     "url": "https://www.linkedin.com/jobs/view/4444248866"
   },
   {
@@ -648,5 +635,18 @@
     "isDream": false,
     "postedDate": "2026-11-03",
     "url": "https://www.linkedin.com/jobs/view/4484618979"
+  },
+  {
+    "title": "Customer Solution Architect / Presales Engineer (Connectivity &amp; Managed Services)",
+    "company": "SPTel Pte Ltd",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-10-30",
+    "url": "https://www.linkedin.com/jobs/view/4484805173"
   }
 ]
