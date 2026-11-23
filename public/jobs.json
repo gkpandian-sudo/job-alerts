@@ -52,19 +52,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/78286247b7b9c0cbcaac07ef18610617"
   },
   {
-    "title": "Senior Cloud Solution Architect",
-    "company": "MICROSOFT REGIONAL SALES PTE. LTD.",
-    "role": "SA",
-    "tier": "hyperscaler",
-    "source": "MCF",
-    "salaryMin": 15000,
-    "salaryMax": 25000,
-    "score": 37,
-    "isDream": true,
-    "postedDate": "2026-11-12",
-    "url": "https://www.mycareersfuture.gov.sg/job/4e41d3523474479f034422b897dd7704"
-  },
-  {
     "title": "Technical Program Manager, Analytics & GenAI",
     "company": "AMAZON ASIA-PACIFIC RESOURCES PRIVATE LIMITED",
     "role": "TPM",
@@ -104,6 +91,19 @@
     "url": "https://www.linkedin.com/jobs/view/4479500998"
   },
   {
+    "title": "Senior Cloud Solution Architect",
+    "company": "MICROSOFT REGIONAL SALES PTE. LTD.",
+    "role": "SA",
+    "tier": "hyperscaler",
+    "source": "MCF",
+    "salaryMin": 15000,
+    "salaryMax": 25000,
+    "score": 35,
+    "isDream": true,
+    "postedDate": "2026-11-12",
+    "url": "https://www.mycareersfuture.gov.sg/job/4e41d3523474479f034422b897dd7704"
+  },
+  {
     "title": "Senior Technical Program Manager, AI Outcome Engineering",
     "company": "Google",
     "role": "TPM",
@@ -139,7 +139,7 @@
     "salaryMax": 0,
     "score": 34,
     "isDream": true,
-    "postedDate": "2026-10-31",
+    "postedDate": "2026-11-21",
     "url": "https://www.linkedin.com/jobs/view/4485659060"
   },
   {
@@ -165,7 +165,7 @@
     "salaryMax": 0,
     "score": 33,
     "isDream": true,
-    "postedDate": "2026-10-30",
+    "postedDate": "2026-11-21",
     "url": "https://www.linkedin.com/jobs/view/4484870041"
   },
   {
@@ -182,11 +182,24 @@
     "url": "https://www.linkedin.com/jobs/view/4480979413"
   },
   {
+    "title": "Business Development - Solution Architect APAC",
+    "company": "NUOVO PIGNONE INTERNATIONAL S.R.L. SINGAPORE BRANCH",
+    "role": "BD",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 15000,
+    "salaryMax": 20000,
+    "score": 31,
+    "isDream": false,
+    "postedDate": "2026-11-20",
+    "url": "https://www.mycareersfuture.gov.sg/job/63870ac5b5ed9b67c733ba85fdb1f07f"
+  },
+  {
     "title": "Senior Director, Technical Business Development, Infrastructure Solutions",
     "company": "VERTIV (SINGAPORE) PTE. LTD.",
     "role": "INFRA_BD",
     "tier": "other",
-    "source": "BOTH",
+    "source": "MCF",
     "salaryMin": 24500,
     "salaryMax": 36900,
     "score": 31,
@@ -260,6 +273,19 @@
     "url": "https://www.linkedin.com/jobs/view/4479259509"
   },
   {
+    "title": "Manager, Business Development (5G)",
+    "company": "Singtel",
+    "role": "BD",
+    "tier": "telco",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 29,
+    "isDream": true,
+    "postedDate": "2026-11-04",
+    "url": "https://www.linkedin.com/jobs/view/4470486569"
+  },
+  {
     "title": "Presales Solution Architect, Data & AI",
     "company": "LION & ELEPHANTS CONSULTANCY PTE. LTD.",
     "role": "PRESALES",
@@ -271,45 +297,6 @@
     "isDream": false,
     "postedDate": "2026-11-19",
     "url": "https://www.mycareersfuture.gov.sg/job/c510e4117cfdd79c21e191af7f948ce3"
-  },
-  {
-    "title": "Manager, Business Development (5G)",
-    "company": "Singtel",
-    "role": "BD",
-    "tier": "telco",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 28,
-    "isDream": true,
-    "postedDate": "2026-11-04",
-    "url": "https://www.linkedin.com/jobs/view/4470486569"
-  },
-  {
-    "title": "Director Solution Architecture",
-    "company": "SHL SINGAPORE PTE. LTD.",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 15000,
-    "salaryMax": 20000,
-    "score": 27,
-    "isDream": false,
-    "postedDate": "2026-11-17",
-    "url": "https://www.mycareersfuture.gov.sg/job/ad86aee54d9cca3a0fbf05f16c94d8e6"
-  },
-  {
-    "title": "SVP Business Development",
-    "company": "DAYONE DATA CENTERS SINGAPORE PTE. LTD.",
-    "role": "BD",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 25000,
-    "salaryMax": 40000,
-    "score": 27,
-    "isDream": false,
-    "postedDate": "2026-10-23",
-    "url": "https://www.mycareersfuture.gov.sg/job/3fad645585aa9e1d71654503f2bf5c02"
   },
   {
     "title": "Senior Consultant (Presales, Cybersecurity/Infra)",
@@ -351,32 +338,6 @@
     "url": "https://www.mycareersfuture.gov.sg/job/867f06399cdf22e17f9d01596579cf35"
   },
   {
-    "title": "Staff Technical Program Manager - Infrastructure",
-    "company": "MOTIONAL SINGAPORE PTE. LIMITED",
-    "role": "TPM",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 5500,
-    "salaryMax": 10000,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-10-21",
-    "url": "https://www.mycareersfuture.gov.sg/job/8471106a777c463677bf81b5f5982a00"
-  },
-  {
-    "title": "Senior Solution Architect (Pre-Sales)",
-    "company": "PERSOL APAC",
-    "role": "PRESALES",
-    "tier": "other",
-    "source": "LinkedIn",
-    "salaryMin": 0,
-    "salaryMax": 0,
-    "score": 26,
-    "isDream": false,
-    "postedDate": "2026-10-26",
-    "url": "https://www.linkedin.com/jobs/view/4482697771"
-  },
-  {
     "title": "Network Solutions Architect (Presales & Delivery)",
     "company": "ACUUTECH PTE. LTD.",
     "role": "PRESALES",
@@ -401,6 +362,19 @@
     "isDream": false,
     "postedDate": "2026-10-28",
     "url": "https://www.mycareersfuture.gov.sg/job/8eba74edab8e123fca0cb2bcb467ba2c"
+  },
+  {
+    "title": "Senior Solution Architect (Pre-Sales)",
+    "company": "PERSOL APAC",
+    "role": "PRESALES",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 26,
+    "isDream": false,
+    "postedDate": "2026-10-26",
+    "url": "https://www.linkedin.com/jobs/view/4482697771"
   },
   {
     "title": "[LPS] Presales Solution Architect",
@@ -479,19 +453,6 @@
     "isDream": false,
     "postedDate": "2026-11-16",
     "url": "https://www.mycareersfuture.gov.sg/job/6ce0b4e478eaa3d78573661296afcd96"
-  },
-  {
-    "title": "Cyber Security Solution Architect",
-    "company": "CAPGEMINI SINGAPORE  PTE. LTD.",
-    "role": "SA",
-    "tier": "other",
-    "source": "MCF",
-    "salaryMin": 17000,
-    "salaryMax": 22000,
-    "score": 25,
-    "isDream": false,
-    "postedDate": "2026-10-22",
-    "url": "https://www.mycareersfuture.gov.sg/job/2614b0092854749549b6c71cd28eee98"
   },
   {
     "title": "Senior ProServe Cloud Architect , Professional Services - ASEAN",
@@ -607,8 +568,21 @@
     "salaryMax": 8000,
     "score": 24,
     "isDream": false,
-    "postedDate": "2026-11-20",
+    "postedDate": "2026-11-23",
     "url": "https://www.mycareersfuture.gov.sg/job/c5783f607244db6033dbe2b112bcbec7"
+  },
+  {
+    "title": "Principal Technical Program Manager (E2E)",
+    "company": "Oracle",
+    "role": "TPM",
+    "tier": "other",
+    "source": "LinkedIn",
+    "salaryMin": 0,
+    "salaryMax": 0,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-11-17",
+    "url": "https://www.linkedin.com/jobs/view/4490440732"
   },
   {
     "title": "Pre-Sales Engineer (Network & Infrastructure)",
@@ -648,5 +622,31 @@
     "isDream": false,
     "postedDate": "2026-11-05",
     "url": "https://www.mycareersfuture.gov.sg/job/39c605fff583dce189054bc1b9ad447f"
+  },
+  {
+    "title": "Lead Data Infrastructure Project Manager",
+    "company": "OPTIMUM SOLUTIONS (SINGAPORE) PTE LTD",
+    "role": "INFRA",
+    "tier": "other",
+    "source": "MCF",
+    "salaryMin": 10000,
+    "salaryMax": 15000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-11-17",
+    "url": "https://www.mycareersfuture.gov.sg/job/f062b05f20ba766b1981cc292bc391c2"
+  },
+  {
+    "title": "Information Technology - Principal Technologist (Application Security Architect)",
+    "company": "SINGAPORE AIRLINES LIMITED",
+    "role": "SA",
+    "tier": "enterprise",
+    "source": "BOTH",
+    "salaryMin": 12000,
+    "salaryMax": 24000,
+    "score": 24,
+    "isDream": false,
+    "postedDate": "2026-10-28",
+    "url": "https://www.mycareersfuture.gov.sg/job/979bb44cef672caab3a13c4a378c4b5f"
   }
 ]
